@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meeting Rooms — NexusCowork</title>
+  <meta name="description" content="Book professional meeting rooms and boardrooms with AV equipment, video conferencing, and flexible hourly rates." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+    .room-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      border-color: var(--secondary);
+    }
+    .room-img-container {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .room-img-container { height: 160px; }
+    }
+    @media (max-width: 480px) {
+      .room-img-container { height: 140px; }
+    }
+    .room-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+    .room-card:hover .room-img-container img {
+      transform: scale(1.05);
+    }
+    .capacity-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .room-content {
+      padding: 24px;
+      flex-grow: 1;
+    }
+    .room-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .room-rate {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+    .room-rate span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .room-features {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    .feature-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: #F3F4F6;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* Live Reservation Widget */
+    .booking-widget-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-top: 40px;
+    }
+    @media (max-width: 900px) {
+      .booking-widget-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .time-slot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .time-slot-btn {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: all var(--transition);
+    }
+    .time-slot-btn:hover, .time-slot-btn.selected {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      background: #EEF2FF;
+    }
+    .time-slot-btn.occupied {
+      background: #F3F4F6;
+      border-color: transparent;
+      color: #9CA3AF;
+      cursor: not-allowed;
+    }
+    .booking-widget-card {
+      padding: 36px;
+      background: #fff;
+    }
+    @media (max-width: 768px) {
+      .booking-widget-card {
+        padding: 24px;
+      }
+    }
+    @media (max-width: 480px) {
+      .booking-widget-card {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="meetingrooms.html" class="active">Meeting Rooms</a></li>
+    <li><a href="virtualoffice.html">Virtual Office</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="availability.html">Availability</a></li>
+    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="rooms-hero" style="min-height:55vh;">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span class="dot"></span> 12 Rooms Available</div>
+  <h1>Professional <span class="highlight">Meeting Rooms</span></h1>
+  <p>From intimate huddle spaces to full boardrooms, every room is equipped with state-of-the-art technology, high-speed fiber, and hybrid conferencing tools.</p>
+  <div class="hero-actions">
+    <a href="#booking-panel" class="btn btn-primary">Book a Room</a>
+    <a href="availability.html" class="btn btn-outline">Check Live Grid</a>
+  </div>
+</section>
+
+<!-- [NEW SECTION 1] First-Time Boardroom Voucher Offer Banner -->
+<section class="section" id="room-promo" style="padding: 20px 5%; background:#fff;">
+  <div class="container">
+    <div style="background:var(--bg-tint-2); border:1px solid rgba(194, 65, 12, 0.15); border-radius:var(--radius); padding:16px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:1.5rem;">🎭</span>
+        <div>
+          <h4 style="color:var(--text-dark); font-weight:700; font-size:0.95rem;">First Meeting Room Booking? Save 20%</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Use discount coupon code <strong>FIRSTMEET</strong> on checkout to claim introductory credits.</p>
+        </div>
+      </div>
+      <button class="btn btn-outline" style="padding:8px 16px; font-size:0.85rem;" onclick="applyPromo()">Apply Code</button>
+    </div>
+  </div>
+</section>
+
+<!-- Meeting Room Cards Grid -->
+<section class="section section-alt" id="room-cards-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Our Facilities</div>
+      <h2>Select the Optimal Space for Your Sync</h2>
+      <p style="max-width:550px; margin:0 auto;">Fully soundproof rooms, clean design layouts, and technical features included hourly.</p>
+    </div>
+
+    <div class="room-grid">
+      <!-- Huddle Room -->
+      <div class="room-card reveal">
+        <div class="room-img-container">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" alt="Huddle Room" />
+          <span class="capacity-badge">👥 2–4 Seats</span>
+        </div>
+        <div class="room-content">
+          <div class="room-title">Focus Huddle Room</div>
+          <div class="room-rate">$20<span>/hour</span></div>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:12px;">Perfect for intimate 1:1 sessions, design reviews, and remote developer syncs. Includes acoustic sound barriers.</p>
+          <div class="room-features">
+            <span class="feature-pill">📡 Wi-Fi 6</span>
+            <span class="feature-pill">📺 55" Screen</span>
+            <span class="feature-pill">🎥 Video Conf.</span>
+          </div>
+        </div>
+        <div style="padding:0 24px 24px;">
+          <a href="#booking-panel" class="btn btn-outline w-full" style="justify-content:center;" onclick="selectRoomWidget('Focus Huddle Room', 20)">Book This Room</a>
+        </div>
+      </div>
+
+      <!-- Conference Room -->
+      <div class="room-card reveal">
+        <div class="room-img-container">
+          <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=600&q=80" alt="Conference Room" />
+          <span class="capacity-badge">👥 6–10 Seats</span>
+        </div>
+        <div class="room-content">
+          <div class="room-title">Collaborative Conf. Room</div>
+          <div class="room-rate">$45<span>/hour</span></div>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:12px;">Fully loaded setup built for team brainstorms, client presentations, and hybrid panel syncs.</p>
+          <div class="room-features">
+            <span class="feature-pill">📡 Wi-Fi 6</span>
+            <span class="feature-pill">📺 75" 4K TV</span>
+            <span class="feature-pill">📽️ Projector</span>
+            <span class="feature-pill">🎥 Smart Cam</span>
+          </div>
+        </div>
+        <div style="padding:0 24px 24px;">
+          <a href="#booking-panel" class="btn btn-outline w-full" style="justify-content:center;" onclick="selectRoomWidget('Collaborative Conf. Room', 45)">Book This Room</a>
+        </div>
+      </div>
+
+      <!-- Boardroom -->
+      <div class="room-card reveal">
+        <div class="room-img-container">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80" alt="Boardroom" />
+          <span class="capacity-badge">👥 12–20 Seats</span>
+        </div>
+        <div class="room-content">
+          <div class="room-title">Premium Executive Boardroom</div>
+          <div class="room-rate">$85<span>/hour</span></div>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:12px;">Premium corporate environment featuring botanical layouts, leather seating, and catering services.</p>
+          <div class="room-features">
+            <span class="feature-pill">📡 Wi-Fi 6</span>
+            <span class="feature-pill">📺 Dual 4K TVs</span>
+            <span class="feature-pill">🎙️ Audio Arrays</span>
+            <span class="feature-pill">🍱 Catering</span>
+          </div>
+        </div>
+        <div style="padding:0 24px 24px;">
+          <a href="#booking-panel" class="btn btn-outline w-full" style="justify-content:center;" onclick="selectRoomWidget('Premium Executive Boardroom', 85)">Book This Room</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 2] Technical AV Equipment Specifications -->
+<section class="section" id="av-specs" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Audio & Video</div>
+      <h2>Technical Presentation Specifications</h2>
+      <p style="max-width:550px; margin:0 auto;">Enterprise-grade presentation platforms standard across all conference rooms.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:28px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">4K HDR Displays</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">HDMI 2.1 cable panels, Chromecast, and Apple AirPlay 2 screen mirroring configured to connect displays within seconds.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Smart Camera Trackers</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Jabra PanaCast 180-degree cameras automatically framing physical speakers during Zoom or MS Teams sessions.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Decibel Isolated Walls</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Double-glazed sound insulating panels restricting conversation bleed. Privacy and NDAs are structurally protected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 3] Barista & Catering Services Menu -->
+<section class="section section-alt" id="catering-menu">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Food & Drinks</div>
+      <h2>In-Room Catering & Beverage Menus</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Hosting half-day team sprints or client negotiations? Elevate the meeting with custom coffee tables and organic snacks prepared by our staff.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>☕ <strong>Bottomless Barista Package</strong> ($8/person) - Handcrafted flat whites, cold brews, and teas.</li>
+        <li>🍱 <strong>Artisanal Lunch Boxes</strong> ($22/person) - Vegan wraps, organic grains, and healthy deserts.</li>
+        <li>🍪 <strong>Fresh Baked Platters</strong> ($35/tray) - Warm cookies, pastries, and seasonal berries.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Espresso Bar Barista" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 4] Spatial Ergonomics & Biophilic Interior Focus -->
+<section class="section" id="spatial-ergonomics" style="background:#fff;">
+  <div class="container grid-2col reverse">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Acoustic Boardroom Setup" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Biophilic Design</div>
+      <h2>High-Focus Biophilic Design Specs</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We design meeting layouts that stimulate clarity. From organic snake plant walls that filter toxins to precise room temperature controls, we prioritize physical comfort.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🌿 <strong>Active Oxygen Plantings</strong> keeping room atmospheres fresh and alert.</li>
+        <li>🌡️ <strong>Dedicated AC Thermostats</strong> enabling user-configured room temperatures.</li>
+        <li>💡 <strong>CRI 95+ LED Lights</strong> mimicking outdoor sunlight spectra to combat fatigue.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 5] Meeting Room Guidelines & Etiquette -->
+<section class="section section-alt" id="room-etiquette">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Policies</div>
+      <h2>Meeting Room Usage Etiquette</h2>
+      <p style="max-width:550px; margin:0 auto;">Simple shared courtesy guidelines to ensure clean configurations for subsequent reservations.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">⏱️ Respect Time Boundaries</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Please wrap up meetings 5 minutes prior to the hour. This permits clean transitions for the next team.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">🧽 Dry-Erase Cleans</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Wipe conference glass whiteboards clean after brainstorms. Markers and erasers are supplied in desk drawers.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">📦 Cutlery Returns</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Return catering trays, coffee mugs, and lunch boxes to the cafeteria return racks once meetings conclude.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 6] Enterprise Multi-Room Reservation Packages -->
+<section class="section" id="enterprise-multiroom" style="background:#fff;">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Workshops</div>
+      <h2>Enterprise Workshop & Multi-Room Packages</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Hosting full-company hackathons, board weeks, or investor presentations? Reserve clusters of rooms simultaneously to manage main panels and breakout syncs.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🏢 <strong>Breakout Clusters</strong> - Reserve 1 Boardroom + 3 Huddle Rooms in a single group.</li>
+        <li>👔 <strong>Event Coordinator</strong> - Direct on-site logistics manager handling registrations.</li>
+        <li>🏷️ <strong>Priority Signage</strong> - Dynamic digital displays identifying rooms by team branding.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Large Conference Setup" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 7] Student & Academic Project Workspace Grants -->
+<section class="section section-alt" id="student-room-grants">
+  <div class="container grid-2col more-right">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=800&q=80" alt="Students in study session" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Education Grants</div>
+      <h2>Student & Academic Project Collaborations</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We support university researchers, graduate study groups, and student developers. Apply for educational meeting credits to host collaborative projects in our rooms.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>🎓 <strong>25% Discount</strong> on standard hourly meeting room packages.</li>
+        <li>📚 <strong>Study Group Credits</strong> - Discounted 5-hour blocks for college squads.</li>
+        <li>🔬 <strong>Tech Hardware Access</strong> - Connect directly to our presentation arrays.</li>
+      </ul>
+      <a href="mailto:grants@nexuscowork.com" class="btn btn-primary">Apply for Academic Grant</a>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 8] Refer-a-Company Corporate Credits -->
+<section class="section" id="referral-credits" style="background:#fff;">
+  <div class="container" style="max-width:800px; text-align:center;">
+    <div class="card reveal" style="padding:48px 40px; background:var(--bg-main); border:1px solid var(--border); box-shadow:var(--shadow);">
+      <div class="section-tag" style="margin-bottom:12px;">Ambassador Credits</div>
+      <h3 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">Refer a Firm, Get $50 Free Room Credits</h3>
+      <p style="color:var(--text-muted); max-width:550px; margin:0 auto 24px; font-size:0.95rem;">Know an external team looking to host corporate boards or client presentations? Refer them. When they book their first Boardroom session, we'll credit $50 in meeting credits to your dashboard.</p>
+      <a href="mailto:ambassadors@nexuscowork.com" class="btn btn-primary">Send Referral Invite</a>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Calendar Booking Interface -->
+<section class="section section-alt" id="booking-panel">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Booking Engine</div>
+      <h2>Real-Time Room Scheduler</h2>
+      <p style="max-width:550px; margin:0 auto;">Choose your workspace, pick a date, select available hourly slots, and secure instant confirmation.</p>
+    </div>
+
+    <div class="card reveal booking-widget-card" style="border-radius:var(--radius-lg); box-shadow:var(--shadow);">
+      <div class="booking-widget-layout">
+        <!-- Date / Room Form -->
+        <div>
+          <div class="form-group">
+            <label for="room-select">Select Meeting Room *</label>
+            <select id="room-select" class="form-control" onchange="handleRoomSelectChange()">
+              <option value="Focus Huddle Room" data-rate="20">Focus Huddle Room ($20/hr)</option>
+              <option value="Collaborative Conf. Room" data-rate="45">Collaborative Conf. Room ($45/hr)</option>
+              <option value="Premium Executive Boardroom" data-rate="85">Premium Executive Boardroom ($85/hr)</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="margin-top:16px;">
+            <label for="room-date">Choose Date *</label>
+            <input type="date" id="room-date" class="form-control" required onchange="handleRoomDateChange()" />
+          </div>
+
+          <div class="form-group" style="margin-top:16px;">
+            <label>Choose Hours Duration *</label>
+            <select id="room-duration" class="form-control" onchange="calculateRoomCost()">
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="4">Half Day (4 Hours)</option>
+              <option value="8">Full Day (8 Hours)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Available Timing Slots -->
+        <div>
+          <label style="font-weight:600; color:var(--text-dark); display:block; margin-bottom:8px;">Select Start Time Slot *</label>
+          <div class="time-slot-grid" id="room-time-grid">
+            <!-- Slots populated by JS -->
+          </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:10px;">* Unavailable slots indicate prior bookings by members.</p>
+          
+          <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div>
+              <span class="text-muted" style="font-size:0.85rem;">Estimated Cost</span>
+              <strong id="widget-cost-display" style="font-size:1.4rem; color:var(--secondary); display:block;">$20.00</strong>
+            </div>
+            <button class="btn btn-primary" onclick="triggerRoomBooking(event)">Confirm Booking Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 9] Interactive Virtual Walkthrough Grid -->
+<section class="section" id="virtual-highlights" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Workspace Highlights</div>
+      <h2>Inside Our Creative Presentation Lounges</h2>
+      <p style="max-width:550px; margin:0 auto;">Take a brief visual tour of our modern conference fitouts and botanical lounge tables.</p>
+    </div>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Main Boardroom table" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80" alt="Focus Room lounge chair" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=400&q=80" alt="Collaborative sync desk" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=400&q=80" alt="Modern presentation lounge" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 10] Hourly Reservation FAQ Panel -->
+<section class="section section-alt" id="room-faq">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal" style="margin-bottom:40px;">
+      <div class="section-tag">FAQ</div>
+      <h2>Hourly Room Booking FAQ</h2>
+      <p>Answers to specific questions regarding cancellations, payments, and invoices.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer; border-color:var(--border);">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">What happens if my meeting runs over the scheduled time?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">If the subsequent slot is vacant, you can extend your booking hourly via the member app or by coordinating with the floor host. If another team has booked the space, we will assist you in relocating to a huddle room.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer; border-color:var(--border);">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Are HDMI adapters and dongles provided in the rooms?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. USB-C, Lightning, and HDMI adapters are permanently connected to the central table media wells. Multi-device dongles are also available at the reception desk.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer; border-color:var(--border);">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Can external non-members book meeting rooms?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Absolutely. External teams can book any available meeting space hourly at standard rates. Non-members just need to register guests at the main desk upon arrival.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Confirmation Popup Modal -->
+<div class="modal-overlay" id="room-confirm-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark);">🎉 Meeting Confirmed!</h3>
+      <button class="modal-close" onclick="closeRoomModal()">✕</button>
+    </div>
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:rgba(16, 185, 129, 0.1); color:var(--success); font-size:2rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">✓</div>
+      <p style="font-size:1.05rem; font-weight:600; color:var(--text-dark); margin-bottom:8px;">Meeting Room Reserved Successfully.</p>
+      <p style="color:var(--text-muted); font-size:0.9rem; max-width:350px; margin:0 auto;">Your team keycode pass and digital calendar sync link are dispatched to your dashboard email.</p>
+    </div>
+    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:left; font-size:0.9rem; margin-bottom:24px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Room:</span><strong id="modal-room-name" style="color:var(--text-dark);">—</strong></div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Date & Start Time:</span><strong id="modal-room-time" style="color:var(--secondary);">—</strong></div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Duration:</span><strong id="modal-room-duration" style="color:var(--text-dark);">—</strong></div>
+      <div style="display:flex; justify-content:space-between;"><span class="text-muted">Charged Rate:</span><strong id="modal-room-total" style="color:var(--success);">—</strong></div>
+    </div>
+    <button class="btn btn-primary w-full" style="justify-content:center;" onclick="closeRoomModal()">Return to Dashboard</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </div>
+      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Spaces</h4>
+      <ul>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+        <li><a href="virtualoffice.html">Virtual Office</a></li>
+        <li><a href="availability.html">Availability Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events Grid</a></li>
+        <li><a href="dashboard.html">Member Portal</a></li>
+        <li><a href="admin.html">Admin Console</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 123 Innovation Street</a></li>
+        <li><a href="#">📞 +1 (555) 000-0000</a></li>
+        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
+        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCowork. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      <a href="#" class="social-link" aria-label="Instagram">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Configuration
+  const ROOM_RATES = {
+    'Focus Huddle Room': 20,
+    'Collaborative Conf. Room': 45,
+    'Premium Executive Boardroom': 85
+  };
+
+  // State Management
+  let activeRoom = 'Focus Huddle Room';
+  let activeRoomRate = 20;
+  let activeDate = '';
+  let activeStartTime = '09:00 AM';
+  let hasPromoApplied = false;
+
+  // Initialize inputs
+  const roomDateInput = document.getElementById('room-date');
+  const todayStr = new Date().toISOString().split('T')[0];
+  roomDateInput.min = todayStr;
+  roomDateInput.value = todayStr;
+  activeDate = todayStr;
+
+  function applyPromo() {
+    hasPromoApplied = true;
+    alert("Voucher code 'FIRSTMEET' successfully applied! Enjoy 20% discount on meeting rooms.");
+    calculateRoomCost();
+  }
+
+  // Set selected room from grid button
+  function selectRoomWidget(roomName, rate) {
+    activeRoom = roomName;
+    activeRoomRate = rate;
+    document.getElementById('room-select').value = roomName;
+    
+    generateTimeSlots();
+    calculateRoomCost();
+  }
+
+  function handleRoomSelectChange() {
+    const sel = document.getElementById('room-select');
+    activeRoom = sel.value;
+    activeRoomRate = ROOM_RATES[activeRoom] || 20;
+    
+    generateTimeSlots();
+    calculateRoomCost();
+  }
+
+  function handleRoomDateChange() {
+    activeDate = roomDateInput.value;
+    generateTimeSlots();
+  }
+
+  // Generate simulated time slots based on pseudo occupancy
+  function generateTimeSlots() {
+    const grid = document.getElementById('room-time-grid');
+    grid.innerHTML = '';
+    
+    const times = [
+      '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+      '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'
+    ];
+
+    times.forEach(t => {
+      const btn = document.createElement('div');
+      btn.classList.add('time-slot-btn');
+      btn.textContent = t;
+
+      // Seed pseudo occupancy based on time and room selection
+      const charCodeSum = activeRoom.charCodeAt(0) + activeRoom.charCodeAt(activeRoom.length - 1);
+      const isOccupied = (t.charCodeAt(0) + charCodeSum) % 3 === 0;
+
+      if (isOccupied) {
+        btn.classList.add('occupied');
+      } else {
+        if (t === activeStartTime) {
+          btn.classList.add('selected');
+        }
+        btn.onclick = () => {
+          document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          activeStartTime = t;
+        };
+      }
+
+      grid.appendChild(btn);
+    });
+  }
+
+  function calculateRoomCost() {
+    const duration = parseInt(document.getElementById('room-duration').value);
+    let total = activeRoomRate * duration;
+    
+    if (hasPromoApplied) {
+      total = total * 0.8; // 20% discount
+    }
+    
+    document.getElementById('widget-cost-display').textContent = '$' + total.toFixed(2);
+  }
+
+  // Trigger Booking Confirmation Popup Modal
+  function triggerRoomBooking(e) {
+    e.preventDefault();
+    
+    const duration = parseInt(document.getElementById('room-duration').value);
+    let total = activeRoomRate * duration;
+    
+    if (hasPromoApplied) {
+      total = total * 0.8;
+    }
+    
+    // Set popup values
+    document.getElementById('modal-room-name').textContent = activeRoom;
+    document.getElementById('modal-room-time').textContent = activeDate + ' at ' + activeStartTime;
+    document.getElementById('modal-room-duration').textContent = duration + (duration === 1 ? ' Hour' : ' Hours');
+    document.getElementById('modal-room-total').textContent = '$' + total.toFixed(2);
+    
+    // Open modal
+    document.getElementById('room-confirm-modal').classList.add('open');
+  }
+
+  function closeRoomModal() {
+    document.getElementById('room-confirm-modal').classList.remove('open');
+  }
+
+  // Initialize
+  generateTimeSlots();
+  calculateRoomCost();
+</script>
+</body>
+</html>

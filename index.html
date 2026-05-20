@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusCowork — Premium Coworking Space & Startup Hub</title>
+  <meta name="description" content="Welcome to NexusCowork. Explore premium hot desks, private cabins, modern meeting rooms, and custom startup offices designed for innovation." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+    <li><a href="virtualoffice.html">Virtual Office</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="availability.html">Availability</a></li>
+    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <style>
+    .hero-container-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      text-align: left;
+      z-index: 2;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .hero-container-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .hero-container-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 480px) {
+      .hero-container-grid { gap: 16px; }
+    }
+
+    /* Workspace intro section */
+    #workspace-intro .container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      #workspace-intro .container { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Safety/Security section */
+    #safety-security .container {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      #safety-security .container { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Virtual services section */
+    #virtual-services .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      #virtual-services .container { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Community section */
+    #community .container {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      #community .container { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Promotions section */
+    .promotions-grid {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 100%);
+      color: var(--text-light);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    @media (max-width: 1024px) {
+      .promotions-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 32px; }
+    }
+    @media (max-width: 768px) {
+      .promotions-grid { padding: 32px 24px; gap: 24px; }
+    }
+    @media (max-width: 480px) {
+      .promotions-grid { padding: 24px 16px; gap: 16px; }
+    }
+  </style>
+  <div class="container hero-container-grid">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Designed for High-Growth Startups & Professionals</div>
+      <h1>Where Innovation Finds Its <span class="highlight">Workspace</span>.</h1>
+      <p>NexusCowork provides premium, flexible, and fully serviced office environments. Elevate your business in a vibrant community designed to accelerate productivity and collaboration.</p>
+      <div class="hero-actions" style="justify-content: flex-start;">
+        <a href="booking.html" class="btn btn-primary">🚀 Book Workspace</a>
+        <a href="membership.html" class="btn btn-outline">Explore Memberships</a>
+      </div>
+    </div>
+    <div class="hero-image-wrapper" style="position:relative;">
+      <div style="border-radius: var(--radius-lg); overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Premium Coworking Hero Image" style="width:100%; transition: transform var(--transition);" />
+      </div>
+      <!-- Floating Card Accent -->
+      <div class="card hero-floating-card">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px; font-size:1.05rem;">10Gbps Fiber Wifi</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Uncompromised networking speed for remote engineers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Logo Wall (Client/Startup Logos) -->
+<section class="section" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#fff;">
+  <div class="container">
+    <p style="text-align:center; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:24px;">Trusted by top innovators and growing startup teams</p>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:32px; opacity:0.6;">
+      <span style="font-size:1.4rem; font-weight:800; color:var(--text-dark);">🚀 STRIPE</span>
+      <span style="font-size:1.4rem; font-weight:800; color:var(--text-dark);">⚡ LINEAR</span>
+      <span style="font-size:1.4rem; font-weight:800; color:var(--text-dark);">🌐 FIOM</span>
+      <span style="font-size:1.4rem; font-weight:800; color:var(--text-dark);">🔋 AMPERE</span>
+      <span style="font-size:1.4rem; font-weight:800; color:var(--text-dark);">💡 VERIFIED</span>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 1] How It Works -->
+<section class="section" id="how-it-works" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Smooth Process</div>
+      <h2>Getting Started in 3 Simple Steps</h2>
+      <p style="max-width:600px; margin:0 auto;">Skip the complex commercial leases. Start working from our spaces in a matter of hours.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:32px; text-align:center;">
+      <div style="padding:20px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:rgba(79, 70, 229, 0.1); color:var(--secondary); font-size:1.5rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">1</div>
+        <h3 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Choose Your Plan</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Select from daily passes, flexible hot desks, private cabins, or customizable startup suites.</p>
+      </div>
+      <div style="padding:20px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:rgba(6, 182, 212, 0.1); color:var(--accent); font-size:1.5rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">2</div>
+        <h3 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Book & Customise</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Pick your preferred dates, add-ons (lockers, storage, meeting room credits), and pay online securely.</p>
+      </div>
+      <div style="padding:20px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:rgba(139, 92, 246, 0.1); color:var(--purple); font-size:1.5rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">3</div>
+        <h3 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Check-In & Thrive</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Walk in, scan your RFID pass, connect to our high-speed network, and join our active community.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workspace Introduction & Modern Workspace Design -->
+<section class="section section-alt" id="workspace-intro">
+  <div class="container">
+    <div style="position:relative;">
+      <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Modern Office Lounge" style="width:100%;" />
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">Modern Workspace Design</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px; line-height:1.3;">Human-Centric Spaces Crafted for Peak Performance</h2>
+      <p style="color:var(--text); margin-bottom:24px; font-size:1.05rem; line-height:1.7;">At NexusCowork, we believe a workspace is more than just a desk and a chair. It’s an environment meticulously crafted to spark inspiration, foster healthy posture, and maximize productivity. Our spaces blend state-of-the-art office technology with abundant natural lighting, ergonomic furniture, and premium community-driven spaces.</p>
+      
+      <div class="grid-2col equal" style="gap:20px; margin-bottom:30px; align-items:start;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.2rem; font-weight:bold;">✔</div>
+          <div>
+            <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Ergonomic Seating</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Fully adjustable Herman Miller chairs.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.2rem; font-weight:bold;">✔</div>
+          <div>
+            <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Acoustic Privacy</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Sound-isolated phone booths & meeting rooms.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.2rem; font-weight:bold;">✔</div>
+          <div>
+            <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Lush Biotopes</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Indoor plants for biophilic wellbeing.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.2rem; font-weight:bold;">✔</div>
+          <div>
+            <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Natural Lighting</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Full-height glass facades for daylight.</p>
+          </div>
+        </div>
+      </div>
+      <a href="about.html" class="btn btn-outline">Explore Our Design Philosophy</a>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Workspaces (Private Cabins, Open Desks, Meeting Rooms, Startup Offices) -->
+<section class="section" id="featured-workspaces" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Featured Workspaces</div>
+      <h2>Tailored Office Solutions for Every Stage</h2>
+      <p style="max-width:600px; margin:0 auto;">Choose the right working style for your schedule, team size, and growth ambitions.</p>
+    </div>
+    
+    <div class="cards-grid">
+      <!-- Private Cabins -->
+      <div class="card reveal" style="padding:0; overflow:hidden;">
+        <div style="height:200px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" alt="Private Cabins" style="width:100%; height:100%; object-fit:cover; transition:transform var(--transition);" />
+        </div>
+        <div style="padding:28px 24px;">
+          <h3 style="margin-bottom:6px;">Private Cabins</h3>
+          <p style="font-size:0.9rem; color:var(--secondary); font-weight:600; margin-bottom:12px;">From $450/month</p>
+          <p style="margin-bottom:20px; font-size:0.95rem;">Lockable, premium private offices tailored for growing corporate teams and focused specialists requiring maximum security.</p>
+          <a href="booking.html?type=cabin" class="btn btn-primary w-full" style="padding:10px 0; font-size:0.9rem;">Book Cabin</a>
+        </div>
+      </div>
+      
+      <!-- Open Desks -->
+      <div class="card reveal" style="padding:0; overflow:hidden;">
+        <div style="height:200px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80" alt="Open Desks" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:28px 24px;">
+          <h3 style="margin-bottom:6px;">Open Desks</h3>
+          <p style="font-size:0.9rem; color:var(--secondary); font-weight:600; margin-bottom:12px;">From $180/month</p>
+          <p style="margin-bottom:20px; font-size:0.95rem;">Highly flexible, dynamic desk options in a shared, creative open floorplan setup. Perfect for remote tech workers and freelancers.</p>
+          <a href="booking.html?type=desk" class="btn btn-primary w-full" style="padding:10px 0; font-size:0.9rem;">Book Desk</a>
+        </div>
+      </div>
+
+      <!-- Meeting Rooms -->
+      <div class="card reveal" style="padding:0; overflow:hidden;">
+        <div style="height:200px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=600&q=80" alt="Meeting Rooms" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:28px 24px;">
+          <h3 style="margin-bottom:6px;">Meeting Rooms</h3>
+          <p style="font-size:0.9rem; color:var(--secondary); font-weight:600; margin-bottom:12px;">From $30/hour</p>
+          <p style="margin-bottom:20px; font-size:0.95rem;">State-of-the-art conference rooms and presentation spaces equipped with smart TVs, video conferencing, and whiteboards.</p>
+          <a href="booking.html?type=room" class="btn btn-primary w-full" style="padding:10px 0; font-size:0.9rem;">Book Room</a>
+        </div>
+      </div>
+
+      <!-- Startup Offices -->
+      <div class="card reveal card-special" style="padding:0; overflow:hidden;">
+        <div style="height:200px; overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Startup Offices" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:28px 24px;">
+          <h3 style="margin-bottom:6px;">Startup Suites</h3>
+          <p style="font-size:0.9rem; color:var(--purple); font-weight:600; margin-bottom:12px;">Custom Pricing</p>
+          <p style="margin-bottom:20px; font-size:0.95rem;">Fully tailored, custom-branded corporate suites for larger teams of 15 to 50. Includes custom layouts and meeting facilities.</p>
+          <a href="booking.html?type=suite" class="btn btn-accent w-full" style="padding:10px 0; font-size:0.9rem;">Request Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 2] Location Highlights -->
+<section class="section section-alt" id="locations">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Urban Presence</div>
+      <h2>Our Premium City Locations</h2>
+      <p style="max-width:600px; margin:0 auto;">Strategically located in core commercial hotspots, fully connected with public transport links.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:24px;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Downtown Plaza</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">📍 45 Financial Avenue, Tower B</p>
+        <p style="font-size:0.85rem; margin-bottom:16px;">Direct metro connectivity, panoramic skyline vistas, and an exclusive sky-lounge.</p>
+        <span class="badge badge-success">Open</span>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Tech District Hub</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">📍 102 Innovation Parkway</p>
+        <p style="font-size:0.85rem; margin-bottom:16px;">Located near tech incubators and venture capital firm offices. Dynamic start-up vibe.</p>
+        <span class="badge badge-success">Open</span>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Waterfront Creative</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">📍 Pier 17 Marina Boulevard</p>
+        <p style="font-size:0.85rem; margin-bottom:16px;">Quiet views, high natural light, and customizable spaces perfect for creative studios.</p>
+        <span class="badge badge-success">Open</span>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Bespoke Midtown</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">📍 89 Parkside Square</p>
+        <p style="font-size:0.85rem; margin-bottom:16px;">Boutique layouts, leafy views, and customizable executive office spaces.</p>
+        <span class="badge badge-warning">Opening Q4</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workspace Statistics Counters -->
+<section class="section" id="stats" style="background:#fff;">
+  <div class="container">
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-num" data-count="1200" data-suffix="+">0</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="15" data-suffix="">0</div>
+        <div class="stat-label">Meeting Rooms</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="4" data-suffix="">0</div>
+        <div class="stat-label">City Locations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="99" data-suffix="%">0</div>
+        <div class="stat-label">Satisfaction Score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workspace Amenities Section -->
+<section class="section section-alt" id="amenities">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Standard Inclusions</div>
+      <h2>Engineered for Seamless Productivity</h2>
+      <p style="max-width:600px; margin:0 auto;">Everything you need to work faster and focus on what truly matters.</p>
+    </div>
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">📶</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">High-Speed Fiber</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Redundant gigabit networks throughout.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">☕</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Micro-Roast Coffee</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Unlimited organic specialty espresso drinks.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">📞</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Soundproof Booths</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Private spaces for calls and video meetings.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">🖨️</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Business Stations</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Advanced high-volume scanning & printing.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">🛡️</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">24/7 RFID Access</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Work on your own terms with secure entry.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">🙋‍♂️</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Front Desk Support</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Dedicated site managers ready to assist.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">🚪</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Secure Storage</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Personal lockers for keys and laptops.</p>
+      </div>
+      <div class="card reveal" style="padding:24px;">
+        <div class="card-icon" style="margin-bottom:12px;">🛋️</div>
+        <h4 style="color:var(--text-dark); margin-bottom:6px;">Social Lounges</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Spacious communal zones to unplug and rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 3] B2B SaaS Perks & Benefits -->
+<section class="section" id="perks" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Value Add-Ons</div>
+      <h2>Exclusive Member Marketplace Perks</h2>
+      <p style="max-width:600px; margin:0 auto;">As a NexusCowork member, unlock over $5,000 in credits and discounts with our strategic software partners.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:24px; text-align:center;">
+      <div class="card reveal" style="padding:24px; border:1.5px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">AWS Cloud</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Up to $2,000 in credits</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border:1.5px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Notion</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">6 months free on Plus Plan</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border:1.5px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">HubSpot</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">30% off first year subscription</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border:1.5px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Slack</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">20% discount on Pro Tier</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 4] Workspace Safety & Access Security -->
+<section class="section section-alt" id="safety-security">
+  <div class="container">
+    <div>
+      <div class="section-tag">Secure Operations</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Corporate-Grade Safety & Data Security</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We safeguard your equipment, your physical environment, and your proprietary networking networks with professional infrastructure protocols.</p>
+      
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🔒 <strong>24/7 RFID Gateways</strong> - Multi-tiered secure access points across offices and common hallways.</li>
+        <li>📹 <strong>Surveillance Coverage</strong> - Secure CCTV monitoring across building entryways and communal lounges.</li>
+        <li>🌐 <strong>Encrypted SSIDs</strong> - Secure enterprise firewalls and private virtual networks for technical teams.</li>
+        <li>🧹 <strong>Sanitised Daily</strong> - Professional janitorial staff cleaning standard workspaces every night.</li>
+      </ul>
+    </div>
+    <div>
+      <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Secure Workspace Gateways" style="width:100%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promotions & Membership Offer Banners -->
+<section class="section" id="promotions" style="background:#fff;">
+  <div class="container">
+    <div style="background: linear-gradient(135deg, var(--primary-dark) 0%, #1e1b4b 100%); color:var(--text-light); border-radius:var(--radius-lg); border:1px solid rgba(255,255,255,0.08); box-shadow:0 15px 35px rgba(0,0,0,0.15);" class="promotions-grid">
+      <div>
+        <div class="badge badge-success" style="margin-bottom:16px;">Voted #1 Startup Hub</div>
+        <h2 style="color:var(--text-light); font-size:2rem; font-weight:800; margin-bottom:14px; letter-spacing:-0.02em;">Launch Special: Save 20% on Private Cabins & Dedicated Desks</h2>
+        <p style="color:rgba(255,255,255,0.8); margin-bottom:24px; font-size:1.05rem;">Start your startup scaling with a premium office setup. Sign up for a 6-month contract before the end of this month and unlock exclusive member perks worth $2,500.</p>
+        <div style="display:flex; gap:16px;">
+          <a href="booking.html" class="btn btn-accent">Claim Offer Now</a>
+          <a href="membership.html" class="btn btn-outline" style="color:var(--text-light); border-color:rgba(255,255,255,0.25); background:transparent;">View Pricing Plans</a>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05); padding:32px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.08);">
+        <h4 style="font-family:var(--font-head); font-weight:700; margin-bottom:12px; color:var(--accent);">Startup Scale Pack</h4>
+        <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.9rem; color:rgba(255,255,255,0.9);">
+          <li>🔥 Free 10 hours Meeting Credits per Month</li>
+          <li>👔 Mail handling & virtual address included</li>
+          <li>🎟️ Free access to all networking events</li>
+          <li>☁️ $2,000 AWS & Google Cloud credits</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 5] Plan Comparison Matrix Summary -->
+<section class="section section-alt" id="plan-comparison">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Quick Comparison</div>
+      <h2>Find the Perfect Fit</h2>
+      <p style="max-width:500px; margin:0 auto;">Compare core benefits across our standard flexible membership tiers.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="data-table" style="width:100%; border:1px solid var(--border); border-radius:var(--radius); background:#fff;">
+        <thead>
+          <tr>
+            <th>Workspace Feature</th>
+            <th>Open Hot Desk</th>
+            <th>Dedicated Desk</th>
+            <th>Private Cabin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Access Hours</strong></td>
+            <td>Mon–Sat, 8am–10pm</td>
+            <td>24/7 Secure Access</td>
+            <td>24/7 Secure Access</td>
+          </tr>
+          <tr>
+            <td><strong>Wi-Fi Speed</strong></td>
+            <td>Up to 100 Mbps</td>
+            <td>Up to 500 Mbps</td>
+            <td>Custom LAN + 1Gbps Wifi</td>
+          </tr>
+          <tr>
+            <td><strong>Meeting Room Credits</strong></td>
+            <td>2 Hours / month</td>
+            <td>5 Hours / month</td>
+            <td>12 Hours / month</td>
+          </tr>
+          <tr>
+            <td><strong>Virtual Mailing Address</strong></td>
+            <td>Optional Add-on</td>
+            <td>Included</td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td><strong>Company Lockers</strong></td>
+            <td>Daily Rental</td>
+            <td>Included (Private)</td>
+            <td>Included (Fitted In Cabin)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 6] Virtual Office Perks & Corporate Services -->
+<section class="section" id="virtual-services" style="background:#fff;">
+  <div class="container">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=800&q=80" alt="Corporate Boardroom Meeting" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Corporate Branding</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Corporate Virtual Address & Mail Management</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Establish a prominent corporate address in the city's financial center without renting physical space. Our professional reception team handles all deliveries and routes mail Digitally.</p>
+      
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>📬 <strong>Digital Mail Scanning</strong> - Receive instant email updates with PDF scans of your daily letters.</li>
+        <li>📞 <strong>Local Telephone Lines</strong> - Dedicated local office telephone number routed directly to your mobile.</li>
+        <li>🏢 <strong>Lobby Directory</strong> - Your custom corporate company name displayed in our physical lobby directory.</li>
+      </ul>
+      <a href="virtualoffice.html" class="btn btn-primary">Setup Virtual Office</a>
+    </div>
+  </div>
+</section>
+
+<!-- Community Highlights -->
+<section class="section section-alt" id="community">
+  <div class="container">
+    <div class="grid-2col">
+      <div>
+        <div class="section-tag">Community & Growth</div>
+        <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">More Than Just Desks. A Community of Innovators.</h2>
+        <p style="color:var(--text); margin-bottom:20px; font-size:1.05rem;">We host weekly networking lunches, professional development panels, and investor pitch sessions. NexusCowork isn't just about desk space—it's a launchpad for your next corporate growth spurt.</p>
+        <p style="color:var(--text-muted); margin-bottom:28px;">Connect with over 1,200 founders, product managers, VC associates, and creative freelancers globally.</p>
+        <a href="events.html" class="btn btn-primary">Check Upcoming Events</a>
+      </div>
+      <div style="position:relative;">
+        <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Networking Event" style="width:100%;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Preview -->
+<section class="section" id="testimonials" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Member Reviews</div>
+      <h2>Loved by Top Startups & Tech Professionals</h2>
+      <p style="max-width:500px; margin:0 auto;">Hear from standard members who transformed their routine at NexusCowork.</p>
+    </div>
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+      <div class="card reveal" style="display:flex; flex-direction:column; justify-content:space-between; border-color:var(--border);">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:20px; line-height:1.7;">"NexusCowork has been a game-changer for our team. The private suites are incredibly high quality, the fiber wifi is highly stable, and the community has directly introduced us to two investors."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:#E5E7EB; display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--secondary);">SA</div>
+          <div>
+            <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Sarah Alvi</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Co-Founder, Finch Health</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card reveal" style="display:flex; flex-direction:column; justify-content:space-between; border-color:var(--border);">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:20px; line-height:1.7;">"As a remote designer, I need a productive desk with great coffee and phone booths. NexusCowork offers all that with standard inclusions that outperform any cafe."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:#E5E7EB; display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--secondary);">MK</div>
+          <div>
+            <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Marc Kross</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Lead UX Designer, AuthX</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="display:flex; flex-direction:column; justify-content:space-between; border-color:var(--border);">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:20px; line-height:1.7;">"The modular cabins allowed us to scale from 4 to 12 members over 6 months without hassle. Outstanding client hospitality and modern designs."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:#E5E7EB; display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--secondary);">LL</div>
+          <div>
+            <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Laura Li</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">VP of Engineering, Orbit AI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 7] Frequently Asked Questions (FAQ) -->
+<section class="section section-alt" id="faq">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal" style="margin-bottom:40px;">
+      <div class="section-tag">Got Questions?</div>
+      <h2>Frequently Asked Questions</h2>
+      <p>Clear, direct answers regarding memberships, access, invoicing, and space logistics.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">What is included in the Hot Desk plan?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Our Hot Desk plan grants full access to open-plan working bays, high-speed fiber internet, locker rentals, unlimited espresso specialty coffee, and full access to standard member networking events.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Are there any locked-in long-term commitments?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">No! We offer flexible monthly billing agreements. You can cancel your desk plan or upgrade to larger cabins anytime with a standard 30-day notice.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Can I bring guests for client presentations?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Guests are welcome if you book a dedicated meeting room. They will be registered at the reception entryway and ushered directly to your presentation workspace.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">How do meeting room booking credits work?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Every desk membership receives monthly room credits. These credits reset on the first of each month. Additional meeting room reservations can be added directly via your online member dashboard.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 8] Newsletter & Event Day Pass Sweepstakes -->
+<section class="section" id="newsletter" style="background:#fff;">
+  <div class="container" style="max-width:800px; text-align:center;">
+    <div class="card reveal" style="padding:48px 40px; background:var(--bg-tint-1); border:1px solid rgba(79,70,229,0.15); box-shadow:var(--shadow);">
+      <h3 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">Stay in the Loop</h3>
+      <p style="color:var(--text-muted); max-width:550px; margin:0 auto 24px; font-size:0.95rem;">Subscribe to our weekly workspace dispatch. Get event invitations, startup networking schedules, and a chance to win a free monthly day pass.</p>
+      <form onsubmit="event.preventDefault(); alert('Subscribed! We have sent a confirmation email.'); style='display:none;'; document.getElementById('newsletter-success').classList.remove('hidden');" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+        <input type="email" class="form-control" placeholder="Enter your business email" required style="max-width:400px; border-color:var(--border);" />
+        <button type="submit" class="btn btn-primary" style="padding:12px 28px;">Subscribe Now</button>
+      </form>
+      <div id="newsletter-success" class="hidden text-success" style="font-weight:700; font-size:1rem; margin-top:12px;">🎉 Subscription confirmed! Thank you.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Contact Section -->
+<section class="section section-alt" id="contact">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal" style="margin-bottom:32px;">
+      <div class="section-tag">Quick Inquiry</div>
+      <h2>Get In Touch</h2>
+      <p>Have questions about space options, layouts, or customizable configurations? Send us a quick note.</p>
+    </div>
+    
+    <form class="card reveal" style="padding:40px;" onsubmit="event.preventDefault(); alert('Message sent! Our workspace manager will contact you in 2 hours.');">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="contact-name">Full Name</label>
+          <input type="text" id="contact-name" class="form-control" placeholder="Enter name" required />
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email Address</label>
+          <input type="email" id="contact-email" class="form-control" placeholder="Enter email" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contact-phone">Phone Number</label>
+        <input type="tel" id="contact-phone" class="form-control" placeholder="Enter phone" required />
+      </div>
+      <div class="form-group">
+        <label for="contact-message">How can we help you?</label>
+        <textarea id="contact-message" class="form-control" rows="4" placeholder="Briefly describe your team size or office layout needs..." required style="resize:none; font-family:inherit;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary w-full" style="padding:14px 0;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- CTA Banner Section -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h3>Ready to Accelerate Your Venture?</h3>
+      <p>Reserve a flexible desk, customize an executive cabin, or configure a secure startup office suite today.</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a href="booking.html" class="btn btn-accent">Reserve a Space Now</a>
+        <a href="membership.html" class="btn btn-outline" style="color:var(--text-light); border-color:rgba(255,255,255,0.25); background:transparent;">View Comparison Matrix</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </div>
+      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Spaces</h4>
+      <ul>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+        <li><a href="virtualoffice.html">Virtual Office</a></li>
+        <li><a href="availability.html">Availability Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events Grid</a></li>
+        <li><a href="dashboard.html">Member Portal</a></li>
+        <li><a href="admin.html">Admin Console</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 123 Innovation Street</a></li>
+        <li><a href="#">📞 +1 (555) 000-0000</a></li>
+        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
+        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCowork. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      <a href="#" class="social-link" aria-label="Instagram">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Access — NexusCowork</title>
+  <meta name="description" content="Access your NexusCowork member portal. Sign in or register for hot desks, private offices, and event bookings." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+    }
+    @media (max-width: 1024px) {
+      .auth-container {
+        grid-template-columns: 1fr;
+      }
+      .auth-visual {
+        display: none !important;
+      }
+    }
+    .auth-visual {
+      background: var(--primary-dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 60px;
+      color: #fff;
+    }
+    .auth-visual::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: -10%; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
+      filter: blur(50px);
+    }
+    .auth-visual::after {
+      content: '';
+      position: absolute;
+      bottom: -10%; right: -10%; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      filter: blur(50px);
+    }
+    .auth-form-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: var(--bg-main);
+      position: relative;
+      min-height: 100vh;
+    }
+    .auth-form-side::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%; width: 300px; height: 300px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .auth-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+      z-index: 10;
+      margin: auto;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .password-wrapper .form-control {
+      padding-right: 48px;
+    }
+    .eye-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+    .eye-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+    .auth-toggle-link {
+      color: var(--secondary);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .auth-toggle-link:hover {
+      text-decoration: underline;
+    }
+    .auth-panel {
+      display: none;
+    }
+    .auth-panel.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .auth-form-side {
+        padding: 30px 20px;
+      }
+      .auth-card {
+        padding: 32px 24px;
+      }
+    }
+    @media (max-width: 480px) {
+      .auth-form-side {
+        padding: 20px 12px;
+      }
+      .auth-card {
+        padding: 24px 16px;
+        border-radius: var(--radius);
+      }
+      .auth-card h2 {
+        font-size: 1.45rem !important;
+      }
+    }
+    @media (max-height: 700px) {
+      .auth-visual {
+        padding: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<div class="auth-container">
+  
+  <!-- Left visual panel (SaaS branding) -->
+  <div class="auth-visual">
+    <div style="z-index:2;">
+      <a href="index.html" class="nav-brand" style="color:#fff;">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </a>
+    </div>
+    <div style="z-index:2; margin: 40px 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+      <span class="badge badge-success" style="margin-bottom:16px; width: fit-content;">Voted #1 Startup Space</span>
+      <h1 style="font-family:var(--font-head); font-weight:800; font-size:clamp(1.8rem, 3.5vw, 2.4rem); line-height:1.2; margin-bottom:16px;">Focus on growing your business. We build the rest.</h1>
+      <p style="color:rgba(255,255,255,0.7); font-size:1rem; max-width:460px;">Unlock 24/7 building access, premium dual-fibre networks, and clean, silent focus bays.</p>
+    </div>
+    <div style="z-index:2; font-size:0.85rem; color:rgba(255,255,255,0.5);">
+      © 2025 NexusCowork. All rights reserved.
+    </div>
+  </div>
+
+  <!-- Right login/signup panels -->
+  <div class="auth-form-side">
+    <div class="auth-card">
+      
+      <!-- 1. LOGIN PANEL -->
+      <div id="panel-login" class="auth-panel active">
+        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Sign In</h2>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Welcome back! Enter details to access your dashboard.</p>
+        
+        <form onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label for="login-email">Email Address *</label>
+            <input type="email" id="login-email" class="form-control" placeholder="john.doe@company.com" required />
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+              <label for="login-password" style="margin-bottom:0;">Password *</label>
+              <span class="auth-toggle-link" style="font-size:0.8rem;" onclick="showPanel('panel-forgot')">Forgot Password?</span>
+            </div>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" class="form-control" placeholder="••••••••" required />
+              <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('login-password', this)" aria-label="Toggle password visibility">
+                <!-- Eye open icon (default) -->
+                <svg class="eye-open" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <!-- Eye closed icon (hidden by default in script) -->
+                <svg class="eye-closed" viewBox="0 0 24 24" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Sign In to Account</button>
+        </form>
+        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Don't have an account? <span class="auth-toggle-link" onclick="showPanel('panel-signup')">Create Account</span>
+        </p>
+      </div>
+
+      <!-- 2. SIGNUP PANEL -->
+      <div id="panel-signup" class="auth-panel">
+        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Get Started</h2>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Sign up today to book hot desks and schedule rooms.</p>
+        
+        <form onsubmit="handleSignupSubmit(event)">
+          <div class="form-group">
+            <label for="signup-name">Full Name *</label>
+            <input type="text" id="signup-name" class="form-control" placeholder="John Doe" required />
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <label for="signup-email">Email Address *</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="john.doe@company.com" required />
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <label for="signup-password">Password *</label>
+            <div class="password-wrapper">
+              <input type="password" id="signup-password" class="form-control" placeholder="••••••••" required />
+              <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('signup-password', this)" aria-label="Toggle password visibility">
+                <svg class="eye-open" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Create Account</button>
+        </form>
+        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Already have an account? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Sign In</span>
+        </p>
+      </div>
+
+      <!-- 3. FORGOT PASSWORD PANEL -->
+      <div id="panel-forgot" class="auth-panel">
+        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Reset Password</h2>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Enter your email to receive a password reset link.</p>
+        
+        <form onsubmit="handleForgotSubmit(event)">
+          <div class="form-group">
+            <label for="forgot-email">Email Address *</label>
+            <input type="email" id="forgot-email" class="form-control" placeholder="john.doe@company.com" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Send Reset Link</button>
+        </form>
+        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Remember your password? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Back to Sign In</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Dynamic panel toggles
+  function showPanel(panelId) {
+    document.querySelectorAll('.auth-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // Password visibility checker toggle
+  function togglePasswordVisibility(fieldId, btn) {
+    const field = document.getElementById(fieldId);
+    const openIcon = btn.querySelector('.eye-open');
+    const closedIcon = btn.querySelector('.eye-closed');
+
+    if (field.type === 'password') {
+      field.type = 'text';
+      openIcon.style.display = 'none';
+      closedIcon.style.display = 'block';
+    } else {
+      field.type = 'password';
+      openIcon.style.display = 'block';
+      closedIcon.style.display = 'none';
+    }
+  }
+
+  // Seed default credentials if they don't exist
+  if (!localStorage.getItem('users')) {
+    const defaultUsers = [
+      { email: 'john.doe@company.com', name: 'John Doe', password: 'password123' },
+      { email: 'admin@nexuscowork.com', name: 'Admin', password: 'admin123' }
+    ];
+    localStorage.setItem('users', JSON.stringify(defaultUsers));
+  }
+
+  // Real-time signup handling
+  function handleSignupSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const exists = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (exists) {
+      showToast('An account with this email already exists!', 'error');
+      return;
+    }
+
+    users.push({ name, email, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('cowork_user', JSON.stringify({ name, email }));
+    showToast('Account created successfully! Redirecting to home page...', 'success');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1500);
+  }
+
+  // Real-time login handling
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userFound = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+
+    if (!userFound) {
+      showToast('Invalid email or password. Use john.doe@company.com / password123', 'error');
+      return;
+    }
+
+    localStorage.setItem('cowork_user', JSON.stringify({ name: userFound.name, email: userFound.email }));
+
+    // Redirect corresponding dashboard or homepage
+    if (userFound.email.toLowerCase() === 'admin@nexuscowork.com') {
+      showToast('Welcome back, Administrator! Redirecting...', 'success');
+      setTimeout(() => {
+        window.location.href = 'admin.html';
+      }, 1500);
+    } else {
+      showToast(`Welcome back, ${userFound.name}! Redirecting...`, 'success');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    }
+  }
+
+  // Forgot password handling
+  function handleForgotSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('forgot-email').value;
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const exists = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (!exists) {
+      showToast('No user accounts associated with this email address.', 'error');
+      return;
+    }
+
+    showToast(`Temporary password reset link sent to ${email}!`, 'success');
+    e.target.reset();
+    setTimeout(() => {
+      showPanel('panel-login');
+    }, 1500);
+  }
+</script>
+</body>
+</html>

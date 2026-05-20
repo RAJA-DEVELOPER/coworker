@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership Plans — NexusCowork</title>
+  <meta name="description" content="Flexible coworking membership plans for freelancers, startups, and enterprises. Day Pass, Weekly, Monthly, and Premium plans." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+    .price-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .price-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--secondary);
+    }
+    .price-card.featured {
+      border: 2px solid var(--secondary);
+      box-shadow: 0 10px 25px rgba(79, 70, 229, 0.08);
+      background: #fff;
+    }
+    .price-card.premium {
+      border: 2px solid var(--purple);
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.08);
+    }
+    .badge-featured {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--secondary);
+      color: #fff;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-premium {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--purple);
+      color: #fff;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .price-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .price-amt {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 16px 0 8px;
+    }
+    .price-amt span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .price-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .price-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .price-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-features-list li::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: bold;
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    /* Calculator Styling */
+    .calc-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: var(--border);
+      outline: none;
+      margin: 20px 0;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--secondary);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+      transition: background 0.15s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html" class="active">Membership</a></li>
+    <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+    <li><a href="virtualoffice.html">Virtual Office</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="availability.html">Availability</a></li>
+    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="membership-hero" style="min-height:55vh;">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span class="dot"></span> Flexible Plans</div>
+  <h1>Choose Your <span class="highlight">Perfect Plan</span></h1>
+  <p>No long-term lease lock-ins. Scale up or down as your team grows. All categories include premium coffee, high-speed Wi-Fi, and active network access.</p>
+  
+  <div style="display:flex; gap:16px; justify-content:center; margin-top:24px;">
+    <div class="tab-bar" style="margin-bottom:0">
+      <button class="tab-btn active" id="btn-monthly" onclick="toggleInterval('monthly')">Monthly Billing</button>
+      <button class="tab-btn" id="btn-annual" onclick="toggleInterval('annual')">Annual Billing (Save 20%)</button>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 1] Interactive Pricing Calculator -->
+<section class="section" id="pricing-calc" style="background:#fff;">
+  <div class="container" style="max-width:700px; text-align:center;">
+    <div class="card reveal" style="padding:40px; background:var(--bg-main); border:1px solid var(--border); box-shadow:var(--shadow);">
+      <div class="section-tag" style="margin-bottom:8px;">Interactive Tool</div>
+      <h3 style="font-family:var(--font-head); font-size:1.6rem; font-weight:800; color:var(--text-dark);">Estimate Your Team Workspace Cost</h3>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Drag the slider to choose your team size and see our recommended plan configurations.</p>
+      
+      <input type="range" min="1" max="25" value="5" class="calc-slider" id="team-slider" oninput="calculateTeamPrice()" />
+      
+      <div class="grid-2col equal" style="gap:20px; text-align:left; margin-top:20px; align-items:start;">
+        <div style="background:#fff; padding:16px; border:1px solid var(--border); border-radius:var(--radius);">
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600; display:block;">Team Size Selected</span>
+          <strong id="calc-team-display" style="font-size:1.6rem; color:var(--text-dark);">5 Seats</strong>
+        </div>
+        <div style="background:#fff; padding:16px; border:1px solid var(--border); border-radius:var(--radius);">
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600; display:block;">Recommended Plan Setup</span>
+          <strong id="calc-setup-display" style="font-size:1.1rem; color:var(--secondary); display:block; margin-top:4px;">Dedicated Desk Cluster</strong>
+        </div>
+      </div>
+      <div style="text-align:right; margin-top:16px;">
+        <span style="font-size:0.85rem; color:var(--text-muted);">Estimated: <strong id="calc-total-display" style="font-size:1.2rem; color:var(--success);">$225.00/mo</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Membership Benefits Grid -->
+<section class="section section-alt" id="membership-benefits">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Member Inclusions</div>
+      <h2>Every Plan Includes Professional Infrastructure</h2>
+      <p style="max-width:550px; margin:0 auto;">No hidden operational fees. Focus completely on shipping code, writing copies, and scaling sales.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="card reveal" style="border-color:var(--border); background:#fff;">
+        <div style="font-size:1.8rem; margin-bottom:12px;">🗝️</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">24/7 Security Access</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Dedicated and premium monthly plans receive personalized RFID keycards enabling contactless branch entry anytime.</p>
+      </div>
+      <div class="card reveal" style="border-color:var(--border); background:#fff;">
+        <div style="font-size:1.8rem; margin-bottom:12px;">☕</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Micro-Roasted Espresso</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Bottomless fresh coffee, specialty organic tea selections, and purified alkaline hydration bars in every cafeteria.</p>
+      </div>
+      <div class="card reveal" style="border-color:var(--border); background:#fff;">
+        <div style="font-size:1.8rem; margin-bottom:12px;">🎙️</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Global Member App</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Instantly reserve meeting spaces, register guests, connect with other founders, and pay invoices via dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Cards Grid -->
+<section class="section" id="pricing-cards" style="background:#fff;">
+  <div class="container">
+    
+    <!-- Monthly Pricing Panels -->
+    <div id="pricing-monthly-panel">
+      <div class="pricing-grid">
+        <!-- Daily Pass -->
+        <div class="price-card reveal">
+          <div>
+            <div class="price-title">Daily Pass</div>
+            <div class="price-amt">$25<span>/day</span></div>
+            <p class="price-desc">Perfect for remote specialists needing a quiet, high-productivity space for a single business sprint.</p>
+            <ul class="price-features-list">
+              <li>Access: 8 AM – 6 PM</li>
+              <li>Shared Desk Lounge</li>
+              <li>Gigabit Wi-Fi Setup</li>
+              <li>Free Espresso & Tea</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-outline w-full" style="justify-content:center;">Book Day Pass</a>
+        </div>
+
+        <!-- Weekly Plan -->
+        <div class="price-card reveal">
+          <div>
+            <div class="price-title">Weekly Plan</div>
+            <div class="price-amt">$95<span>/week</span></div>
+            <p class="price-desc">Great option for business travelers or temporary digital nomads residing in town for the week.</p>
+            <ul class="price-features-list">
+              <li>Access: Mon – Fri, 8 AM – 8 PM</li>
+              <li>Flexible Hot Desking</li>
+              <li>2 Meeting Room Credits</li>
+              <li>Free Black-and-White Printing</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-outline w-full" style="justify-content:center;">Book Weekly Pass</a>
+        </div>
+
+        <!-- Monthly Membership (Recommended) -->
+        <div class="price-card featured reveal">
+          <span class="badge-featured">Most Popular</span>
+          <div>
+            <div class="price-title">Monthly Hot Desk</div>
+            <div class="price-amt">$199<span>/mo</span></div>
+            <p class="price-desc">Our flagship flexible option. Work from any open lounge seat across our four locations.</p>
+            <ul class="price-features-list">
+              <li>24/7 Keycard Access</li>
+              <li>Any Location Access</li>
+              <li>10 Meeting Room Credits</li>
+              <li>Member Network Invites</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-primary w-full" style="justify-content:center;">Subscribe Monthly</a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="price-card premium reveal">
+          <span class="badge-premium">Premium Suite</span>
+          <div>
+            <div class="price-title">Dedicated Desk</div>
+            <div class="price-amt">$349<span>/mo</span></div>
+            <p class="price-desc">Your own reserved desk with double-glazed partition, storage lockups, and business address registry.</p>
+            <ul class="price-features-list">
+              <li>24/7 Reserved Desk</li>
+              <li>Mailing Address License</li>
+              <li>15 Meeting Room Credits</li>
+              <li>Dedicated LAN Port</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-accent w-full" style="justify-content:center;">Subscribe Premium</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annual Pricing Panels (Hidden by default) -->
+    <div id="pricing-annual-panel" style="display:none;">
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <div>
+            <div class="price-title">Monthly Hot Desk</div>
+            <div class="price-amt">$159<span>/mo</span></div>
+            <p class="price-desc">Billed annually ($1,908). Save 20% compared to rolling monthly contracts.</p>
+            <ul class="price-features-list">
+              <li>24/7 Keycard Access</li>
+              <li>Any Location Access</li>
+              <li>12 Meeting Room Credits/mo</li>
+              <li>2 Guest Day Passes/mo</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-primary w-full" style="justify-content:center;">Subscribe Annually</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <span class="badge-featured">Best Value</span>
+          <div>
+            <div class="price-title">Dedicated Desk</div>
+            <div class="price-amt">$279<span>/mo</span></div>
+            <p class="price-desc">Billed annually ($3,348). Save $840 per year on your private workspace setup.</p>
+            <ul class="price-features-list">
+              <li>24/7 Reserved Desk</li>
+              <li>Mailing Address License</li>
+              <li>20 Meeting Room Credits/mo</li>
+              <li>5 Guest Day Passes/mo</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="btn btn-primary w-full" style="justify-content:center;">Subscribe Annually</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- [NEW SECTION 2] Day Pass Multi-Pack Bundles -->
+<section class="section section-alt" id="multipack-bundles">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Value Packs</div>
+      <h2>Flexible Multi-Day Pass Bundles</h2>
+      <p style="max-width:550px; margin:0 auto;">For hybrid professionals who only need space occasionally. Valid for up to 90 days from activation.</p>
+    </div>
+    <div class="grid-2col equal" style="gap:28px; max-width:800px; margin:0 auto; align-items:start;">
+      <div class="card reveal" style="padding:28px; background:#fff; text-align:center; border:1px solid var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">5-Day Flexible Pass</h4>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--text-dark); margin:12px 0;">$99</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Save $26 compared to buying individual day passes. Check in any 5 days within 90 days.</p>
+        <a href="booking.html" class="btn btn-outline" style="padding:8px 20px;">Buy 5-Pass Pack</a>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff; text-align:center; border:1px solid var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">10-Day Flexible Pass</h4>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--text-dark); margin:12px 0;">$179</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Save $71 compared to individual rates. Perfect for distributed staff operations.</p>
+        <a href="booking.html" class="btn btn-primary" style="padding:8px 20px;">Buy 10-Pass Pack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 3] Add-on Packs & Extra Amenities Store -->
+<section class="section" id="addons-store" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Extras</div>
+      <h2>Additional Workspace Add-on Packs</h2>
+      <p style="max-width:550px; margin:0 auto;">Customize your coworking plan with supplementary spatial utilities available monthly.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:20px; border-color:var(--border); text-align:center;">
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Mailing Address</h4>
+        <div style="color:var(--secondary); font-weight:bold; font-size:1.1rem; margin:8px 0;">$30/mo</div>
+        <p style="font-size:0.75rem; color:var(--text-muted);">Commercial registration business address with digital mail scanning options.</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border); text-align:center;">
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Personal Locker</h4>
+        <div style="color:var(--secondary); font-weight:bold; font-size:1.1rem; margin:8px 0;">$15/mo</div>
+        <p style="font-size:0.75rem; color:var(--text-muted);">Secure physical locker adjacent to your desk block for storing monitor screens.</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border); text-align:center;">
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Extra Meeting Hours</h4>
+        <div style="color:var(--secondary); font-weight:bold; font-size:1.1rem; margin:8px 0;">$20/hr</div>
+        <p style="font-size:0.75rem; color:var(--text-muted);">Book auxiliary conference space once your allocated credits expire.</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border); text-align:center;">
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Printing Allowance</h4>
+        <div style="color:var(--secondary); font-weight:bold; font-size:1.1rem; margin:8px 0;">$10/mo</div>
+        <p style="font-size:0.75rem; color:var(--text-muted);">Supplements 200 extra double-sided paper print sheets to your account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 4] Corporate & Enterprise Custom Packages -->
+<section class="section section-alt" id="enterprise-packages">
+  <div class="container grid-2col more-left">
+    <div>
+      <div class="section-tag">Enterprise Scale</div>
+      <h2>Tailored Office Solutions for Corporate Teams</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We design custom private layouts, dedicated entry access turnstiles, and compliance-level networking setups for enterprise squads of 15 to 100+ employees.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>🏢 <strong>White-labeled Floor Plans</strong> branded with your company logo.</li>
+        <li>🔒 <strong>Compliance-Grade Security</strong> - Dedicated server racks and CCTV feeds.</li>
+        <li>👔 <strong>SLA Account Director</strong> managing billing matrices across multiple branches.</li>
+      </ul>
+      <a href="mailto:enterprise@nexuscowork.com" class="btn btn-primary">Request Enterprise Pitch Deck</a>
+    </div>
+    <div>
+      <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Enterprise Workspace Office Layout" style="width:100%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Workspace Access Details Matrix -->
+<section class="section" id="access-details" style="background:#fff;">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal">
+      <div class="section-tag">Access Metrics</div>
+      <h2>Location Check-In & Availability Window</h2>
+      <p>Different categories have customized building access schedules. Plan your office hours accordingly.</p>
+    </div>
+    
+    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <div>
+          <strong style="color:var(--text-dark);">Daily Pass</strong>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Check in via front-desk barcodes.</p>
+        </div>
+        <span style="font-weight:700; color:var(--text-dark); font-size:0.9rem;">Weekdays (8 AM – 6 PM)</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <div>
+          <strong style="color:var(--text-dark);">Weekly Plan</strong>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Scan keypass barcodes at entry turnstiles.</p>
+        </div>
+        <span style="font-weight:700; color:var(--text-dark); font-size:0.9rem;">Mon–Sat (8 AM – 8 PM)</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong style="color:var(--text-dark);">Monthly & Premium Plans</strong>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Encrypted RFID cards or smartphone keycard loops.</p>
+        </div>
+        <span style="font-weight:700; color:var(--secondary); font-size:0.9rem;">24 / 7 / 365 Full Access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Startup Founder Offers -->
+<section class="section section-alt" id="founder-offers">
+  <div class="container grid-2col more-right">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Tech Founders Collaborating" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Founder Special</div>
+      <h2>20% Discount for VC-Backed Startups</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We partner with active accelerator organizations (Y-Combinator, Techstars, etc.) and VC networks. If your startup is early-stage or registered in partner platforms, you are eligible for corporate office grants.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>🚀 <strong>20% Off Team Office Suites</strong> scaling up to 12 desks.</li>
+        <li>🌐 <strong>Partner Credit Marketplace</strong> - $10k AWS cloud credits, 90% off HubSpot.</li>
+        <li>💡 <strong>Direct VC Office Hours</strong> - Pitch feedback with partner venture groups.</li>
+      </ul>
+      <a href="mailto:founders@nexuscowork.com" class="btn btn-primary">Apply for Founder Discount</a>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 5] Member Perks Marketplace -->
+<section class="section" id="perks-marketplace" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Ecosystem Integrations</div>
+      <h2>SaaS Partner Credits Marketplace</h2>
+      <p style="max-width:550px; margin:0 auto;">Members gain access to discounted tech subscriptions worth up to $15,000 annually.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; text-align:center;">
+      <div class="card reveal" style="padding:20px; border-color:var(--border);">
+        <strong style="color:var(--text-dark); display:block; font-size:1.1rem; margin-bottom:4px;">AWS Cloud</strong>
+        <p style="font-size:0.8rem; color:var(--success); font-weight:700;">$5,000 Free Credits</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border);">
+        <strong style="color:var(--text-dark); display:block; font-size:1.1rem; margin-bottom:4px;">HubSpot SaaS</strong>
+        <p style="font-size:0.8rem; color:var(--success); font-weight:700;">90% Off First Year</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border);">
+        <strong style="color:var(--text-dark); display:block; font-size:1.1rem; margin-bottom:4px;">Notion Teams</strong>
+        <p style="font-size:0.8rem; color:var(--success); font-weight:700;">6 Months Free Access</p>
+      </div>
+      <div class="card reveal" style="padding:20px; border-color:var(--border);">
+        <strong style="color:var(--text-dark); display:block; font-size:1.1rem; margin-bottom:4px;">Stripe Billing</strong>
+        <p style="font-size:0.8rem; color:var(--success); font-weight:700;">$20k Fee-Free Volume</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 6] Student & Academic Research Grants -->
+<section class="section section-alt" id="student-grants">
+  <div class="container grid-2col reverse">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=800&q=80" alt="Students Writing Code" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Scholarships</div>
+      <h2>Student & Academic Research Workspace Grants</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We support educational research and coding initiatives. If you are an active university researcher, graduate writer, or developer student, you can apply for discounted workspace credentials.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>🎓 <strong>30% Discount</strong> on monthly rolling hot-desk rates.</li>
+        <li>📚 <strong>Academic Group Deals</strong> - Cohort access setups for university incubators.</li>
+        <li>🔬 <strong>Quiet-Zone Priority</strong> for high-focus research writing cycles.</li>
+      </ul>
+      <a href="mailto:grants@nexuscowork.com" class="btn btn-outline">Apply for Research Discount</a>
+    </div>
+  </div>
+</section>
+
+<!-- Plan Feature Comparison Table -->
+<section class="section" id="plan-comparison" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Comparison</div>
+      <h2>Detailed Feature Comparison Matrix</h2>
+      <p style="max-width:550px; margin:0 auto;">Compare specifications, allowances, and access limits to find the best layout setup.</p>
+    </div>
+    <div class="glass-section reveal table-responsive">
+      <table class="data-table" style="min-width:700px; width:100%;">
+        <thead>
+          <tr>
+            <th>Workspace Feature</th>
+            <th>Daily Pass</th>
+            <th>Weekly Plan</th>
+            <th>Monthly Hot Desk</th>
+            <th>Dedicated Desk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Access Hours</strong></td>
+            <td>8 AM - 6 PM</td>
+            <td>8 AM - 8 PM</td>
+            <td>24/7 Access</td>
+            <td>24/7 Access</td>
+          </tr>
+          <tr>
+            <td><strong>Desk Type</strong></td>
+            <td>Lounge Float</td>
+            <td>Lounge Float</td>
+            <td>Lounge Float</td>
+            <td>Reserved Desk</td>
+          </tr>
+          <tr>
+            <td><strong>Meeting Room Credits</strong></td>
+            <td>None</td>
+            <td>2 Credits</td>
+            <td>10 Credits</td>
+            <td>15 Credits</td>
+          </tr>
+          <tr>
+            <td><strong>Locker Storage</strong></td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>$15/mo</td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td><strong>Business Address Registry</strong></td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>$30/mo</td>
+            <td>Included</td>
+          </tr>
+          <tr>
+            <td><strong>Network Ports</strong></td>
+            <td>Wi-Fi</td>
+            <td>Wi-Fi</td>
+            <td>Wi-Fi</td>
+            <td>Wi-Fi + LAN Port</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 7] Spatial Ergonomics & Seat Configurations -->
+<section class="section section-alt" id="spatial-ergonomics">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Ergonomic Specs</div>
+      <h2>Anatomical Seat Configuration Settings</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We design office layouts that prevent skeletal strain. Enjoy premium height-adjustable setups and active lumbar chairs throughout dedicated desks.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🪑 <strong>Herman Miller Aeron V2 Chairs</strong> configured on all dedicated desks.</li>
+        <li>⚡ <strong>Motorized Height-Adjustable Desks</strong> with custom memory presets.</li>
+        <li>🖥️ <strong>Dual Monitor Desk Arms</strong> holding screen monitors up to 34 inches.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Workspace Ergonomics" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 8] Refer-a-Founder Ambassador Program -->
+<section class="section" id="referral-program" style="background:#fff;">
+  <div class="container" style="max-width:800px; text-align:center;">
+    <div class="card reveal" style="padding:48px 40px; background:var(--bg-main); border:1px solid var(--border); box-shadow:var(--shadow);">
+      <div class="section-tag" style="margin-bottom:12px;">Earn Credits</div>
+      <h3 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">Refer a Founder, Get $100</h3>
+      <p style="color:var(--text-muted); max-width:550px; margin:0 auto 24px; font-size:0.95rem;">Know an early-stage startup looking for team offices or dedicated desk space? Refer them to NexusCowork. Upon their second month's renewal, you'll receive a $100 Amazon gift card or bill deductions.</p>
+      <a href="mailto:referrals@nexuscowork.com" class="btn btn-primary">Generate Referral Link</a>
+    </div>
+  </div>
+</section>
+
+<!-- Plan Feature Comparison Table -->
+<!-- Plan Validity & Subscription Details -->
+<section class="section section-alt" id="subscription-details">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Subscription Specs</div>
+      <h2>No Hidden Signup Costs. Clear Refund Agreements.</h2>
+      <p style="max-width:550px; margin:0 auto;">We believe in absolute operational clarity. Review our standard contract agreements below.</p>
+    </div>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:28px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Flexible Monthly Rolling</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">All standard hot desk plans are on month-to-month contracts. Cancel your contract 7 days before renewal via user dashboard with zero fees.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Zero Onboarding Cost</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">We charge no administrative setup fees or keycard replacement penalties. Pay your first month's billing and start code shipping immediately.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Simple Billing Portability</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Relocating? Swap your designated home location to any other city branch dynamically via billing adjustments on the member app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 9] Guest Pass Rules & Policy Guide -->
+<section class="section" id="guest-policy" style="background:#fff;">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal">
+      <div class="section-tag">Visitor Terms</div>
+      <h2>Guest Invitation & Visitor Policies</h2>
+      <p>Clear rules governing client presence, desk allocation limitations, and presentation suite access rules.</p>
+    </div>
+    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:16px;">
+      <p style="font-size:0.95rem; color:var(--text); line-height:1.6;"><strong>1. Maximum Guest Limits</strong>: Standard hot desk plans are allowed one visitor on the desk floor for up to two hours daily. Larger client cohorts must be hosted in booked meeting spaces.</p>
+      <p style="font-size:0.95rem; color:var(--text); line-height:1.6;"><strong>2. Reception Registries</strong>: All guests must scan their digital invite barcodes at the front gate terminal. Hosts will receive SMS notifications immediately upon check-in.</p>
+      <p style="font-size:0.95rem; color:var(--text); line-height:1.6;"><strong>3. Lounge Amenities</strong>: Registered visitors gain free access to micro-roasted coffee and Wi-Fi networks during their allocated guest hour windows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 10] Plan Upgrade/Downgrade Workflows -->
+<section class="section section-alt" id="upgrade-workflows">
+  <div class="container grid-2col equal">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=800&q=80" alt="Desk Upgrade Visual" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Contract Adjustments</div>
+      <h2>Seamless Plan Upgrade & Downgrade Steps</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Scale your desk counts or downsize team office footprints in real time. We calculate billing prorated adjustments automatically with zero overlap fee penalties.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>✓ <strong>Immediate Upgrades</strong>: Upgrade your hot desk to dedicated spaces mid-month instantly.</li>
+        <li>✓ <strong>Downgrade Notice</strong>: 7-day notice period required before your monthly billing renewal date.</li>
+        <li>✓ <strong>Prorated Credits</strong>: Unused meeting room credits remain valid until the end of that current monthly cycle.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section" id="membership-faq" style="background:#fff;">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal" style="margin-bottom:40px;">
+      <div class="section-tag">Questions</div>
+      <h2>Frequently Asked Questions</h2>
+      <p>Clear guidance regarding memberships, access credentials, and guest allowances.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Can I bring guests with a Hot Desk membership?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Monthly Hot Desk members receive 2 guest day passes per month. Additional guests can enter using meeting room credits or buying daily visitor passes.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">How do meeting room credits work?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Every credit equals one hour in our huddle rooms. Credits renew monthly and do not roll over to the next billing cycle.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">What is the notice period for corporate office cancellations?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">For team office suites of 6+ desks, we request a 30-day notice period. Day passes and weekly plans expire automatically with no renewal action required.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action -->
+<section class="section section-alt">
+  <div class="glass-section reveal" style="text-align:center;">
+    <h2 style="font-family:var(--font-head); font-size:1.8rem; font-weight:700; margin-bottom:12px;">Ready to Elevate Your Workspace?</h2>
+    <p style="color:var(--text-muted); margin-bottom:24px; max-width:500px; margin:0 auto 24px;">Tour our facilities, meet the local founders, and select the optimal plan for your workflow.</p>
+    <a href="booking.html" class="btn btn-primary">Book a Free Tour</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </div>
+      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Spaces</h4>
+      <ul>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+        <li><a href="virtualoffice.html">Virtual Office</a></li>
+        <li><a href="availability.html">Availability Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events Grid</a></li>
+        <li><a href="dashboard.html">Member Portal</a></li>
+        <li><a href="admin.html">Admin Console</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 123 Innovation Street</a></li>
+        <li><a href="#">📞 +1 (555) 000-0000</a></li>
+        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
+        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCowork. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      <a href="#" class="social-link" aria-label="Instagram">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Simple interval toggle script
+  function toggleInterval(type) {
+    const monthlyBtn = document.getElementById('btn-monthly');
+    const annualBtn = document.getElementById('btn-annual');
+    const monthlyPanel = document.getElementById('pricing-monthly-panel');
+    const annualPanel = document.getElementById('pricing-annual-panel');
+
+    if (type === 'monthly') {
+      monthlyBtn.classList.add('active');
+      annualBtn.classList.remove('active');
+      monthlyPanel.style.display = 'block';
+      annualPanel.style.display = 'none';
+    } else {
+      monthlyBtn.classList.remove('active');
+      annualBtn.classList.add('active');
+      monthlyPanel.style.display = 'none';
+      annualPanel.style.display = 'block';
+    }
+  }
+
+  // Interactive Pricing Calculator Script
+  function calculateTeamPrice() {
+    const seats = parseInt(document.getElementById('team-slider').value);
+    const displaySeats = document.getElementById('calc-team-display');
+    const displaySetup = document.getElementById('calc-setup-display');
+    const displayTotal = document.getElementById('calc-total-display');
+
+    displaySeats.textContent = seats + (seats === 1 ? ' Seat' : ' Seats');
+
+    let setup = '';
+    let total = 0;
+
+    if (seats === 1) {
+      setup = 'Monthly Hot Desk';
+      total = 199;
+    } else if (seats <= 4) {
+      setup = 'Dedicated Desk Cluster';
+      total = 349 * seats;
+    } else if (seats <= 12) {
+      setup = 'Private Cabin Setup';
+      total = 799 * Math.ceil(seats / 4);
+    } else {
+      setup = 'Custom Enterprise Suite';
+      total = 1200 * Math.ceil(seats / 6);
+    }
+
+    displaySetup.textContent = setup;
+    displayTotal.textContent = '$' + total.toFixed(2) + '/mo';
+  }
+
+  // Run calculation on init
+  calculateTeamPrice();
+</script>
+</body>
+</html>

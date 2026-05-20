@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — NexusCowork</title>
+  <meta name="description" content="NexusCowork super-administrator control panel. Manage users, track real-time occupancy, and generate reports." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-badge {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+    .action-btn {
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .search-bar input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Warning System Callouts */
+    .admin-warning-banner {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Visual occupancy bars */
+    .occupancy-tracker-bar {
+      background: var(--border);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .occupancy-tracker-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Chart style */
+    .chart-bar-admin {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 120px;
+      margin-top: 16px;
+    }
+    @media (max-width: 1024px) {
+      .chart-bar-admin { height: 100px; gap: 8px; }
+    }
+    @media (max-width: 768px) {
+      .chart-bar-admin { height: 80px; gap: 6px; margin-top: 12px; }
+    }
+    @media (max-width: 480px) {
+      .chart-bar-admin { height: 60px; gap: 4px; margin-top: 8px; }
+    }
+    .chart-bar-admin > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-admin {
+      width: 70%;
+      max-width: 24px;
+      background: linear-gradient(180deg, var(--secondary), rgba(79, 70, 229, 0.3));
+      border-radius: 4px 4px 0 0;
+      position: relative;
+    }
+    .bar-admin-label {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .admin-tab-panel {
+      display: none;
+    }
+    .admin-tab-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+    <span class="admin-badge">ADMIN</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">← Public Site</a></li>
+    <li><a href="dashboard.html">Member Portal</a></li>
+    <li><a href="admin.html" class="nav-cta">Admin Panel</a></li>
+  </ul>
+</nav>
+
+<div class="dash-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <div style="width:48px; height:48px; background:linear-gradient(135deg,#ef4444,var(--accent)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:10px; color:#fff;">🛡️</div>
+      <div>
+        <div style="font-weight:600; font-size:0.95rem;">Admin Console</div>
+        <div style="font-size:0.8rem; color:var(--text-muted);">Super Administrator</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#tab-overview" class="active" onclick="switchAdminTab(this, 'tab-overview')"><span class="icon">📊</span> Overview</a>
+      <a href="#tab-users" onclick="switchAdminTab(this, 'tab-users')"><span class="icon">👥</span> User Management</a>
+      <a href="#tab-bookings" onclick="switchAdminTab(this, 'tab-bookings')"><span class="icon">📅</span> Bookings Queue</a>
+      <a href="#tab-monitoring" onclick="switchAdminTab(this, 'tab-monitoring')"><span class="icon">🏢</span> Space Monitoring</a>
+      <a href="#tab-reports" onclick="switchAdminTab(this, 'tab-reports')"><span class="icon">📈</span> Reports & Analytics</a>
+      <a href="#tab-settings" onclick="switchAdminTab(this, 'tab-settings')"><span class="icon">⚙️</span> Settings</a>
+      <a href="#" onclick="handleLogout(event)"><span class="icon">🚪</span> Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Tabs -->
+  <main class="dash-content">
+
+    <!-- System Alert Notification Bar -->
+    <div class="admin-warning-banner reveal">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:1.3rem;">🚨</span>
+        <div>
+          <strong style="color:var(--text-dark); font-size:0.9rem;">Attention Required</strong>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">There are <strong>2 pending user approvals</strong> and <strong>1 huddle room scheduling conflict</strong> awaiting reviews.</p>
+        </div>
+      </div>
+      <button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem; border-color:#ef4444; color:#ef4444;" onclick="switchAdminTab(document.querySelector('.sidebar-nav a[href=\'#tab-bookings\']'), 'tab-bookings')">Review Queue</button>
+    </div>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="tab-overview" class="admin-tab-panel active">
+      <div class="dash-header reveal">
+        <h1>Admin Dashboard 🛡️</h1>
+        <p>Full control over members, spaces, events, and billing.</p>
+      </div>
+
+      <!-- Modern Dashboard Stat Cards -->
+      <div class="dash-grid reveal" style="margin-bottom:28px;">
+        <div class="dash-stat">
+          <div class="dash-stat-icon blue">👥</div>
+          <div><h3>512 Members</h3><p>Total Registered</p></div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-icon orange">📅</div>
+          <div><h3>84 Bookings</h3><p>This Month</p></div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-icon green">💰</div>
+          <div><h3>$42,180</h3><p>Monthly Revenue</p></div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-icon purple">🏢</div>
+          <div><h3>12 Active</h3><p>Meeting Rooms</p></div>
+        </div>
+      </div>
+
+      <!-- Occupancy & Pending approval quick links -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-bottom:32px;" class="reveal">
+        <div class="card" style="padding:20px; background:#fff;">
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">Live Desk Occupancy</span>
+          <strong style="font-size:1.6rem; color:var(--success); display:block; margin-top:4px;">78%</strong>
+          <div class="occupancy-tracker-bar"><div class="occupancy-tracker-fill" style="width:78%; background:var(--success);"></div></div>
+        </div>
+        <div class="card" style="padding:20px; background:#fff;">
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">Support Desk Queue</span>
+          <strong style="font-size:1.6rem; color:#ef4444; display:block; margin-top:4px;">3 Tickets</strong>
+        </div>
+        <div class="card" style="padding:20px; background:#fff;">
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">Refund Requests</span>
+          <strong style="font-size:1.6rem; color:var(--accent); display:block; margin-top:4px;">$620 Pending</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: USER MANAGEMENT -->
+    <div id="tab-users" class="admin-tab-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+        <h2 style="font-family:var(--font-head); font-size:1.25rem; font-weight:800; color:var(--text-dark);">👥 User Management</h2>
+        <button class="btn btn-primary action-btn" onclick="showToast('Create user dialog initiated!','info')">+ Add User Record</button>
+      </div>
+
+      <div class="search-bar">
+        <input type="text" class="form-control" placeholder="Search members by name, email, or company..." />
+        <select class="form-control" style="max-width:160px;">
+          <option>All Plans</option>
+          <option>Hot Desk</option>
+          <option>Dedicated Desk</option>
+          <option>Private Office</option>
+        </select>
+        <button class="btn btn-primary">Search</button>
+      </div>
+
+      <div class="glass-section table-responsive">
+        <table class="data-table" style="min-width:700px;">
+          <thead>
+            <tr>
+              <th>Member Details</th>
+              <th>Plan</th>
+              <th>Status</th>
+              <th>Joined Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; background:linear-gradient(135deg,var(--secondary),var(--accent)); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.8rem; font-weight:700;">JD</div>
+                  <div><strong>John Doe</strong><div style="font-size:0.75rem; color:var(--text-muted);">john.doe@company.com</div></div>
+                </div>
+              </td>
+              <td><span class="badge badge-info">Hot Desk</span></td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td>Jan 15, 2025</td>
+              <td>
+                <button class="btn btn-outline action-btn" onclick="showToast('Editing user details...','info')">Edit</button>
+                <button class="btn action-btn" style="background:#FDE8E8; color:#9B1C1C; border:1px solid #F8B4B4;" onclick="showToast('User John Doe suspended.','error')">Suspend</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:32px; height:32px; background:linear-gradient(135deg,var(--success),var(--secondary)); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.8rem; font-weight:700;">SC</div>
+                  <div><strong>Sarah Chen</strong><div style="font-size:0.75rem; color:var(--text-muted);">sarah@chenlabs.io</div></div>
+                </div>
+              </td>
+              <td><span class="badge badge-success">Private Office</span></td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td>Mar 02, 2025</td>
+              <td>
+                <button class="btn btn-outline action-btn" onclick="showToast('Editing user details...','info')">Edit</button>
+                <button class="btn action-btn" style="background:#FDE8E8; color:#9B1C1C; border:1px solid #F8B4B4;" onclick="showToast('User Sarah Chen suspended.','error')">Suspend</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: BOOKINGS QUEUE -->
+    <div id="tab-bookings" class="admin-tab-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+        <h2 style="font-family:var(--font-head); font-size:1.25rem; font-weight:800; color:var(--text-dark);">📅 Booking Approvals & Queue</h2>
+        <button class="btn btn-outline action-btn" onclick="showToast('CSV database logs exported!','success')">Export Bookings</button>
+      </div>
+
+      <div class="glass-section table-responsive">
+        <table class="data-table" style="min-width:700px;">
+          <thead>
+            <tr>
+              <th>Booking ID</th>
+              <th>Member</th>
+              <th>Requested Space</th>
+              <th>Date / Time</th>
+              <th>Total Value</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#BK-1044</td>
+              <td>Marcus Rivera</td>
+              <td>Conference Room A</td>
+              <td>May 23, 2025 (2:00 PM)</td>
+              <td>$90.00</td>
+              <td><span class="badge badge-warning">Pending Approval</span></td>
+              <td>
+                <button class="btn btn-primary action-btn" onclick="showToast('Marcus Rivera reservation approved!','success')">Approve</button>
+                <button class="btn action-btn" style="background:#FDE8E8; color:#9B1C1C; border:1px solid #F8B4B4;" onclick="showToast('Reservation rejected.','error')">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>#BK-1042</td>
+              <td>John Doe</td>
+              <td>Hot Desk D12</td>
+              <td>May 21, 2025 (All Day)</td>
+              <td>$25.00</td>
+              <td><span class="badge badge-success">Confirmed</span></td>
+              <td>
+                <button class="btn btn-outline action-btn" style="color:#ef4444; border-color:#ef4444;" onclick="showToast('Booking #BK-1042 cancelled.','error')">Cancel Booking</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 4: SPACE MONITORING -->
+    <div id="tab-monitoring" class="admin-tab-panel">
+      <h2 style="font-family:var(--font-head); font-size:1.25rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">🏢 Live Workspace Monitoring & Allocation</h2>
+
+      <div class="grid-2col equal" style="gap:32px; align-items:start;">
+        <!-- Space Allocations Controls -->
+        <div class="card" style="padding:28px; background:#fff; border-color:var(--border);">
+          <strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:16px;">Active Allocation Limits</strong>
+          
+          <div class="form-group">
+            <label>Interactive Checkout Desk Hold Timeout (Minutes)</label>
+            <input type="number" class="form-control" value="10" />
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <label>Maximum Desk Occupancy Threshold (%)</label>
+            <input type="number" class="form-control" value="85" />
+          </div>
+          <div class="form-group" style="margin-top:16px;">
+            <label>Live Sensor Heatmap Refresh Interval (Seconds)</label>
+            <input type="number" class="form-control" value="30" />
+          </div>
+          <button class="btn btn-primary" style="margin-top:20px;" onclick="showToast('Allocation controls updated!','success')">Save Threshold Rules</button>
+        </div>
+
+        <!-- Sensor Status Monitors -->
+        <div class="card" style="padding:28px; background:#fff; border-color:var(--border);">
+          <strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:16px;">Turnstile Sensor Checks</strong>
+          <div style="display:flex; flex-direction:column; gap:16px; font-size:0.85rem;">
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom:8px;">
+              <span>Floor 1 Turnstile gate</span>
+              <strong style="color:var(--success);">● Active (328 Enters today)</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom:8px;">
+              <span>Quiet Zone Decibel Sensor</span>
+              <strong style="color:var(--success);">● Active (32 dB average)</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span>Kitchen Coffee Sensor</span>
+              <strong style="color:var(--accent);">⚠️ Refill needed soon</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: REPORTS & ANALYTICS -->
+    <div id="tab-reports" class="admin-tab-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+        <h2 style="font-family:var(--font-head); font-size:1.25rem; font-weight:800; color:var(--text-dark);">📈 Reports & Analytics</h2>
+        <button class="btn btn-primary action-btn" onclick="showToast('PDF revenue report generated!','success')">Generate PDF Summary</button>
+      </div>
+
+      <div class="grid-2col more-left" style="gap:32px; align-items:start;">
+        <!-- Occupancy Spikes Chart -->
+        <div class="glass-section" style="background:#fff;">
+          <strong style="color:var(--text-dark); font-size:0.95rem;">Weekly Peak Occupancy Rate Trends</strong>
+          <div class="chart-bar-admin">
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar-admin" style="height:60%;"></div><span class="bar-admin-label">Mon</span></div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar-admin" style="height:82%;"></div><span class="bar-admin-label">Tue</span></div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar-admin" style="height:76%;"></div><span class="bar-admin-label">Wed</span></div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar-admin" style="height:90%;"></div><span class="bar-admin-label">Thu</span></div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar-admin" style="height:45%;"></div><span class="bar-admin-label">Fri</span></div>
+          </div>
+        </div>
+
+        <!-- Revenue Stats -->
+        <div class="card" style="padding:24px; background:#fff; border-color:var(--border);">
+          <strong style="color:var(--text-dark); font-size:0.95rem; display:block; margin-bottom:16px;">Billing Revenue Details</strong>
+          <div style="display:flex; flex-direction:column; gap:12px; font-size:0.9rem;">
+            <div style="display:flex; justify-content:space-between;">
+              <span class="text-muted">Total Billing Collected:</span>
+              <strong style="color:var(--success);">$42,180.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span class="text-muted">Refunds Settled:</span>
+              <strong style="color:#ef4444;">$620.00</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span class="text-muted">Pending Invoice Totals:</span>
+              <strong style="color:var(--accent);">$3,400.00</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: SETTINGS -->
+    <div id="tab-settings" class="admin-tab-panel">
+      <h2 style="font-family:var(--font-head); font-size:1.25rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">⚙️ Site Settings</h2>
+      
+      <div class="glass-section" style="background:#fff;">
+        <div class="form-row">
+          <div class="form-group"><label>Space Name</label><input type="text" class="form-control" value="NexusCowork" /></div>
+          <div class="form-group"><label>Contact Email</label><input type="email" class="form-control" value="hello@nexuscowork.com" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Opening Hours</label><input type="text" class="form-control" value="Mon–Sat, 8:00 AM – 10:00 PM" /></div>
+          <div class="form-group"><label>Default Timezone</label><select class="form-control"><option>UTC−05:00 Eastern</option><option>UTC+05:30 IST</option></select></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:20px;" onclick="showToast('Global settings saved successfully!','success')">💾 Save Settings</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer></footer>
+
+<script src="script.js"></script>
+<script>
+  function switchAdminTab(btn, tabId) {
+    // Toggle active classes on side nav links
+    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Toggle active panels
+    document.querySelectorAll('.admin-tab-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  // Enforce admin authentication
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = Store.get('cowork_user');
+    if (!user || user.email.toLowerCase() !== 'admin@nexuscowork.com') {
+      showToast('Administrator access required. Redirecting...', 'error');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    }
+  });
+</script>
+</body>
+</html>

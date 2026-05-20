@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Space — NexusCowork</title>
+  <meta name="description" content="Book a hot desk, private office, or meeting room at NexusCowork. Real-time visual seat map, filters, and instant confirmation." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .booking-container {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .booking-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Workspace Filters */
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      background: #EEF2FF;
+    }
+
+    /* Seat Layout Preview */
+    .layout-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+    }
+    .layout-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .layout-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+    .legend-dot.free { background: rgba(16, 185, 129, 0.15); border-color: #86EFAC; }
+    .legend-dot.occupied { background: #F3F4F6; border-color: transparent; }
+    .legend-dot.selected { background: var(--secondary); border-color: var(--secondary); }
+
+    /* Map Grid */
+    .map-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 250px;
+      align-items: center;
+      justify-items: center;
+    }
+    @media (max-width: 1024px) {
+      .map-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 20px; }
+    }
+    @media (max-width: 768px) {
+      .map-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 16px; min-height: 200px; }
+    }
+    @media (max-width: 600px) {
+      .map-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; min-height: 150px; }
+    }
+    @media (max-width: 480px) {
+      .map-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 8px; }
+    }
+    .map-item {
+      width: 100%;
+      max-width: 50px;
+      aspect-ratio: 1;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      user-select: none;
+    }
+    .map-item.free {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: #86EFAC;
+      color: var(--success);
+    }
+    .map-item.free:hover {
+      background: rgba(16, 185, 129, 0.15);
+      transform: scale(1.05);
+    }
+    .map-item.occupied {
+      background: #E5E7EB;
+      border-color: transparent;
+      color: #9CA3AF;
+      cursor: not-allowed;
+    }
+    .map-item.selected {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+    }
+
+    /* Time Selector */
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .time-slot {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: all var(--transition);
+    }
+    .time-slot:hover, .time-slot.selected {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      background: #EEF2FF;
+    }
+
+    /* Summary Side Panel */
+    .booking-summary-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    .summary-total {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+    <li><a href="virtualoffice.html">Virtual Office</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="availability.html">Availability</a></li>
+    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="booking-hero" style="min-height:45vh;">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span class="dot"></span> Real-Time Layout Planner</div>
+  <h1>Reserve Your <span class="highlight">Workspace</span></h1>
+  <p>Select your workspace filter, pick a date, choose your exact desk visually, and secure instant confirmation.</p>
+</section>
+
+<!-- [NEW SECTION 1] First-Time Day Pass Voucher Offer Banner -->
+<section class="section" id="daypass-promo" style="padding: 20px 5%; background:#fff;">
+  <div class="container">
+    <div style="background:var(--bg-tint-2); border:1px solid rgba(194, 65, 12, 0.15); border-radius:var(--radius); padding:16px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:1.5rem;">🎁</span>
+        <div>
+          <h4 style="color:var(--text-dark); font-weight:700; font-size:0.95rem;">First Time Booking? Use code FIRSTDAY for 15% Off</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Enter this coupon code in the billing summary to claim your introductory discount.</p>
+        </div>
+      </div>
+      <button class="btn btn-outline" style="padding:8px 16px; font-size:0.85rem;" onclick="applyPromo()">Apply Code</button>
+    </div>
+  </div>
+</section>
+
+<!-- Main Reservation Section -->
+<section class="section section-alt">
+  <div class="booking-container">
+    
+    <!-- Left Workspace Selector & Preview -->
+    <div>
+      <!-- Workspace Filters -->
+      <div class="filter-bar">
+        <button type="button" class="filter-btn active" onclick="switchFilter('hot-desk')">Hot Desks</button>
+        <button type="button" class="filter-btn" onclick="switchFilter('dedicated-desk')">Dedicated Desks</button>
+        <button type="button" class="filter-btn" onclick="switchFilter('private-cabin')">Private Cabins</button>
+        <button type="button" class="filter-btn" onclick="switchFilter('meeting-room')">Meeting Rooms</button>
+      </div>
+
+      <!-- Workspace layout preview -->
+      <div class="layout-card">
+        <div class="layout-header">
+          <h3 style="font-family:var(--font-head); font-weight:700; color:var(--text-dark); font-size:1.15rem;">Workspace Visual Layout</h3>
+          <div class="layout-legend">
+            <div class="legend-item"><span class="legend-dot free"></span> Available</div>
+            <div class="legend-item"><span class="legend-dot occupied"></span> Occupied</div>
+            <div class="legend-item"><span class="legend-dot selected"></span> Selected</div>
+          </div>
+        </div>
+
+        <div id="workspace-map" class="map-grid">
+          <!-- Desks will be dynamically generated by JS -->
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:12px; text-align:center;">💡 Click on any green available cell to select your desk space.</p>
+      </div>
+
+      <!-- Date & Time Form Details -->
+      <div class="layout-card">
+        <h3 style="font-family:var(--font-head); font-weight:700; color:var(--text-dark); font-size:1.15rem; margin-bottom:20px;">Date & Time Selection</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-date">Choose Date *</label>
+            <input type="date" id="booking-date" class="form-control" required onchange="handleDateChange()" />
+          </div>
+          <div class="form-group">
+            <label for="booking-duration">Usage Duration *</label>
+            <select id="booking-duration" class="form-control" onchange="handleDurationChange()">
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="4">Half Day (4 Hours)</option>
+              <option value="8" selected>Full Day (8 Hours)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:16px;">
+          <label>Select Arrival Time Slot *</label>
+          <div class="time-grid" id="time-grid">
+            <div class="time-slot selected" onclick="selectTime(this, '08:00 AM')">08:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this, '09:00 AM')">09:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this, '10:00 AM')">10:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this, '11:00 AM')">11:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this, '12:00 PM')">12:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this, '01:00 PM')">01:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this, '02:00 PM')">02:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this, '03:00 PM')">03:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this, '04:00 PM')">04:00 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Booking Form & Summary Panel -->
+    <div>
+      <div class="booking-summary-panel">
+        <h3 style="font-family:var(--font-head); font-weight:700; color:var(--text-dark); margin-bottom:20px; font-size:1.2rem;">Reservation Summary</h3>
+        
+        <div class="summary-row">
+          <span class="text-muted">Space Type</span>
+          <span id="summary-type" style="font-weight:600; color:var(--text-dark);">Hot Desk</span>
+        </div>
+        <div class="summary-row">
+          <span class="text-muted">Selected Desk</span>
+          <span id="summary-seat" style="font-weight:600; color:var(--secondary);">Desk #03</span>
+        </div>
+        <div class="summary-row">
+          <span class="text-muted">Date</span>
+          <span id="summary-date" style="font-weight:600; color:var(--text-dark);">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="text-muted">Arrival Time</span>
+          <span id="summary-time" style="font-weight:600; color:var(--text-dark);">08:00 AM</span>
+        </div>
+        <div class="summary-row">
+          <span class="text-muted">Duration</span>
+          <span id="summary-duration" style="font-weight:600; color:var(--text-dark);">Full Day (8 Hours)</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>Total Cost</span>
+          <span id="summary-total" style="color:var(--secondary); font-size:1.25rem;">$25.00</span>
+        </div>
+
+        <form id="details-form" onsubmit="submitReservation(event)" style="margin-top:24px;">
+          <div class="form-group">
+            <label for="user-name">Full Name *</label>
+            <input type="text" id="user-name" class="form-control" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="user-email">Email Address *</label>
+            <input type="email" id="user-email" class="form-control" placeholder="john@company.com" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-full" style="justify-content:center; padding:14px 0; margin-top:8px;">
+            🚀 Confirm Workspace Booking
+          </button>
+        </form>
+        
+        <p style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:16px;">
+          🔒 Fully encrypted transaction. Free cancellations 24 hours prior.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- [NEW SECTION 2] Real-time Occupancy & Peak Hours Tracker -->
+<section class="section" id="occupancy-tracker" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Crowd Trends</div>
+      <h2>Real-Time Occupancy & Peak Hours</h2>
+      <p style="max-width:550px; margin:0 auto;">Plan your arrival for optimal focus. Here is our average branch activity level by time of day.</p>
+    </div>
+    
+    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px; display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap:16px; text-align:center;">
+      <div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">08:00 AM - 10:00 AM</span>
+        <div style="height:10px; background:#EEF2FF; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+          <div style="width:25%; height:100%; background:var(--success);"></div>
+        </div>
+        <strong style="font-size:0.9rem; color:var(--success);">Quiet (25%)</strong>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">10:00 AM - 01:00 PM</span>
+        <div style="height:10px; background:#EEF2FF; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+          <div style="width:75%; height:100%; background:var(--purple);"></div>
+        </div>
+        <strong style="font-size:0.9rem; color:var(--purple);">Moderate (75%)</strong>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">01:00 PM - 04:00 PM</span>
+        <div style="height:10px; background:#EEF2FF; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+          <div style="width:90%; height:100%; background:var(--secondary);"></div>
+        </div>
+        <strong style="font-size:0.9rem; color:var(--secondary);">Peak (90%)</strong>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">04:00 PM - 07:00 PM</span>
+        <div style="height:10px; background:#EEF2FF; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+          <div style="width:50%; height:100%; background:var(--success);"></div>
+        </div>
+        <strong style="font-size:0.9rem; color:var(--success);">Steady (50%)</strong>
+      </div>
+      <div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">07:00 PM - 10:00 PM</span>
+        <div style="height:10px; background:#EEF2FF; border-radius:10px; overflow:hidden; margin-bottom:8px;">
+          <div style="width:15%; height:100%; background:var(--success);"></div>
+        </div>
+        <strong style="font-size:0.9rem; color:var(--success);">Quiet (15%)</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 3] Workspace Technical Specifications -->
+<section class="section section-alt" id="technical-specs">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Specifications</div>
+      <h2>Technical Infrastructure Inclusions</h2>
+      <p style="max-width:550px; margin:0 auto;">Designed to accommodate remote software engineering teams and corporate data compliance.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Ethernet Port Access</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Dedicated CAT-6 Ethernet plug ports directly under every desk, delivering redundant fiber connections with auto-failover safeguards.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Power Outlet Densities</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Two multi-pin international AC socket plugs, a fast-charging USB-A socket, and a 65W USB-C PD slot integrated on each work surface.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:12px;">Wireless Presentation Screens</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">All meeting room hubs include integrated Apple AirPlay 2, Chromecast, and HDMI setups for split-second layout screens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 4] Interactive Virtual Tour & Photo Highlights -->
+<section class="section" id="space-highlights" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Visuals</div>
+      <h2>Tour Our Modern Office Interiors</h2>
+      <p style="max-width:550px; margin:0 auto;">Take a quick look at the physical spaces you are booking today.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Hot Desks Floor Plan" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=400&q=80" alt="Dedicated Coding Spaces" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80" alt="Sound-Proof Private Cabins" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=400&q=80" alt="Acoustic Conference Rooms" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 5] Catering & Beverage Packages -->
+<section class="section section-alt" id="catering-packages">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">In-House Dining</div>
+      <h2>Optional Food & Catering Add-ons</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Make your corporate training runs or client panels seamless. Simply select catering check-boxes during summary setup, and our staff handles it all.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>☕ <strong>Continuous Espresso Roast</strong> ($10/person) - Bottomless barista lattes, teas, and pastries.</li>
+        <li>🍱 <strong>Premium Bento Lunch Box</strong> ($25/person) - Healthy options (Vegan/Keto/Gluten-Free) prepared fresh.</li>
+        <li>🍇 <strong>Fruit & Cheese Boards</strong> ($45/platter) - Shared platters for meeting room breaks.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Barista Services" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 6] Booking Guidelines & Workspace Rules -->
+<section class="section" id="workspace-rules" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Guidelines</div>
+      <h2>Shared Space Guidelines</h2>
+      <p style="max-width:550px; margin:0 auto;">To ensure a comfortable, high-productivity environment for all builders, we enforce minor floor guidelines.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:24px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">🔇 Focus Acoustics</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Please route voice calls to phone booths. Quiet hours are active on standard desk rows from 9am to 6pm daily.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">👔 Guest Registration</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Visitors must check in at the reception deck. Hot-desk users are allowed 1 guest for up to two hours daily.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">☕ Kitchen Courtesy</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Workspace kitchen cups, mugs, and plates are fully self-service. Return cutlery to active dishwashers after meals.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border-color:var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">🐶 Service Pets Only</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Authorized, clean service animals are welcome. General pet registry options vary by district branch regulations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 7] Enterprise Group Bookings -->
+<section class="section section-alt" id="enterprise-group">
+  <div class="container grid-2col more-right">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Corporate Desk Configurations" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Corporate Teams</div>
+      <h2>Enterprise Desk Clusters & Offsites</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Booking office setups for large cohorts? We configure physical desk clusters and separate private networks for teams of 10 to 50.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:24px;">
+        <li>🛡️ <strong>Custom SLA Networks</strong> with dedicated firewall configurations.</li>
+        <li>🏢 <strong>White-labeled Office Signage</strong> identifying your team block on the floor.</li>
+        <li>👔 <strong>Dedicated Community Host</strong> coordinating guest registration and meal catering.</li>
+      </ul>
+      <a href="mailto:corporate@nexuscowork.com" class="btn btn-primary">Inquire About Group Rates</a>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 8] Reciprocal Access Networks -->
+<section class="section" id="reciprocal-access" style="background:#fff;">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Unified Card Access</div>
+      <h2>Multi-Branch Reciprocal Day Passes</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Reserving a desk here opens doors elsewhere. Active NexusCowork memberships include complimentary day passes to our other city branches.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>📍 <strong>Downtown, Tech District, and Waterfront</strong> locations are all included.</li>
+        <li>📱 <strong>Unified Member ID</strong> - Scan your existing reservation barcode at any terminal.</li>
+        <li>💼 <strong>Dynamic Desk Transfer</strong> - Swap your booking location with 12 hours notice.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Alternative Branch Layouts" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 9] Member Testimonials & Success Stories -->
+<section class="section section-alt" id="booking-testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Testimonials</div>
+      <h2>Frictionless Reservation Stories</h2>
+      <p style="max-width:550px; margin:0 auto;">Hear from active specialists who use our flexible map booking system every week.</p>
+    </div>
+    <div class="grid-2col equal" style="gap:28px; align-items:start;">
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:16px;">"The live visual map is brilliant. I can select desk #04 next to the window every Tuesday. I know exactly where my team sits, and the failover wifi speeds are incredible."</p>
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Jordan Ross</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Senior Software Architect, ScaleX</p>
+      </div>
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:16px;">"Booking client presentation suites takes less than a minute. The catering options (espresso setups) make our quarterly client board reviews extremely professional."</p>
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Nadia Vance</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Creative Principal, DesignWorks</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 10] Booking & Billing Specific FAQs -->
+<section class="section" id="booking-faq" style="background:#fff;">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal" style="margin-bottom:40px;">
+      <div class="section-tag">FAQ Panel</div>
+      <h2>Reservation & Invoicing FAQ</h2>
+      <p>Answers to specific questions regarding cancellations, payments, and invoices.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Can I cancel my day reservation for a refund?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Cancellations made at least 24 hours prior to your scheduled check-in time will receive a full refund. Cancellations under 24 hours are eligible for booking credit adjustments.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Do you generate custom corporate tax invoices?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Custom corporate tax receipts (containing company VAT/tax IDs) are generated automatically and emailed immediately upon check-out.</p>
+      </details>
+      <details class="card reveal" style="padding:20px; background:#F9FAFB; cursor:pointer;">
+        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">How do I extend my booking duration mid-day?</summary>
+        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">If the slot remains unreserved, you can extend your duration hourly via the local member portal or by coordinating directly with the floor hosts at the reception entryway.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Confirmation Popup Modal -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark);">🎉 Reservation Confirmed!</h3>
+      <button class="modal-close" onclick="closeConfirmModal()">✕</button>
+    </div>
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:rgba(16, 185, 129, 0.1); color:var(--success); font-size:2rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">✓</div>
+      <p style="font-size:1.05rem; font-weight:600; color:var(--text-dark); margin-bottom:8px;">Your seat has been reserved successfully.</p>
+      <p style="color:var(--text-muted); font-size:0.9rem; max-width:350px; margin:0 auto;">An confirmation ticket, invoice, and RFID building pass barcode have been dispatched to your email address.</p>
+    </div>
+    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:left; font-size:0.9rem; margin-bottom:24px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Space:</span><strong id="modal-space-type" style="color:var(--text-dark);">—</strong></div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Desk/Room ID:</span><strong id="modal-desk-id" style="color:var(--secondary);">—</strong></div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span class="text-muted">Date:</span><strong id="modal-date" style="color:var(--text-dark);">—</strong></div>
+      <div style="display:flex; justify-content:space-between;"><span class="text-muted">Total Charged:</span><strong id="modal-total" style="color:var(--success);">—</strong></div>
+    </div>
+    <button class="btn btn-primary w-full" style="justify-content:center;" onclick="closeConfirmModal()">Return to Dashboard</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </div>
+      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Spaces</h4>
+      <ul>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+        <li><a href="virtualoffice.html">Virtual Office</a></li>
+        <li><a href="availability.html">Availability Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events Grid</a></li>
+        <li><a href="dashboard.html">Member Portal</a></li>
+        <li><a href="admin.html">Admin Console</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 123 Innovation Street</a></li>
+        <li><a href="#">📞 +1 (555) 000-0000</a></li>
+        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
+        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCowork. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      <a href="#" class="social-link" aria-label="Instagram">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Space definition config
+  const SPACES = {
+    'hot-desk': { label: 'Hot Desk', rate: 25, unit: 'day', prefix: 'Desk' },
+    'dedicated-desk': { label: 'Dedicated Desk', rate: 45, unit: 'day', prefix: 'Desk' },
+    'private-cabin': { label: 'Private Cabin', rate: 120, unit: 'day', prefix: 'Cabin' },
+    'meeting-room': { label: 'Meeting Room', rate: 30, unit: 'hour', prefix: 'Room' }
+  };
+
+  // State Management
+  let currentFilter = 'hot-desk';
+  let selectedSeatId = 3; 
+  let selectedDate = '';
+  let selectedTimeSlot = '08:00 AM';
+  let selectedDurationHours = 8;
+  let hasPromoApplied = false;
+
+  // Initialize date inputs
+  const dateInput = document.getElementById('booking-date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.value = today;
+  selectedDate = today;
+
+  // Format date display
+  function formatDateString(dateStr) {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // Handle workspace filters
+  function switchFilter(type) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    currentFilter = type;
+    selectedSeatId = 1; // reset selection to first item
+    
+    generateLayoutMap();
+    updateSummaryPanel();
+  }
+
+  // Apply promo code simulation
+  function applyPromo() {
+    hasPromoApplied = true;
+    alert("Voucher code 'FIRSTDAY' successfully applied! Enjoy 15% discount.");
+    updateSummaryPanel();
+  }
+
+  // Generate Layout Map dynamically with simulated availability
+  function generateLayoutMap() {
+    const mapGrid = document.getElementById('workspace-map');
+    mapGrid.innerHTML = '';
+    
+    const config = SPACES[currentFilter];
+    
+    // Seed pseudo-random occupied seats based on current workspace type
+    for (let i = 1; i <= 24; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('map-item');
+      cell.textContent = i < 10 ? '0' + i : i;
+      
+      // Pseudo random occupied seats
+      const isOccupied = (i * 7) % 5 === 0 || (i * 3) % 7 === 0;
+      
+      if (isOccupied) {
+        cell.classList.add('occupied');
+      } else {
+        cell.classList.add('free');
+        if (i === selectedSeatId) {
+          cell.classList.add('selected');
+        }
+        
+        // Add click listener
+        cell.onclick = () => {
+          document.querySelectorAll('.map-item').forEach(m => m.classList.remove('selected'));
+          cell.classList.add('selected');
+          selectedSeatId = i;
+          updateSummaryPanel();
+        };
+      }
+      
+      mapGrid.appendChild(cell);
+    }
+  }
+
+  // Selection Event Handlers
+  function selectTime(element, slot) {
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedTimeSlot = slot;
+    updateSummaryPanel();
+  }
+
+  function handleDateChange() {
+    selectedDate = dateInput.value;
+    updateSummaryPanel();
+  }
+
+  // Handle duration change
+  function handleDurationChange() {
+    selectedDurationHours = parseInt(document.getElementById('booking-duration').value);
+    updateSummaryPanel();
+  }
+
+  // Calculate pricing & update side panel
+  function updateSummaryPanel() {
+    const config = SPACES[currentFilter];
+    document.getElementById('summary-type').textContent = config.label;
+    
+    const formattedSeat = config.prefix + ' #' + (selectedSeatId < 10 ? '0' + selectedSeatId : selectedSeatId);
+    document.getElementById('summary-seat').textContent = formattedSeat;
+    document.getElementById('summary-date').textContent = formatDateString(selectedDate);
+    document.getElementById('summary-time').textContent = selectedTimeSlot;
+    
+    // Duration text
+    let durationText = selectedDurationHours + ' Hour(s)';
+    if (selectedDurationHours === 8) durationText = 'Full Day (8 Hours)';
+    if (selectedDurationHours === 4) durationText = 'Half Day (4 Hours)';
+    document.getElementById('summary-duration').textContent = durationText;
+
+    // Calculate total cost
+    let total = 0;
+    if (config.unit === 'day') {
+      let ratio = 1;
+      if (selectedDurationHours === 4) ratio = 0.6;
+      if (selectedDurationHours <= 2) ratio = 0.3;
+      total = config.rate * ratio;
+    } else {
+      total = config.rate * selectedDurationHours;
+    }
+
+    if (hasPromoApplied) {
+      total = total * 0.85; // 15% discount
+    }
+
+    document.getElementById('summary-total').textContent = '$' + total.toFixed(2);
+  }
+
+  // Submit booking & open popup modal
+  function submitReservation(e) {
+    e.preventDefault();
+    
+    const config = SPACES[currentFilter];
+    const formattedSeat = config.prefix + ' #' + (selectedSeatId < 10 ? '0' + selectedSeatId : selectedSeatId);
+    
+    // Set popup values
+    document.getElementById('modal-space-type').textContent = config.label;
+    document.getElementById('modal-desk-id').textContent = formattedSeat;
+    document.getElementById('modal-date').textContent = formatDateString(selectedDate) + ' at ' + selectedTimeSlot;
+    document.getElementById('modal-total').textContent = document.getElementById('summary-total').textContent;
+    
+    // Open Modal
+    document.getElementById('confirm-modal').classList.add('open');
+  }
+
+  function closeConfirmModal() {
+    document.getElementById('confirm-modal').classList.remove('open');
+    // Clear user details
+    document.getElementById('user-name').value = '';
+    document.getElementById('user-email').value = '';
+  }
+
+  // Initial Run
+  generateLayoutMap();
+  updateSummaryPanel();
+</script>
+</body>
+</html>

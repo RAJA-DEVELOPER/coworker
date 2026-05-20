@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — NexusCowork</title>
+  <meta name="description" content="Discover the story, vision, startup culture, and vibrant professional community driving NexusCowork." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #company-background-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 1024px) {
+      #company-background-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    #spatial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      #spatial-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    #timeline-container {
+      position: relative;
+      padding-left: 40px;
+      border-left: 2px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      #timeline-container { padding-left: 30px; }
+    }
+    @media (max-width: 600px) {
+      #timeline-container { padding-left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="page-loader"><div class="loader-ring"></div></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="brand-icon">⚡</div>
+    Nexus<span>Cowork</span>
+  </a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+    <li><a href="virtualoffice.html">Virtual Office</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="availability.html">Availability</a></li>
+    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="about-hero" style="min-height:60vh;">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span class="dot"></span> Our Journey & Values</div>
+  <h1>Built for the <span class="highlight">Future of Work</span></h1>
+  <p>We provide inspiring environments, seamless technology, and a collaborative network to help professionals and startups scale rapidly.</p>
+</section>
+
+<!-- [NEW SECTION 1] Brand Philosophy / Core Pillars -->
+<section class="section section-alt" id="brand-philosophy">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Core Pillars</div>
+      <h2>Our Design & Service Philosophy</h2>
+      <p style="max-width:600px; margin:0 auto;">Everything we build is centered around four foundational ideas that prioritize the member experience.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">1. Unfettered Productivity</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Frictionless wifi logins, silent focus rooms, and seamless desk check-ins so you focus entirely on your code or presentations.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">2. Active Networking</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Spatial architecture that encourages chance encounters in lounge hallways, paired with structured founder meetups.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">3. Holistic Wellbeing</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Ergonomic Herman Miller seating, air-filtering plants, wellness rooms, and biophilic lighting setups for long workdays.</p>
+      </div>
+      <div class="card reveal" style="padding:28px; background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">4. Enterprise Security</h4>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Hardware firewalls, CCTV coverage, secure badge gate access, and locked personal storage for intellectual property.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Company Background & Vision/Mission Cards -->
+<section class="section" id="company-background" style="background:#fff;">
+  <div class="container">
+    <div class="grid-2col more-left" style="margin-bottom:60px;">
+      <div>
+        <div class="section-tag">Who We Are</div>
+        <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:16px;">Our Story & Background</h2>
+        <p style="color:var(--text); line-height:1.8; margin-bottom:20px; font-size:1.05rem;">Founded in 2018, NexusCowork was born out of a simple frustration: office spaces were either boring and corporate or loud and distracting. We set out to design a middle ground—a workspace that combines premium enterprise-grade infrastructure with the warmth, creativity, and energy of a high-growth startup environment.</p>
+        <p style="color:var(--text-muted); line-height:1.7;">Today, we host over 1,200 active founders, developers, remote executives, and creators across four state-of-the-art urban locations. Our goal remains unchanged: giving you the physical tools and community networks you need to thrive.</p>
+      </div>
+      <div>
+        <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80" alt="NexusCowork Lounge" style="width:100%;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision, Mission & Goals Cards -->
+    <div class="cards-grid" style="margin-top:40px;">
+      <div class="card reveal" style="border-color:var(--border);">
+        <div class="card-icon" style="background:rgba(79, 70, 229, 0.08); color:var(--secondary);">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To eliminate operational hurdles for modern builders by providing premium, flexible, and fully managed workspaces that spark high-performance output.</p>
+      </div>
+      <div class="card reveal" style="border-color:var(--border);">
+        <div class="card-icon" style="background:rgba(6, 182, 212, 0.08); color:var(--accent);">🔭</div>
+        <h3>Vision & Goals</h3>
+        <p>To build a global network of coworking hubs where ambitious startups, corporate teams, and remote specialists seamlessly integrate and collaborate.</p>
+      </div>
+      <div class="card reveal" style="border-color:var(--border);">
+        <div class="card-icon" style="background:rgba(139, 92, 246, 0.08); color:var(--purple);">💎</div>
+        <h3>Core Values</h3>
+        <p>We believe in absolute operational transparency, relentless focus on spatial ergonomics, community trust, and sustainable architectural design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 2] Spatial Acoustics & Ergonomic Standards -->
+<section class="section section-alt" id="spatial-acoustics">
+  <div class="container grid-2col equal">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Acoustic Phone Booths" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Acoustics & Physics</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Precision Acoustics & Ergonomic Science</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We design layout boundaries that control sound propagation. Quiet zones are insulated with double-glazed glass pane dividers, ensuring that conversations in the cafeteria lounge don’t disturb coding spaces.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🎧 <strong>35dB Sound Attenuation</strong> inside private Zoom booths.</li>
+        <li>🪑 <strong>Herman Miller Aeron Chairs</strong> configured with active lumbar tilt controls.</li>
+        <li>💡 <strong>CRI 90+ Daylight Bulbs</strong> configured to reduce screen-glare eye strain.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Company Journey Timeline -->
+<section class="section" id="timeline" style="background:#fff;">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal">
+      <div class="section-tag">Milestones</div>
+      <h2>The Journey So Far</h2>
+      <p>How we grew from a small collaborative room to a multi-city startup network.</p>
+    </div>
+    
+    <div class="timeline-container">
+      <div class="timeline-item reveal">
+        <div class="timeline-bullet" style="background:var(--secondary); box-shadow:0 0 0 3px rgba(79,70,229,0.2);"></div>
+        <span style="font-weight:700; color:var(--secondary); font-size:1.1rem; display:block; margin-bottom:8px;">2018 — The Spark</span>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">First Location Opened</h4>
+        <p style="color:var(--text-muted); font-size:0.95rem;">NexusCowork launched its first 50-desk hot-desking floor in the Tech District, immediately hitting 100% capacity within 60 days.</p>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-bullet" style="background:var(--accent); box-shadow:0 0 0 3px rgba(6,182,212,0.2);"></div>
+        <span style="font-weight:700; color:var(--accent); font-size:1.1rem; display:block; margin-bottom:8px;">2020 — Scaling Up</span>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Private Cabins & Suites Integration</h4>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Expanded to Downtown Plaza, adding soundproof private cabins and dedicated team offices to cater to scaling business outfits.</p>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-bullet" style="background:var(--purple); box-shadow:0 0 0 3px rgba(139,92,246,0.2);"></div>
+        <span style="font-weight:700; color:var(--purple); font-size:1.1rem; display:block; margin-bottom:8px;">2022 — Community Ecosystem</span>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Member Network & Events Platform</h4>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Launched the digital member portal and introduced formal mentoring nights, investor pitch weeks, and community partner perks.</p>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-bullet" style="background:var(--success); box-shadow:0 0 0 3px rgba(16,185,129,0.2);"></div>
+        <span style="font-weight:700; color:var(--success); font-size:1.1rem; display:block; margin-bottom:8px;">2025 — Today & Beyond</span>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">4 Branches, 1200+ Members</h4>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Successfully managing premium offices in four primary urban districts, building a highly integrated environment for tech professionals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 3] Eco-Friendly & Sustainability Standards -->
+<section class="section section-alt" id="sustainability">
+  <div class="container grid-2col more-left">
+    <div>
+      <div class="section-tag">Eco & Green</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Eco-Conscious Building & Green Spaces</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We care about the ecological impact of our locations. All NexusCowork offices are retrofitted using sustainable interior finishes, low-emission HVAC equipment, and zero single-use plastic cups.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>☀️ <strong>Solar Energy Supplements</strong> feeding into active lighting arrays.</li>
+        <li>♻️ <strong>Strict Recycling Loops</strong> managing print waste, plastics, and cafeteria composts.</li>
+        <li>🌿 <strong>Biophilic Air Filtering</strong> featuring specialized snake plants and pothos walls.</li>
+      </ul>
+    </div>
+    <div>
+      <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=800&q=80" alt="Biophilic Office Planting" style="width:100%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Startup Culture & Networking Showcase -->
+<section class="section" id="startup-culture" style="background:#fff;">
+  <div class="container grid-2col reverse">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Networking Environment" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Ecosystem</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Vibrant Startup & Networking Culture</h2>
+      <p style="color:var(--text); margin-bottom:16px; font-size:1.05rem;">We build networking directly into our physical layout. From open café lounges designed to spark conversation, to structured networking sessions, we enable founders and creators to meet seamlessly.</p>
+      <p style="color:var(--text-muted); margin-bottom:24px;">Our community acts as a live network effect. Over 35% of our startup members have hired freelancers, acquired users, or secured key partner services from within the same floor plan.</p>
+      
+      <div class="grid-2col equal" style="gap:16px; align-items:start;">
+        <div class="card" style="padding:16px; border-color:var(--border);">
+          <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px; font-size:0.95rem;">Weekly Mixers</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Free coffee tastings, panel nights, and happy hours.</p>
+        </div>
+        <div class="card" style="padding:16px; border-color:var(--border);">
+          <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px; font-size:0.95rem;">Investor Office Hours</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted);">Pitch advice sessions with local venture partners.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 4] Meet the Leadership Team -->
+<section class="section section-alt" id="leadership-team">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Leadership</div>
+      <h2>The Faces Behind NexusCowork</h2>
+      <p style="max-width:550px; margin:0 auto;">A team of operational experts, interior architects, and community organizers dedicated to your growth.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card reveal" style="text-align:center; background:#fff;">
+        <div style="width:80px; height:80px; border-radius:50%; background:rgba(79, 70, 229, 0.1); color:var(--secondary); font-size:1.8rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">👩‍💼</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Sarah Chen</h4>
+        <p style="color:var(--secondary); font-size:0.85rem; font-weight:600; margin-bottom:12px;">Co-Founder & CEO</p>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Serial builder with 10+ years scaling workspace solutions and supporting early-stage VCs.</p>
+      </div>
+      <div class="card reveal" style="text-align:center; background:#fff;">
+        <div style="width:80px; height:80px; border-radius:50%; background:rgba(6, 182, 212, 0.1); color:var(--accent); font-size:1.8rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">👨‍💻</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Marcus Rivera</h4>
+        <p style="color:var(--secondary); font-size:0.85rem; font-weight:600; margin-bottom:12px;">Co-Founder & CTO</p>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Systems engineer driving our high-speed failover networks, IoT access points, and member portals.</p>
+      </div>
+      <div class="card reveal" style="text-align:center; background:#fff;">
+        <div style="width:80px; height:80px; border-radius:50%; background:rgba(139, 92, 246, 0.1); color:var(--purple); font-size:1.8rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">👩‍🎨</div>
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Priya Nair</h4>
+        <p style="color:var(--secondary); font-size:0.85rem; font-weight:600; margin-bottom:12px;">Head of Community</p>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Architect specializing in biophilic structures, layout dynamics, and community mixer panels.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 5] Ecosystem & Community Advisory Panel -->
+<section class="section" id="advisory-panel" style="background:#fff;">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Ecosystem Mentors</div>
+      <h2>Our Startup Advisory Board</h2>
+      <p style="max-width:550px; margin:0 auto;">Meet the local founders and VCs who host monthly office hours and support our member networks.</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px;">
+      <div class="card reveal" style="padding:24px; border:1px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">David Vance</h4>
+        <p style="color:var(--secondary); font-size:0.8rem; font-weight:600; margin-bottom:8px;">Partner @ Orbit Ventures</p>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Specializes in Seed to Series A fundraising metrics and scaling GTM workflows.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border:1px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Elena Rostova</h4>
+        <p style="color:var(--secondary); font-size:0.8rem; font-weight:600; margin-bottom:8px;">Former VP Product @ Stripe</p>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Mentors members on product-led growth strategy and user research validation.</p>
+      </div>
+      <div class="card reveal" style="padding:24px; border:1px dashed var(--border);">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Kenji Takahashi</h4>
+        <p style="color:var(--secondary); font-size:0.8rem; font-weight:600; margin-bottom:8px;">DevOps Director @ CloudSys</p>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Advises engineering teams on Kubernetes setups, firewalls, and data architecture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Remote Work Support & Professional Environment -->
+<section class="section section-alt" id="remote-support">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Productivity First</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Built for Remote Engineers & Corporate Teams</h2>
+      <p style="color:var(--text); margin-bottom:20px;">Distributed teams and remote workers need more than just desks. They need stable high-speed networking, private space for client calls, and reliable building management. We offer all of this with zero operational friction.</p>
+      
+      <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.1rem; font-weight:bold;">✔</div>
+          <p style="font-size:0.95rem; color:var(--text-dark);"><strong>Acoustic Phone Booths</strong> for uninterrupted Zoom/Teams calls.</p>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.1rem; font-weight:bold;">✔</div>
+          <p style="font-size:0.95rem; color:var(--text-dark);"><strong>Dual Gigabit Fiber</strong> with auto-failover to avoid call drops.</p>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="color:var(--secondary); font-size:1.1rem; font-weight:bold;">✔</div>
+          <p style="font-size:0.95rem; color:var(--text-dark);"><strong>Modular Team Cabins</strong> designed to scale from 4 to 20 seats easily.</p>
+        </div>
+      </div>
+      <a href="membership.html" class="btn btn-primary">Choose Your Setup</a>
+    </div>
+    <div>
+      <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+        <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80" alt="Remote Professional Working" style="width:100%;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 6] Event Spaces & Specialized Facilities -->
+<section class="section" id="special-facilities" style="background:#fff;">
+  <div class="container grid-2col more-right">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=800&q=80" alt="Specialized Facilities" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Workspace Features</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Specialized Creative & Technical Facilities</h2>
+      <p style="color:var(--text); margin-bottom:16px;">Go beyond the laptop. Members gain access to specialized operational resources designed to support multiple business operations.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🎙️ <strong>Acoustic Podcast Studios</strong> fitted with Shure SM7B mics and Rodecaster boards.</li>
+        <li>🎭 <strong>100-Seat Amphitheaters</strong> for product launches, tech meetups, and investor pitches.</li>
+        <li>🛋️ <strong>Creative Testing Labs</strong> for hardware mockups and client presentation panels.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Community Growth Metrics & Why Choose Us -->
+<section class="section section-alt" id="growth-metrics">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Why Choose Us</div>
+      <h2>Our Growth & Impact</h2>
+      <p style="max-width:550px; margin:0 auto;">Ambitious companies trust us with their everyday office environment. Here is our footprint.</p>
+    </div>
+    
+    <div class="stats-bar reveal" style="margin-bottom:60px;">
+      <div class="stat-item">
+        <div class="stat-num" data-count="1200" data-suffix="+">0</div>
+        <div class="stat-label">Total Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="50" data-suffix="M+">0</div>
+        <div class="stat-label">VC Funding Raised</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="240" data-suffix="+">0</div>
+        <div class="stat-label">Completed Events</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-count="99.2" data-suffix="%">0</div>
+        <div class="stat-label">SLA Network Uptime</div>
+      </div>
+    </div>
+
+    <!-- Why Choose Us Grid -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Zero Hidden Fees</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Electricity, janitorial services, coffee, printing, and desk setup are fully bundled into your monthly bill.</p>
+      </div>
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">Flexible Office Terms</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Choose monthly rolling desk plans. No long-term commercial lease agreements or personal security guarantees required.</p>
+      </div>
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:8px;">High-Quality Fitouts</h4>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Ergonomic furniture, clean design, botanical styling, and professional interior architecture throughout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 7] Ecosystem Partners & Global Pass Network -->
+<section class="section" id="global-pass" style="background:#fff;">
+  <div class="container grid-2col">
+    <div>
+      <div class="section-tag">Global Access</div>
+      <h2>Our Global Reciprocal Pass Network</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We partner with premium, independent coworking operators across 12 countries. Travel for business without worrying about workspace options.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>📍 <strong>15+ Reciprocal Hubs</strong> in tech centers like SF, London, Singapore, and Berlin.</li>
+        <li>🎟️ <strong>5 Guest Day Passes</strong> monthly at any partner coworking facility.</li>
+        <li>📱 <strong>Unified Member Portal</strong> check-ins with your existing NexusCowork RFID.</li>
+      </ul>
+    </div>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Global Network Office Locations" style="width:100%;" />
+    </div>
+  </div>
+</section>
+
+<!-- Workspace Culture Gallery -->
+<section class="section section-alt" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Workspace Culture</div>
+      <h2>Inside Our Creative Environment</h2>
+      <p style="max-width:550px; margin:0 auto;">Take a brief visual tour of our modern setups and community spaces.</p>
+    </div>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80" alt="Main Workspace Floor" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80" alt="Creative Lounges" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=400&q=80" alt="Interactive Conference Rooms" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=400&q=80" alt="Weekly Panel Discussions" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 8] Corporate Social Responsibility (CSR) -->
+<section class="section" id="csr-impact" style="background:#fff;">
+  <div class="container grid-2col more-right">
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Tech Mentoring Session" style="width:100%;" />
+    </div>
+    <div>
+      <div class="section-tag">Impact & CSR</div>
+      <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-dark); margin-bottom:20px;">Empowering Local Ecosystem Talents</h2>
+      <p style="color:var(--text); margin-bottom:16px;">We believe in giving back to the districts that host us. Through our localized impact program, we support underrepresented builders and foster early technology literacy.</p>
+      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text);">
+        <li>🎓 <strong>Free Coding Bootcamps</strong> hosted in our event amphitheaters every weekend.</li>
+        <li>💻 <strong>Non-Profit Sponsorships</strong> - 5% of desk inventory reserved for local social ventures.</li>
+        <li>🌱 <strong>Neighborhood Composting</strong> partnering with community botanical gardens.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials about Community -->
+<section class="section section-alt" id="community-testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Community Feedback</div>
+      <h2>What Our Builders Say</h2>
+      <p style="max-width:550px; margin:0 auto;">Hear from startup members who built their networks directly at NexusCowork.</p>
+    </div>
+    
+    <div class="grid-2col equal" style="gap:28px; align-items:start;">
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:16px;">"As a single freelancer, I missed office environments. NexusCowork gave me access to high-quality desks and a massive network of other engineers. I met my current startup co-founder here at a Thursday mixer."</p>
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Alex Mercer</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Co-Founder, DevSys AI</p>
+      </div>
+      <div class="card" style="border-color:var(--border); background:#fff;">
+        <p style="font-style:italic; font-size:0.95rem; margin-bottom:16px;">"Our scaling engineering team wanted to stay focused on shipping code, not worrying about internet bills, building management, or water filters. NexusCowork managed it all with zero fuss."</p>
+        <h4 style="font-size:0.95rem; color:var(--text-dark); font-weight:700;">Kylie Vance</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Engineering Lead, FinFlow</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 9] Press & Media Mentions / Awards -->
+<section class="section" id="press-awards" style="background:#fff;">
+  <div class="container" style="text-align:center;">
+    <div class="section-header reveal">
+      <div class="section-tag">Recognitions</div>
+      <h2>Featured in Tech & Architecture Media</h2>
+      <p style="max-width:550px; margin:0 auto;">NexusCowork has been recognized for its clean space designs and startup network contribution.</p>
+    </div>
+    <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap; opacity:0.6; align-items:center;">
+      <span style="font-weight:800; font-size:1.2rem; color:var(--text-dark);">📰 TECHCRUNCH</span>
+      <span style="font-weight:800; font-size:1.2rem; color:var(--text-dark);">📰 WIRED DECO</span>
+      <span style="font-weight:800; font-size:1.2rem; color:var(--text-dark);">📰 ARCH DAILY</span>
+      <span style="font-weight:800; font-size:1.2rem; color:var(--text-dark);">📰 FORBES SAAS</span>
+    </div>
+  </div>
+</section>
+
+<!-- [NEW SECTION 10] Career Opportunities -->
+<section class="section section-alt" id="careers">
+  <div class="container" style="max-width:800px; text-align:center;">
+    <div class="card reveal" style="padding:48px 40px; background:var(--bg-main); border:1px solid var(--border); box-shadow:var(--shadow);">
+      <div class="section-tag" style="margin-bottom:12px;">Hiring Now</div>
+      <h3 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">Join the Nexus Team</h3>
+      <p style="color:var(--text-muted); max-width:550px; margin:0 auto 24px; font-size:0.95rem;">Passionate about client hospitality, biophilic architecture, or network systems? We are recruiting community hosts and technicians across our city branches.</p>
+      <a href="mailto:careers@nexuscowork.com" class="btn btn-primary">View Open Roles</a>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="section">
+  <div class="glass-section reveal" style="text-align:center;">
+    <h2 style="font-family:var(--font-head);font-size:1.8rem;font-weight:700;margin-bottom:12px;">Experience Our Startup Culture</h2>
+    <p style="color:var(--text-muted);margin-bottom:24px;max-width:500px;margin:0 auto 24px;">Schedule a free tour, meet our community managers, and find the perfect layout for your team.</p>
+    <a href="booking.html" class="btn btn-primary">Book a Tour Now</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0">
+        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+      </div>
+      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Spaces</h4>
+      <ul>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
+        <li><a href="virtualoffice.html">Virtual Office</a></li>
+        <li><a href="availability.html">Availability Grid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events Grid</a></li>
+        <li><a href="dashboard.html">Member Portal</a></li>
+        <li><a href="admin.html">Admin Console</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 123 Innovation Street</a></li>
+        <li><a href="#">📞 +1 (555) 000-0000</a></li>
+        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
+        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCowork. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+      <a href="#" class="social-link" aria-label="Instagram">📸</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
