@@ -63,7 +63,7 @@
         <div class="social-links">
           <a href="https://x.com" target="_blank" class="social-link" aria-label="Twitter">𝕏</a>
           <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn">in</a>
-          <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">📸</a>
+          <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">f</a>
         </div>
       </div>
     `;
