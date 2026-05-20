@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Account Access — NexusCowork</title>
-  <meta name="description" content="Access your NexusCowork member portal. Sign in or register for hot desks, private offices, and event bookings." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Account Access — NexusCowork</title>
+<meta content="Access your NexusCowork member portal. Sign in or register for hot desks, private offices, and event bookings." name="description"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
     .auth-container {
       min-height: 100vh;
       display: grid;
@@ -150,117 +151,106 @@
   </style>
 </head>
 <body>
-
 <!-- Loader -->
 <div id="page-loader"><div class="loader-ring"></div></div>
-
 <div class="auth-container">
-  
-  <!-- Left visual panel (SaaS branding) -->
-  <div class="auth-visual">
-    <div style="z-index:2;">
-      <a href="index.html" class="nav-brand" style="color:#fff;">
-        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
-      </a>
-    </div>
-    <div style="z-index:2; margin: 40px 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-      <span class="badge badge-success" style="margin-bottom:16px; width: fit-content;">Voted #1 Startup Space</span>
-      <h1 style="font-family:var(--font-head); font-weight:800; font-size:clamp(1.8rem, 3.5vw, 2.4rem); line-height:1.2; margin-bottom:16px;">Focus on growing your business. We build the rest.</h1>
-      <p style="color:rgba(255,255,255,0.7); font-size:1rem; max-width:460px;">Unlock 24/7 building access, premium dual-fibre networks, and clean, silent focus bays.</p>
-    </div>
-    <div style="z-index:2; font-size:0.85rem; color:rgba(255,255,255,0.5);">
+<!-- Left visual panel (SaaS branding) -->
+<div class="auth-visual">
+<div style="z-index:2;">
+<a class="nav-brand" href="index.html" style="color:#fff;">
+<div class="brand-icon"><i data-lucide="zap"></i></div> Nexus<span>Cowork</span>
+</a>
+</div>
+<div style="z-index:2; margin: 40px 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+<span class="badge badge-success" style="margin-bottom:16px; width: fit-content;">Voted #1 Startup Space</span>
+<h1 style="font-family:var(--font-head); font-weight:800; font-size:clamp(1.8rem, 3.5vw, 2.4rem); line-height:1.2; margin-bottom:16px;">Focus on growing your business. We build the rest.</h1>
+<p style="color:rgba(255,255,255,0.7); font-size:1rem; max-width:460px;">Unlock 24/7 building access, premium dual-fibre networks, and clean, silent focus bays.</p>
+</div>
+<div style="z-index:2; font-size:0.85rem; color:rgba(255,255,255,0.5);">
       © 2025 NexusCowork. All rights reserved.
     </div>
-  </div>
-
-  <!-- Right login/signup panels -->
-  <div class="auth-form-side">
-    <div class="auth-card">
-      
-      <!-- 1. LOGIN PANEL -->
-      <div id="panel-login" class="auth-panel active">
-        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Sign In</h2>
-        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Welcome back! Enter details to access your dashboard.</p>
-        
-        <form onsubmit="handleLoginSubmit(event)">
-          <div class="form-group">
-            <label for="login-email">Email Address *</label>
-            <input type="email" id="login-email" class="form-control" placeholder="john.doe@company.com" required />
-          </div>
-          <div class="form-group" style="margin-top:16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
-              <label for="login-password" style="margin-bottom:0;">Password *</label>
-              <span class="auth-toggle-link" style="font-size:0.8rem;" onclick="showPanel('panel-forgot')">Forgot Password?</span>
-            </div>
-            <div class="password-wrapper">
-              <input type="password" id="login-password" class="form-control" placeholder="••••••••" required />
-              <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('login-password', this)" aria-label="Toggle password visibility">
-                <!-- Eye open icon (default) -->
-                <svg class="eye-open" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <!-- Eye closed icon (hidden by default in script) -->
-                <svg class="eye-closed" viewBox="0 0 24 24" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-              </button>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Sign In to Account</button>
-        </form>
-        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
-          Don't have an account? <span class="auth-toggle-link" onclick="showPanel('panel-signup')">Create Account</span>
-        </p>
-      </div>
-
-      <!-- 2. SIGNUP PANEL -->
-      <div id="panel-signup" class="auth-panel">
-        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Get Started</h2>
-        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Sign up today to book hot desks and schedule rooms.</p>
-        
-        <form onsubmit="handleSignupSubmit(event)">
-          <div class="form-group">
-            <label for="signup-name">Full Name *</label>
-            <input type="text" id="signup-name" class="form-control" placeholder="John Doe" required />
-          </div>
-          <div class="form-group" style="margin-top:16px;">
-            <label for="signup-email">Email Address *</label>
-            <input type="email" id="signup-email" class="form-control" placeholder="john.doe@company.com" required />
-          </div>
-          <div class="form-group" style="margin-top:16px;">
-            <label for="signup-password">Password *</label>
-            <div class="password-wrapper">
-              <input type="password" id="signup-password" class="form-control" placeholder="••••••••" required />
-              <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('signup-password', this)" aria-label="Toggle password visibility">
-                <svg class="eye-open" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <svg class="eye-closed" viewBox="0 0 24 24" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-              </button>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Create Account</button>
-        </form>
-        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
-          Already have an account? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Sign In</span>
-        </p>
-      </div>
-
-      <!-- 3. FORGOT PASSWORD PANEL -->
-      <div id="panel-forgot" class="auth-panel">
-        <h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Reset Password</h2>
-        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Enter your email to receive a password reset link.</p>
-        
-        <form onsubmit="handleForgotSubmit(event)">
-          <div class="form-group">
-            <label for="forgot-email">Email Address *</label>
-            <input type="email" id="forgot-email" class="form-control" placeholder="john.doe@company.com" required />
-          </div>
-          <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;">Send Reset Link</button>
-        </form>
-        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
-          Remember your password? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Back to Sign In</span>
-        </p>
-      </div>
-
-    </div>
-  </div>
 </div>
-
+<!-- Right login/signup panels -->
+<div class="auth-form-side">
+<div class="auth-card">
+<!-- 1. LOGIN PANEL -->
+<div class="auth-panel active" id="panel-login">
+<h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Sign In</h2>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Welcome back! Enter details to access your dashboard.</p>
+<form onsubmit="handleLoginSubmit(event)">
+<div class="form-group">
+<label for="login-email">Email Address *</label>
+<input class="form-control" id="login-email" placeholder="john.doe@company.com" required="" type="email"/>
+</div>
+<div class="form-group" style="margin-top:16px;">
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+<label for="login-password" style="margin-bottom:0;">Password *</label>
+<span class="auth-toggle-link" onclick="showPanel('panel-forgot')" style="font-size:0.8rem;">Forgot Password?</span>
+</div>
+<div class="password-wrapper">
+<input class="form-control" id="login-password" placeholder="••••••••" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="eye-toggle" onclick="togglePasswordVisibility('login-password', this)" type="button">
+<!-- Eye open icon (default) -->
+<svg class="eye-open" viewbox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<!-- Eye closed icon (hidden by default in script) -->
+<svg class="eye-closed" style="display:none;" viewbox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" x2="23" y1="1" y2="23"></line></svg>
+</button>
+</div>
+</div>
+<button class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;" type="submit">Sign In to Account</button>
+</form>
+<p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Don't have an account? <span class="auth-toggle-link" onclick="showPanel('panel-signup')">Create Account</span>
+</p>
+</div>
+<!-- 2. SIGNUP PANEL -->
+<div class="auth-panel" id="panel-signup">
+<h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Get Started</h2>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Sign up today to book hot desks and schedule rooms.</p>
+<form onsubmit="handleSignupSubmit(event)">
+<div class="form-group">
+<label for="signup-name">Full Name *</label>
+<input class="form-control" id="signup-name" placeholder="John Doe" required="" type="text"/>
+</div>
+<div class="form-group" style="margin-top:16px;">
+<label for="signup-email">Email Address *</label>
+<input class="form-control" id="signup-email" placeholder="john.doe@company.com" required="" type="email"/>
+</div>
+<div class="form-group" style="margin-top:16px;">
+<label for="signup-password">Password *</label>
+<div class="password-wrapper">
+<input class="form-control" id="signup-password" placeholder="••••••••" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="eye-toggle" onclick="togglePasswordVisibility('signup-password', this)" type="button">
+<svg class="eye-open" viewbox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<svg class="eye-closed" style="display:none;" viewbox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" x2="23" y1="1" y2="23"></line></svg>
+</button>
+</div>
+</div>
+<button class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;" type="submit">Create Account</button>
+</form>
+<p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Already have an account? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Sign In</span>
+</p>
+</div>
+<!-- 3. FORGOT PASSWORD PANEL -->
+<div class="auth-panel" id="panel-forgot">
+<h2 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark); font-size:1.6rem; margin-bottom:8px;">Reset Password</h2>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:24px;">Enter your email to receive a password reset link.</p>
+<form onsubmit="handleForgotSubmit(event)">
+<div class="form-group">
+<label for="forgot-email">Email Address *</label>
+<input class="form-control" id="forgot-email" placeholder="john.doe@company.com" required="" type="email"/>
+</div>
+<button class="btn btn-primary w-full" style="margin-top:24px; justify-content:center; padding:12px;" type="submit">Send Reset Link</button>
+</form>
+<p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:20px;">
+          Remember your password? <span class="auth-toggle-link" onclick="showPanel('panel-login')">Back to Sign In</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="script.js"></script>
 <script>
   // Dynamic panel toggles

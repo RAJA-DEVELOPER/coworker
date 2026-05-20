@@ -108,16 +108,18 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-b
   box-shadow: var(--shadow-glow-cyan);
 }
 .loader-ring::after {
-  content: '⚡';
+  content: '';
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/svg%3E");
+  background-size: 26px 26px;
+  background-position: center;
+  background-repeat: no-repeat;
   animation: pulse 1.5s ease-in-out infinite, spinReverse 1s linear infinite;
-  text-shadow: 0 0 10px var(--accent);
+  filter: drop-shadow(0 0 5px var(--accent));
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes spinReverse { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
@@ -267,20 +269,6 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-b
   border-radius: var(--radius-sm) !important;
   font-weight: 600 !important;
   transition: all var(--transition-premium) !important;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-.nav-cta::before {
-  content: '';
-  position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  transform: skewX(-25deg);
-  transition: 0.75s;
-  z-index: -1;
-}
-.nav-cta:hover::before {
-  left: 150%;
 }
 .nav-cta:hover { 
   background: #3F37C9 !important; 
@@ -648,7 +636,18 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-b
   display: flex; align-items: flex-start; gap: 12px;
 }
 .price-features li:last-child { border-bottom: none; }
-.price-features li::before { content: '✓'; color: var(--success); font-weight: 800; font-size: 1.1rem; }
+.price-features li::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 /* ===== FORM ===== */
 .form-group { margin-bottom: 20px; }
@@ -1383,3 +1382,11 @@ details[open].card summary::after {
 }
 
 
+/* ===== LUCIDE VECTOR ICONS UTILITY ===== */
+.lucide {
+  width: 1.2em;
+  height: 1.2em;
+  stroke-width: 2px;
+  vertical-align: -0.2em;
+  display: inline-block;
+}

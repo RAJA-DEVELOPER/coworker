@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>System Maintenance Underway — NexusCowork</title>
-  <meta name="description" content="We are upgrading our desking database servers and will return shortly." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Maintenance Underway — NexusCowork</title>
+<meta content="We are upgrading our desking database servers and will return shortly." name="description"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
     .maintenance-container {
       min-height: 100vh;
       display: flex;
@@ -84,51 +85,41 @@
   </style>
 </head>
 <body>
-
 <!-- Loader -->
 <div id="page-loader"><div class="loader-ring"></div></div>
-
 <div class="maintenance-container">
-  <div class="maintenance-bg"></div>
-
-  <div class="maintenance-card reveal">
-    <!-- SVG Vector Image (Under Construction / System Maintenance) -->
-    <div class="vector-svg-container">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Floating cloud / bubble -->
-        <path d="M20 55C20 48.3726 25.3726 43 32 43C32.6738 43 33.3364 43.0556 33.9806 43.1629C36.6341 36.5786 43.149 32 50.75 32C59.605 32 66.974 38.309 68.6183 46.6806C69.0792 46.5627 69.5574 46.5 70.05 46.5C75.5454 46.5 80 50.9546 80 56.45C80 61.9454 75.5454 66.39 70.05 66.39H32C25.3726 66.39 20 61.0174 20 54.39V55Z" fill="#EEF2FF" />
-        
-        <!-- Cogwheels vector -->
-        <circle cx="50" cy="50" r="14" stroke="#4F46E5" stroke-width="3" stroke-dasharray="6 3" />
-        <circle cx="50" cy="50" r="7" fill="#4F46E5" />
-        
-        <circle cx="34" cy="58" r="8" stroke="#06B6D4" stroke-width="2.5" stroke-dasharray="4 2" />
-        <circle cx="34" cy="58" r="4" fill="#06B6D4" />
-
-        <!-- Wrench overlay -->
-        <path d="M68 34L60 42M62 32L64 34L60 38M68 34L66 32" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" />
-        
-        <!-- Floor grid line -->
-        <line x1="15" y1="78" x2="85" y2="78" stroke="#E5E7EB" stroke-width="3" stroke-linecap="round" />
-      </svg>
-    </div>
-
-    <h1 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">System Maintenance</h1>
-    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; max-width:480px; margin:0 auto;">We are currently upgrading our real-time desking reservation databases and turnstile sync servers. We will be back online shortly.</p>
-
-    <!-- Simulated System Progress Bar -->
-    <div class="status-bar-container">
-      <div class="status-bar-fill"></div>
-    </div>
-    <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Upgrade Progress: 75% Completed</span>
-
-    <div style="margin-top:32px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:center; gap:24px;">
-      <a href="mailto:support@nexuscowork.com" style="font-size:0.85rem; color:var(--secondary); font-weight:700;">✉️ Support Helpdesk</a>
-      <a href="#" style="font-size:0.85rem; color:var(--secondary); font-weight:700;" onclick="alert('All check-in gates remain functional. Card access is active.')">🔑 Branch Card Key Access</a>
-    </div>
-  </div>
+<div class="maintenance-bg"></div>
+<div class="maintenance-card reveal">
+<!-- SVG Vector Image (Under Construction / System Maintenance) -->
+<div class="vector-svg-container">
+<svg fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<!-- Floating cloud / bubble -->
+<path d="M20 55C20 48.3726 25.3726 43 32 43C32.6738 43 33.3364 43.0556 33.9806 43.1629C36.6341 36.5786 43.149 32 50.75 32C59.605 32 66.974 38.309 68.6183 46.6806C69.0792 46.5627 69.5574 46.5 70.05 46.5C75.5454 46.5 80 50.9546 80 56.45C80 61.9454 75.5454 66.39 70.05 66.39H32C25.3726 66.39 20 61.0174 20 54.39V55Z" fill="#EEF2FF"></path>
+<!-- Cogwheels vector -->
+<circle cx="50" cy="50" r="14" stroke="#4F46E5" stroke-dasharray="6 3" stroke-width="3"></circle>
+<circle cx="50" cy="50" fill="#4F46E5" r="7"></circle>
+<circle cx="34" cy="58" r="8" stroke="#06B6D4" stroke-dasharray="4 2" stroke-width="2.5"></circle>
+<circle cx="34" cy="58" fill="#06B6D4" r="4"></circle>
+<!-- Wrench overlay -->
+<path d="M68 34L60 42M62 32L64 34L60 38M68 34L66 32" stroke="#8B5CF6" stroke-linecap="round" stroke-width="3"></path>
+<!-- Floor grid line -->
+<line stroke="#E5E7EB" stroke-linecap="round" stroke-width="3" x1="15" x2="85" y1="78" y2="78"></line>
+</svg>
 </div>
-
+<h1 style="font-family:var(--font-head); font-size:1.8rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">System Maintenance</h1>
+<p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; max-width:480px; margin:0 auto;">We are currently upgrading our real-time desking reservation databases and turnstile sync servers. We will be back online shortly.</p>
+<!-- Simulated System Progress Bar -->
+<div class="status-bar-container">
+<div class="status-bar-fill"></div>
+</div>
+<span style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Upgrade Progress: 75% Completed</span>
+<div style="margin-top:32px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:center; gap:24px;">
+<a href="mailto:support@nexuscowork.com" style="font-size:0.85rem; color:var(--secondary); font-weight:700;"><i data-lucide="mail"></i> Support Helpdesk</a>
+<a href="#" onclick="alert('All check-in gates remain functional. Card access is active.')" style="font-size:0.85rem; color:var(--secondary); font-weight:700;"><i data-lucide="key"></i> Branch Card Key Access</a>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="script.js"></script>
 </body>
 </html>

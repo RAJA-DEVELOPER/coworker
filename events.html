@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events & Community — NexusCowork</title>
-  <meta name="description" content="Join tech workshops, startup pitch nights, and local founder networking mixers at NexusCowork." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events &amp; Community — NexusCowork</title>
+<meta content="Join tech workshops, startup pitch nights, and local founder networking mixers at NexusCowork." name="description"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
     /* Announcement Ticker styling */
     .announcement-ticker {
       background: var(--dark-bg, #111827);
@@ -214,563 +215,524 @@
   </style>
 </head>
 <body>
-
 <!-- Announcement Ticker -->
 <div class="announcement-ticker">
-  <div class="ticker-content">
-    <span class="ticker-label">Announcements</span>
-    ⚡ AI Hackathon Registration ends in 24 hours! | 📢 Partner VC Mentorships starting this Tuesday | 👥 Monthly Founders Speed-Networking Mixer schedule released | 🧘 Friday Yoga at 4 PM in the Eastside Lounge.
+<div class="ticker-content">
+<span class="ticker-label">Announcements</span>
+<i data-lucide="zap"></i> AI Hackathon Registration ends in 24 hours! | <i data-lucide="megaphone"></i> Partner VC Mentorships starting this Tuesday | <i data-lucide="users"></i> Monthly Founders Speed-Networking Mixer schedule released | <i data-lucide="activity"></i> Friday Yoga at 4 PM in the Eastside Lounge.
   </div>
 </div>
-
 <!-- Loader -->
 <div id="page-loader"><div class="loader-ring"></div></div>
-
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <a href="index.html" class="nav-brand">
-    <div class="brand-icon">⚡</div>
+<a class="nav-brand" href="index.html">
+<div class="brand-icon"><i data-lucide="zap"></i></div>
     Nexus<span>Cowork</span>
-  </a>
-  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="membership.html">Membership</a></li>
-    <li><a href="meetingrooms.html">Meeting Rooms</a></li>
-    <li><a href="virtualoffice.html">Virtual Office</a></li>
-    <li><a href="events.html" class="active">Events</a></li>
-    <li><a href="availability.html">Availability</a></li>
-    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
-  </ul>
+</a>
+<div aria-label="Toggle menu" class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</div>
+<ul class="nav-links" id="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="membership.html">Membership</a></li>
+<li><a href="meetingrooms.html">Meeting Rooms</a></li>
+<li><a href="virtualoffice.html">Virtual Office</a></li>
+<li><a class="active" href="events.html">Events</a></li>
+<li><a href="availability.html">Availability</a></li>
+<li><a class="nav-cta" href="booking.html">Book Now</a></li>
+</ul>
 </nav>
-
 <!-- Hero Section -->
 <section class="hero" id="events-hero" style="min-height:50vh;">
-  <div class="hero-bg"></div>
-  <div class="hero-badge"><span class="dot"></span> Community Events</div>
-  <h1>Grow, Learn &amp; <span class="highlight">Connect</span></h1>
-  <p>From startup workshops to networking nights — our events calendar is packed with opportunities to grow your network and skills.</p>
+<div class="hero-bg"></div>
+<div class="hero-badge"><span class="dot"></span> Community Events</div>
+<h1>Grow, Learn &amp; <span class="highlight">Connect</span></h1>
+<p>From startup workshops to networking nights — our events calendar is packed with opportunities to grow your network and skills.</p>
 </section>
-
 <!-- Upcoming Event Cards Section (Community Events & Member Interaction) -->
 <section class="section" id="events-list" style="background:#fff;">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Upcoming Events</div>
-      <h2>Vibrant Startup Community Events</h2>
-      <p style="max-width:550px; margin:0 auto;">Participate in tech masterclasses, hackathons, and pitch sessions hosted at our branch hubs.</p>
-    </div>
-
-    <div class="tab-bar reveal" data-tabs style="margin-bottom:32px;">
-      <button class="tab-btn active" onclick="switchEventCategory('all')">All Events</button>
-      <button class="tab-btn" onclick="switchEventCategory('workshop')">Workshops</button>
-      <button class="tab-btn" onclick="switchEventCategory('networking')">Networking</button>
-    </div>
-
-    <div class="events-grid" id="events-display-grid">
-      <!-- Pitch Night Card -->
-      <div class="event-card reveal" data-category="workshop">
-        <div class="event-thumb" style="background:linear-gradient(135deg,rgba(79,70,229,0.1),rgba(249,115,22,0.1));">🚀</div>
-        <div class="event-body">
-          <div>
-            <div class="event-meta">
-              <span class="event-date-badge">Jun 5, 2025</span>
-              <span class="badge badge-info">Workshop</span>
-            </div>
-            <h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">Startup Pitch Night</h3>
-            <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">Pitch your software concepts directly to local angel networks. Win feedback, advice, and credits.</p>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:var(--success); font-size:0.8rem; font-weight:700;">🕕 6:00 PM – 9:00 PM</span>
-            <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="showToast('Registered for Startup Pitch Night!','success')">Register</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Networking Mixer Card -->
-      <div class="event-card reveal" data-category="networking">
-        <div class="event-thumb" style="background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(79,70,229,0.15));">🤝</div>
-        <div class="event-body">
-          <div>
-            <div class="event-meta">
-              <span class="event-date-badge">Jun 12, 2025</span>
-              <span class="badge badge-success">Networking</span>
-            </div>
-            <h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">Founders Networking Mixer</h3>
-            <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">Structured speed-networking for founders, remote engineers, and venture capital partners.</p>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:var(--success); font-size:0.8rem; font-weight:700;">🕕 5:30 PM – 8:00 PM</span>
-            <button class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;" onclick="showToast('Registered for Founders Mixer!','success')">Register</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hackathon Card -->
-      <div class="event-card reveal" data-category="workshop">
-        <div class="event-thumb" style="background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));">💻</div>
-        <div class="event-body">
-          <div>
-            <div class="event-meta">
-              <span class="event-date-badge">Jun 20–22, 2025</span>
-              <span class="badge badge-warning">Hackathon</span>
-            </div>
-            <h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">AI Hackathon 2025</h3>
-            <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">48-hour collaborative build sprint creating AI agents. Mentorship and $10K pool rewards.</p>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:var(--accent); font-size:0.8rem; font-weight:700;">🔥 48-Hour Sprint</span>
-            <button class="btn btn-accent" style="padding:6px 12px; font-size:0.8rem;" onclick="showToast('Registered for AI Hackathon!','success')">Register</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Upcoming Events</div>
+<h2>Vibrant Startup Community Events</h2>
+<p style="max-width:550px; margin:0 auto;">Participate in tech masterclasses, hackathons, and pitch sessions hosted at our branch hubs.</p>
+</div>
+<div class="tab-bar reveal" data-tabs="" style="margin-bottom:32px;">
+<button class="tab-btn active" onclick="switchEventCategory('all')">All Events</button>
+<button class="tab-btn" onclick="switchEventCategory('workshop')">Workshops</button>
+<button class="tab-btn" onclick="switchEventCategory('networking')">Networking</button>
+</div>
+<div class="events-grid" id="events-display-grid">
+<!-- Pitch Night Card -->
+<div class="event-card reveal" data-category="workshop">
+<div class="event-thumb" style="background:linear-gradient(135deg,rgba(79,70,229,0.1),rgba(249,115,22,0.1));"><i data-lucide="rocket"></i></div>
+<div class="event-body">
+<div>
+<div class="event-meta">
+<span class="event-date-badge">Jun 5, 2025</span>
+<span class="badge badge-info">Workshop</span>
+</div>
+<h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">Startup Pitch Night</h3>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">Pitch your software concepts directly to local angel networks. Win feedback, advice, and credits.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<span style="color:var(--success); font-size:0.8rem; font-weight:700;"><i data-lucide="clock"></i> 6:00 PM – 9:00 PM</span>
+<button class="btn btn-primary" onclick="showToast('Registered for Startup Pitch Night!','success')" style="padding:6px 12px; font-size:0.8rem;">Register</button>
+</div>
+</div>
+</div>
+<!-- Networking Mixer Card -->
+<div class="event-card reveal" data-category="networking">
+<div class="event-thumb" style="background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(79,70,229,0.15));"><i data-lucide="handshake"></i></div>
+<div class="event-body">
+<div>
+<div class="event-meta">
+<span class="event-date-badge">Jun 12, 2025</span>
+<span class="badge badge-success">Networking</span>
+</div>
+<h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">Founders Networking Mixer</h3>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">Structured speed-networking for founders, remote engineers, and venture capital partners.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<span style="color:var(--success); font-size:0.8rem; font-weight:700;"><i data-lucide="clock"></i> 5:30 PM – 8:00 PM</span>
+<button class="btn btn-primary" onclick="showToast('Registered for Founders Mixer!','success')" style="padding:6px 12px; font-size:0.8rem;">Register</button>
+</div>
+</div>
+</div>
+<!-- Hackathon Card -->
+<div class="event-card reveal" data-category="workshop">
+<div class="event-thumb" style="background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));"><i data-lucide="laptop"></i></div>
+<div class="event-body">
+<div>
+<div class="event-meta">
+<span class="event-date-badge">Jun 20–22, 2025</span>
+<span class="badge badge-warning">Hackathon</span>
+</div>
+<h3 style="font-family:var(--font-head); font-size:1.15rem; font-weight:700; margin-bottom:8px;">AI Hackathon 2025</h3>
+<p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">48-hour collaborative build sprint creating AI agents. Mentorship and $10K pool rewards.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+<span style="color:var(--accent); font-size:0.8rem; font-weight:700;"><i data-lucide="flame"></i> 48-Hour Sprint</span>
+<button class="btn btn-accent" onclick="showToast('Registered for AI Hackathon!','success')" style="padding:6px 12px; font-size:0.8rem;">Register</button>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 1] Interactive Event Ticket Pricing Calculator -->
 <section class="section section-alt" id="ticket-calculator">
-  <div class="container" style="max-width:650px;">
-    <div class="card reveal event-widget-card" style="border:1px solid var(--border); box-shadow:var(--shadow);">
-      <div style="text-align:center; margin-bottom:24px;">
-        <div class="section-tag" style="margin-bottom:6px;">Non-Member Tickets</div>
-        <h3 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark);">Event Pass Calculator</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem;">Select your options. All events are free for active Hot Desk & Dedicated Desk members.</p>
-      </div>
-
-      <div class="form-group">
-        <label for="calc-event">Choose Event</label>
-        <select id="calc-event" class="form-control" onchange="calculateTicketPrice()">
-          <option value="25">Startup Pitch Night ($25)</option>
-          <option value="40">Founders Networking Mixer ($40)</option>
-          <option value="150">AI Hackathon Weekend ($150)</option>
-        </select>
-      </div>
-
-      <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
-        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
-          <input type="checkbox" id="calc-lunch" onchange="calculateTicketPrice()" /> Add Lunch Bento Box (+$15)
+<div class="container" style="max-width:650px;">
+<div class="card reveal event-widget-card" style="border:1px solid var(--border); box-shadow:var(--shadow);">
+<div style="text-align:center; margin-bottom:24px;">
+<div class="section-tag" style="margin-bottom:6px;">Non-Member Tickets</div>
+<h3 style="font-family:var(--font-head); font-weight:800; color:var(--text-dark);">Event Pass Calculator</h3>
+<p style="color:var(--text-muted); font-size:0.85rem;">Select your options. All events are free for active Hot Desk &amp; Dedicated Desk members.</p>
+</div>
+<div class="form-group">
+<label for="calc-event">Choose Event</label>
+<select class="form-control" id="calc-event" onchange="calculateTicketPrice()">
+<option value="25">Startup Pitch Night ($25)</option>
+<option value="40">Founders Networking Mixer ($40)</option>
+<option value="150">AI Hackathon Weekend ($150)</option>
+</select>
+</div>
+<div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
+<label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
+<input id="calc-lunch" onchange="calculateTicketPrice()" type="checkbox"/> Add Lunch Bento Box (+$15)
         </label>
-        <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
-          <input type="checkbox" id="calc-vip" onchange="calculateTicketPrice()" /> Upgrade to VIP Front Row Seating (+$25)
+<label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
+<input id="calc-vip" onchange="calculateTicketPrice()" type="checkbox"/> Upgrade to VIP Front Row Seating (+$25)
         </label>
-      </div>
-
-      <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-        <span style="font-weight:700; color:var(--text-dark);">Total Estimated Cost:</span>
-        <strong id="ticket-price-display" style="font-size:1.6rem; color:var(--secondary);">$25.00</strong>
-      </div>
-    </div>
-  </div>
+</div>
+<div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<span style="font-weight:700; color:var(--text-dark);">Total Estimated Cost:</span>
+<strong id="ticket-price-display" style="font-size:1.6rem; color:var(--secondary);">$25.00</strong>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 2] Event Calendar Grid -->
 <section class="section" id="event-calendar" style="background:#fff;">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal">
-      <div class="section-tag">Interactive Calendar</div>
-      <h2>June 2025 Community Calendar</h2>
-      <p>Select highlighted dates to view corresponding workshops and panels.</p>
-    </div>
-    
-    <div class="table-responsive">
-      <div class="calendar-container reveal">
-        <div class="calendar-day-header">Mon</div>
-        <div class="calendar-day-header">Tue</div>
-        <div class="calendar-day-header">Wed</div>
-        <div class="calendar-day-header">Thu</div>
-        <div class="calendar-day-header">Fri</div>
-        <div class="calendar-day-header">Sat</div>
-        <div class="calendar-day-header">Sun</div>
-
-        <!-- Calendar Days -->
-        <div class="calendar-cell"><span class="calendar-cell-num">1</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">2</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">3</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">4</span></div>
-        <div class="calendar-cell has-event" onclick="showEventDetails('June 5: Startup Pitch Night')"><span class="calendar-cell-num">5</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">6</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">7</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">8</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">9</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">10</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">11</span></div>
-        <div class="calendar-cell has-event" onclick="showEventDetails('June 12: Founders Mixer')"><span class="calendar-cell-num">12</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">13</span></div>
-        <div class="calendar-cell"><span class="calendar-cell-num">14</span></div>
-      </div>
-    </div>
-
-    <!-- Calendar Info Box -->
-    <div id="calendar-detail-box" style="display:none; margin-top:24px; padding:20px; background:var(--bg-main); border-radius:var(--radius); border:1px solid var(--border); text-align:center;">
-      <strong style="color:var(--secondary);" id="calendar-event-title">June 5: Startup Pitch Night</strong>
-      <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Begins at 6:00 PM at Main Lounge. Members free check-in enabled.</p>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal">
+<div class="section-tag">Interactive Calendar</div>
+<h2>June 2025 Community Calendar</h2>
+<p>Select highlighted dates to view corresponding workshops and panels.</p>
+</div>
+<div class="table-responsive">
+<div class="calendar-container reveal">
+<div class="calendar-day-header">Mon</div>
+<div class="calendar-day-header">Tue</div>
+<div class="calendar-day-header">Wed</div>
+<div class="calendar-day-header">Thu</div>
+<div class="calendar-day-header">Fri</div>
+<div class="calendar-day-header">Sat</div>
+<div class="calendar-day-header">Sun</div>
+<!-- Calendar Days -->
+<div class="calendar-cell"><span class="calendar-cell-num">1</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">2</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">3</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">4</span></div>
+<div class="calendar-cell has-event" onclick="showEventDetails('June 5: Startup Pitch Night')"><span class="calendar-cell-num">5</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">6</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">7</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">8</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">9</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">10</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">11</span></div>
+<div class="calendar-cell has-event" onclick="showEventDetails('June 12: Founders Mixer')"><span class="calendar-cell-num">12</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">13</span></div>
+<div class="calendar-cell"><span class="calendar-cell-num">14</span></div>
+</div>
+</div>
+<!-- Calendar Info Box -->
+<div id="calendar-detail-box" style="display:none; margin-top:24px; padding:20px; background:var(--bg-main); border-radius:var(--radius); border:1px solid var(--border); text-align:center;">
+<strong id="calendar-event-title" style="color:var(--secondary);">June 5: Startup Pitch Night</strong>
+<p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Begins at 6:00 PM at Main Lounge. Members free check-in enabled.</p>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 3] Interactive Hackathon Team Formation Board -->
 <section class="section section-alt" id="team-formation">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal">
-      <div class="section-tag">Matchmaking Board</div>
-      <h2>AI Hackathon Team Matching Bulletin</h2>
-      <p>Find co-founders, software developers, or designers to build your hackathon project with.</p>
-    </div>
-    
-    <div class="matchmaking-board reveal">
-      <div class="match-card">
-        <span style="background:#E0F2FE; color:#0369A1; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">React Native</span>
-        <strong style="display:block; margin-top:10px; color:var(--text-dark);">Alex R. (Frontend dev)</strong>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Building a calendar app. Looking for a Python/FastAPI backend engineer."</p>
-      </div>
-      <div class="match-card">
-        <span style="background:#D1FAE5; color:#065F46; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">UX Designer</span>
-        <strong style="display:block; margin-top:10px; color:var(--text-dark);">Fiona C. (UI Specialist)</strong>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Figma designer wanting to join an AI agent project. 3 years startup experience."</p>
-      </div>
-      <div class="match-card">
-        <span style="background:#FEF3C7; color:#92400E; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">PyTorch / ML</span>
-        <strong style="display:block; margin-top:10px; color:var(--text-dark);">Liam K. (Data Architect)</strong>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Working on LLM fine-tuning models. Need a frontend designer to join forces."</p>
-      </div>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal">
+<div class="section-tag">Matchmaking Board</div>
+<h2>AI Hackathon Team Matching Bulletin</h2>
+<p>Find co-founders, software developers, or designers to build your hackathon project with.</p>
+</div>
+<div class="matchmaking-board reveal">
+<div class="match-card">
+<span style="background:#E0F2FE; color:#0369A1; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">React Native</span>
+<strong style="display:block; margin-top:10px; color:var(--text-dark);">Alex R. (Frontend dev)</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Building a calendar app. Looking for a Python/FastAPI backend engineer."</p>
+</div>
+<div class="match-card">
+<span style="background:#D1FAE5; color:#065F46; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">UX Designer</span>
+<strong style="display:block; margin-top:10px; color:var(--text-dark);">Fiona C. (UI Specialist)</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Figma designer wanting to join an AI agent project. 3 years startup experience."</p>
+</div>
+<div class="match-card">
+<span style="background:#FEF3C7; color:#92400E; font-size:0.75rem; font-weight:700; padding:4px 8px; border-radius:4px; text-transform:uppercase;">PyTorch / ML</span>
+<strong style="display:block; margin-top:10px; color:var(--text-dark);">Liam K. (Data Architect)</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">"Working on LLM fine-tuning models. Need a frontend designer to join forces."</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 4] Speaker Highlights -->
 <section class="section" id="speaker-highlights" style="background:#fff;">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Visiting Mentors</div>
-      <h2>Keynote Speaker & Mentor Lineup</h2>
-      <p style="max-width:550px; margin:0 auto;">Learn from experienced VC partners, unicorn architects, and startup attorneys.</p>
-    </div>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px; margin-top:32px;">
-      <div class="speaker-card reveal">
-        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" alt="Sarah Chen" class="speaker-avatar" />
-        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Sarah Chen</h4>
-        <span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Partner, Sequoia Horizon</span>
-        <p style="font-size:0.8rem; color:var(--text-muted);">Hosting the June Pitch Night investor feedback panel.</p>
-      </div>
-      <div class="speaker-card reveal">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" alt="Marcus Rivera" class="speaker-avatar" />
-        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Marcus Rivera</h4>
-        <span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Chief AI Officer, NeuralLabs</span>
-        <p style="font-size:0.8rem; color:var(--text-muted);">Mentoring technical teams during the AI Hackathon weekend.</p>
-      </div>
-      <div class="speaker-card reveal">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Priya Nair" class="speaker-avatar" />
-        <h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Priya Nair</h4>
-        <span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Growth Lead, ScaleUp SaaS</span>
-        <p style="font-size:0.8rem; color:var(--text-muted);">Leading the Growth Marketing Masterclass breakout session.</p>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Visiting Mentors</div>
+<h2>Keynote Speaker &amp; Mentor Lineup</h2>
+<p style="max-width:550px; margin:0 auto;">Learn from experienced VC partners, unicorn architects, and startup attorneys.</p>
+</div>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px; margin-top:32px;">
+<div class="speaker-card reveal">
+<img alt="Sarah Chen" class="speaker-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=200&amp;q=80"/>
+<h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Sarah Chen</h4>
+<span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Partner, Sequoia Horizon</span>
+<p style="font-size:0.8rem; color:var(--text-muted);">Hosting the June Pitch Night investor feedback panel.</p>
+</div>
+<div class="speaker-card reveal">
+<img alt="Marcus Rivera" class="speaker-avatar" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&amp;fit=crop&amp;w=200&amp;q=80"/>
+<h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Marcus Rivera</h4>
+<span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Chief AI Officer, NeuralLabs</span>
+<p style="font-size:0.8rem; color:var(--text-muted);">Mentoring technical teams during the AI Hackathon weekend.</p>
+</div>
+<div class="speaker-card reveal">
+<img alt="Priya Nair" class="speaker-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=200&amp;q=80"/>
+<h4 style="color:var(--text-dark); font-weight:700; margin-bottom:4px;">Priya Nair</h4>
+<span style="font-size:0.8rem; color:var(--secondary); font-weight:700; display:block; margin-bottom:8px;">Growth Lead, ScaleUp SaaS</span>
+<p style="font-size:0.8rem; color:var(--text-muted);">Leading the Growth Marketing Masterclass breakout session.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 5] Past Event Video Recordings Library -->
 <section class="section section-alt" id="recordings-library">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Video Archives</div>
-      <h2>Past Workshop Video Recordings Library</h2>
-      <p style="max-width:550px; margin:0 auto;">Missed an event? Catch up on the recorded webinars and panel presentations.</p>
-    </div>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
-      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
-        <span style="font-size:1.4rem;">🎬</span>
-        <strong style="color:var(--text-dark); display:block; margin-top:8px;">VC Pitch Decks 101</strong>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Recorded May 2024. Key metrics VCs search for in seed stage pitches.</p>
-        <a href="#" class="btn btn-outline" style="margin-top:12px; font-size:0.75rem; padding:6px 12px;" onclick="alert('Access restricted to active members. Please log in.')">Play Recording</a>
-      </div>
-      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
-        <span style="font-size:1.4rem;">🎬</span>
-        <strong style="color:var(--text-dark); display:block; margin-top:8px;">SEO Strategies for 2025</strong>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Recorded April 2024. Search engine updates and schema guidelines.</p>
-        <a href="#" class="btn btn-outline" style="margin-top:12px; font-size:0.75rem; padding:6px 12px;" onclick="alert('Access restricted to active members. Please log in.')">Play Recording</a>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Video Archives</div>
+<h2>Past Workshop Video Recordings Library</h2>
+<p style="max-width:550px; margin:0 auto;">Missed an event? Catch up on the recorded webinars and panel presentations.</p>
+</div>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
+<div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+<span style="font-size:1.4rem;"><i data-lucide="clapperboard"></i></span>
+<strong style="color:var(--text-dark); display:block; margin-top:8px;">VC Pitch Decks 101</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Recorded May 2024. Key metrics VCs search for in seed stage pitches.</p>
+<a class="btn btn-outline" href="#" onclick="alert('Access restricted to active members. Please log in.')" style="margin-top:12px; font-size:0.75rem; padding:6px 12px;">Play Recording</a>
+</div>
+<div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+<span style="font-size:1.4rem;"><i data-lucide="clapperboard"></i></span>
+<strong style="color:var(--text-dark); display:block; margin-top:8px;">SEO Strategies for 2025</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Recorded April 2024. Search engine updates and schema guidelines.</p>
+<a class="btn btn-outline" href="#" onclick="alert('Access restricted to active members. Please log in.')" style="margin-top:12px; font-size:0.75rem; padding:6px 12px;">Play Recording</a>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 6] Community Gallery -->
 <section class="section" id="community-gallery" style="background:#fff;">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Community Moments</div>
-      <h2>Inside Our Active Startup Networking Meetups</h2>
-      <p style="max-width:550px; margin:0 auto;">Take a look at founders, tech builders, and investors collaborating during events.</p>
-    </div>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:32px;">
-      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
-        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=400&q=80" alt="Pitch Night Auditorium" style="width:100%; height:100%; object-fit:cover;" />
-      </div>
-      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
-        <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=400&q=80" alt="Co-working breakout session" style="width:100%; height:100%; object-fit:cover;" />
-      </div>
-      <div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
-        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=400&q=80" alt="Post-mixer lounge chat" style="width:100%; height:100%; object-fit:cover;" />
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Community Moments</div>
+<h2>Inside Our Active Startup Networking Meetups</h2>
+<p style="max-width:550px; margin:0 auto;">Take a look at founders, tech builders, and investors collaborating during events.</p>
+</div>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:32px;">
+<div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+<img alt="Pitch Night Auditorium" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=400&amp;q=80" style="width:100%; height:100%; object-fit:cover;"/>
+</div>
+<div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+<img alt="Co-working breakout session" src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&amp;fit=crop&amp;w=400&amp;q=80" style="width:100%; height:100%; object-fit:cover;"/>
+</div>
+<div style="border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow); height:220px;">
+<img alt="Post-mixer lounge chat" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=400&amp;q=80" style="width:100%; height:100%; object-fit:cover;"/>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 7] Catering & Beverage Menu during Mixers -->
 <section class="section section-alt" id="mixer-catering">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Mixer Catering</div>
-      <h2>Event Catering & Beverage Highlights</h2>
-      <p style="max-width:550px; margin:0 auto;">Enjoy fresh snacks and local beverages during our evening mixer events.</p>
-    </div>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
-      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
-        <strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;">🍺 Craft Beers & Wine</strong>
-        <p style="font-size:0.85rem; color:var(--text-muted);">Local craft IPA brews and red/white wine selections served from 6 PM onwards.</p>
-      </div>
-      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
-        <strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;">🥗 Vegetarian Flatbreads</strong>
-        <p style="font-size:0.85rem; color:var(--text-muted);">Fresh avocado flatbread trays, slider burgers, and light organic appetizers.</p>
-      </div>
-      <div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
-        <strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;">☕ Pour-over Barista Setup</strong>
-        <p style="font-size:0.85rem; color:var(--text-muted);">Specialty espresso beans roasted locally, ground fresh for afternoon workshops.</p>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Mixer Catering</div>
+<h2>Event Catering &amp; Beverage Highlights</h2>
+<p style="max-width:550px; margin:0 auto;">Enjoy fresh snacks and local beverages during our evening mixer events.</p>
+</div>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
+<div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+<strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;"><i data-lucide="beer"></i> Craft Beers &amp; Wine</strong>
+<p style="font-size:0.85rem; color:var(--text-muted);">Local craft IPA brews and red/white wine selections served from 6 PM onwards.</p>
+</div>
+<div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+<strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;"><i data-lucide="utensils"></i> Vegetarian Flatbreads</strong>
+<p style="font-size:0.85rem; color:var(--text-muted);">Fresh avocado flatbread trays, slider burgers, and light organic appetizers.</p>
+</div>
+<div class="card reveal" style="padding:24px; background:#fff; border-color:var(--border);">
+<strong style="color:var(--text-dark); font-size:1rem; display:block; margin-bottom:6px;"><i data-lucide="coffee"></i> Pour-over Barista Setup</strong>
+<p style="font-size:0.85rem; color:var(--text-muted);">Specialty espresso beans roasted locally, ground fresh for afternoon workshops.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 8] Member Testimonials -->
 <section class="section" id="community-testimonials" style="background:#fff;">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal" style="margin-bottom:40px;">
-      <div class="section-tag">Success Stories</div>
-      <h2>How Community Mixers Drive Startup Growth</h2>
-      <p>Real feedback from founders who secured funding or hired key engineers at Nexus events.</p>
-    </div>
-    
-    <div style="display:flex; flex-direction:column; gap:24px;">
-      <div class="card reveal" style="padding:28px; border-color:var(--border);">
-        <p style="font-size:0.95rem; line-height:1.6; color:var(--text); font-style:italic;">"I pitched my SaaS idea at the June 2024 Startup Pitch Night. Not only did I get great product feedback, but I also met a partner from Horizon Ventures who eventually led our seed round."</p>
-        <strong style="color:var(--text-dark); display:block; margin-top:12px; font-size:0.9rem;">— Alex Rivera, Founder of FlowState AI</strong>
-      </div>
-      <div class="card reveal" style="padding:28px; border-color:var(--border);">
-        <p style="font-size:0.95rem; line-height:1.6; color:var(--text); font-style:italic;">"Finding senior developers is always hard. I attended the Founders Networking Mixer and connected with three remote engineers. Two of them are now full-time employees."</p>
-        <strong style="color:var(--text-dark); display:block; margin-top:12px; font-size:0.9rem;">— Clara Oswald, CTO of BlockLabs</strong>
-      </div>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal" style="margin-bottom:40px;">
+<div class="section-tag">Success Stories</div>
+<h2>How Community Mixers Drive Startup Growth</h2>
+<p>Real feedback from founders who secured funding or hired key engineers at Nexus events.</p>
+</div>
+<div style="display:flex; flex-direction:column; gap:24px;">
+<div class="card reveal" style="padding:28px; border-color:var(--border);">
+<p style="font-size:0.95rem; line-height:1.6; color:var(--text); font-style:italic;">"I pitched my SaaS idea at the June 2024 Startup Pitch Night. Not only did I get great product feedback, but I also met a partner from Horizon Ventures who eventually led our seed round."</p>
+<strong style="color:var(--text-dark); display:block; margin-top:12px; font-size:0.9rem;">— Alex Rivera, Founder of FlowState AI</strong>
+</div>
+<div class="card reveal" style="padding:28px; border-color:var(--border);">
+<p style="font-size:0.95rem; line-height:1.6; color:var(--text); font-style:italic;">"Finding senior developers is always hard. I attended the Founders Networking Mixer and connected with three remote engineers. Two of them are now full-time employees."</p>
+<strong style="color:var(--text-dark); display:block; margin-top:12px; font-size:0.9rem;">— Clara Oswald, CTO of BlockLabs</strong>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 9] Virtual Event Streaming Instructions -->
 <section class="section section-alt" id="streaming-instructions">
-  <div class="container" style="max-width:800px; text-align:center;">
-    <div class="card reveal responsive-card" style="border-color:var(--border);">
-      <div class="section-tag" style="margin-bottom:12px;">Virtual Streaming</div>
-      <h3 style="font-family:var(--font-head); font-size:1.6rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">How to Join Remotely</h3>
-      <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; max-width:600px; margin:0 auto 20px;">Can't make it to our physical auditoriums? All keynote presentation slides and audio streams are broadcast live over Zoom and YouTube. Check your registration ticket email for the direct stream link and Slido interactive Q&A codes.</p>
-      <a href="mailto:events@nexuscowork.com" class="btn btn-primary">Request Remote Link Voucher</a>
-    </div>
-  </div>
+<div class="container" style="max-width:800px; text-align:center;">
+<div class="card reveal responsive-card" style="border-color:var(--border);">
+<div class="section-tag" style="margin-bottom:12px;">Virtual Streaming</div>
+<h3 style="font-family:var(--font-head); font-size:1.6rem; font-weight:800; color:var(--text-dark); margin-bottom:12px;">How to Join Remotely</h3>
+<p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; max-width:600px; margin:0 auto 20px;">Can't make it to our physical auditoriums? All keynote presentation slides and audio streams are broadcast live over Zoom and YouTube. Check your registration ticket email for the direct stream link and Slido interactive Q&amp;A codes.</p>
+<a class="btn btn-primary" href="mailto:events@nexuscowork.com">Request Remote Link Voucher</a>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 10] Community Code of Conduct -->
 <section class="section" id="conduct" style="background:#fff;">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal">
-      <div class="section-tag">Community Rules</div>
-      <h2>Event Conduct & Anti-Harassment Rules</h2>
-      <p>We work to keep our co-working community inclusive, safe, and helpful for founders.</p>
-    </div>
-    <div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; gap:16px; font-size:0.9rem; color:var(--text);">
-      <p>🤝 <strong>Inclusive Collaboration</strong> - We welcome builders of all backgrounds and technical levels. Respect intellectual property pitched during sprints.</p>
-      <p>🚫 <strong>Zero Spam Policy</strong> - Mixers are for genuine founder networking. Please refrain from aggressively selling services or spamming developers.</p>
-      <p>🔕 <strong>Time Wrapping</strong> - Workshops close on schedule to accommodate following boardroom reservations.</p>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal">
+<div class="section-tag">Community Rules</div>
+<h2>Event Conduct &amp; Anti-Harassment Rules</h2>
+<p>We work to keep our co-working community inclusive, safe, and helpful for founders.</p>
+</div>
+<div style="background:#F9FAFB; border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; gap:16px; font-size:0.9rem; color:var(--text);">
+<p><i data-lucide="handshake"></i> <strong>Inclusive Collaboration</strong> - We welcome builders of all backgrounds and technical levels. Respect intellectual property pitched during sprints.</p>
+<p><i data-lucide="ban"></i> <strong>Zero Spam Policy</strong> - Mixers are for genuine founder networking. Please refrain from aggressively selling services or spamming developers.</p>
+<p><i data-lucide="bell-off"></i> <strong>Time Wrapping</strong> - Workshops close on schedule to accommodate following boardroom reservations.</p>
+</div>
+</div>
 </section>
-
 <!-- Host An Event Form Details -->
 <section class="section section-alt" id="host-event">
-  <div class="container" style="max-width:700px;">
-    <div class="card reveal responsive-card" style="border-radius:var(--radius-lg); box-shadow:var(--shadow);">
-      <h2 style="font-family:var(--font-head); font-size:1.5rem; font-weight:800; color:var(--text-dark); margin-bottom:8px; text-align:center;">Host Your Event at Nexus</h2>
-      <p style="color:var(--text-muted); margin-bottom:24px; text-align:center; font-size:0.9rem;">Our auditoriums, lounges, and boardrooms can host up to 100 guests.</p>
-      
-      <form onsubmit="handleHostSubmit(event)">
-        <div class="grid-2col equal" style="gap:16px; align-items:start;">
-          <div class="form-group">
-            <label for="host-name">Organizer Name *</label>
-            <input type="text" id="host-name" class="form-control" placeholder="Full name" required />
-          </div>
-          <div class="form-group">
-            <label for="host-email">Work Email *</label>
-            <input type="email" id="host-email" class="form-control" placeholder="organizer@company.com" required />
-          </div>
-        </div>
-        <div class="grid-2col equal" style="gap:16px; margin-top:16px; align-items:start;">
-          <div class="form-group">
-            <label for="host-type">Event Format</label>
-            <select id="host-type" class="form-control">
-              <option value="Workshop">Technical Workshop</option>
-              <option value="Networking">Networking Mixer</option>
-              <option value="Panel">Investor Panel</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="host-size">Expected Attendance</label>
-            <input type="number" id="host-size" class="form-control" placeholder="e.g. 50" required />
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary w-full" style="margin-top:24px; justify-content:center;">Submit Inquiry Request</button>
-      </form>
-    </div>
-  </div>
+<div class="container" style="max-width:700px;">
+<div class="card reveal responsive-card" style="border-radius:var(--radius-lg); box-shadow:var(--shadow);">
+<h2 style="font-family:var(--font-head); font-size:1.5rem; font-weight:800; color:var(--text-dark); margin-bottom:8px; text-align:center;">Host Your Event at Nexus</h2>
+<p style="color:var(--text-muted); margin-bottom:24px; text-align:center; font-size:0.9rem;">Our auditoriums, lounges, and boardrooms can host up to 100 guests.</p>
+<form onsubmit="handleHostSubmit(event)">
+<div class="grid-2col equal" style="gap:16px; align-items:start;">
+<div class="form-group">
+<label for="host-name">Organizer Name *</label>
+<input class="form-control" id="host-name" placeholder="Full name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="host-email">Work Email *</label>
+<input class="form-control" id="host-email" placeholder="organizer@company.com" required="" type="email"/>
+</div>
+</div>
+<div class="grid-2col equal" style="gap:16px; margin-top:16px; align-items:start;">
+<div class="form-group">
+<label for="host-type">Event Format</label>
+<select class="form-control" id="host-type">
+<option value="Workshop">Technical Workshop</option>
+<option value="Networking">Networking Mixer</option>
+<option value="Panel">Investor Panel</option>
+</select>
+</div>
+<div class="form-group">
+<label for="host-size">Expected Attendance</label>
+<input class="form-control" id="host-size" placeholder="e.g. 50" required="" type="number"/>
+</div>
+</div>
+<button class="btn btn-primary w-full" style="margin-top:24px; justify-content:center;" type="submit">Submit Inquiry Request</button>
+</form>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 11] Partner Event Sponsoring Plans -->
 <section class="section" id="event-sponsorship" style="background:#fff;">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">Brand Exposure</div>
-      <h2>Corporate Event Sponsorship Packages</h2>
-      <p style="max-width:550px; margin:0 auto;">Promote your SaaS platform or service to 500+ tech founders at our monthly mixers.</p>
-    </div>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
-      <div class="card reveal" style="padding:28px; border-color:var(--border);">
-        <strong style="color:var(--text-dark); font-size:1.15rem; display:block;">Bronze Sponsor</strong>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Logo listed on digital slides and community newsletter flyers.</p>
-        <span style="font-weight:700; color:var(--secondary); display:block; margin-top:12px;">$250 / Event</span>
-      </div>
-      <div class="card reveal" style="padding:28px; border-color:var(--border);">
-        <strong style="color:var(--text-dark); font-size:1.15rem; display:block;">Silver Sponsor</strong>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Booth setup in the lounge + 3 minutes welcome pitching slots.</p>
-        <span style="font-weight:700; color:var(--secondary); display:block; margin-top:12px;">$600 / Event</span>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-header reveal">
+<div class="section-tag">Brand Exposure</div>
+<h2>Corporate Event Sponsorship Packages</h2>
+<p style="max-width:550px; margin:0 auto;">Promote your SaaS platform or service to 500+ tech founders at our monthly mixers.</p>
+</div>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:32px;">
+<div class="card reveal" style="padding:28px; border-color:var(--border);">
+<strong style="color:var(--text-dark); font-size:1.15rem; display:block;">Bronze Sponsor</strong>
+<p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Logo listed on digital slides and community newsletter flyers.</p>
+<span style="font-weight:700; color:var(--secondary); display:block; margin-top:12px;">$250 / Event</span>
+</div>
+<div class="card reveal" style="padding:28px; border-color:var(--border);">
+<strong style="color:var(--text-dark); font-size:1.15rem; display:block;">Silver Sponsor</strong>
+<p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Booth setup in the lounge + 3 minutes welcome pitching slots.</p>
+<span style="font-weight:700; color:var(--secondary); display:block; margin-top:12px;">$600 / Event</span>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 12] Volunteer & Community Ambassador Program -->
 <section class="section section-alt" id="ambassadors">
-  <div class="container grid-2col">
-    <div>
-      <div class="section-tag">Ambassador Program</div>
-      <h2>Volunteer & Earn Hot Desk Credits</h2>
-      <p style="color:var(--text); margin-bottom:16px;">Want to support our community? Volunteer to help with event registrations, sign-ins, or AV equipment setups in exchange for free hot desk vouchers.</p>
-      <ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:20px;">
-        <li>🎫 <strong>Free Desk Passes</strong> - Receive 1 free day-pass credit for every hour volunteered.</li>
-        <li>🎙️ <strong>AV Assistant Roles</strong> - Help speakers set up slide decks and monitor microphone levels.</li>
-        <li>🎟️ <strong>Free Ticket Entry</strong> - Volunteers attend high-tier workshops without paying entry costs.</li>
-      </ul>
-      <a href="mailto:volunteer@nexuscowork.com" class="btn btn-primary">Apply as Event Volunteer</a>
-    </div>
-    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
-      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Volunteers greeting guests" style="width:100%;" />
-    </div>
-  </div>
+<div class="container grid-2col">
+<div>
+<div class="section-tag">Ambassador Program</div>
+<h2>Volunteer &amp; Earn Hot Desk Credits</h2>
+<p style="color:var(--text); margin-bottom:16px;">Want to support our community? Volunteer to help with event registrations, sign-ins, or AV equipment setups in exchange for free hot desk vouchers.</p>
+<ul style="display:flex; flex-direction:column; gap:12px; font-size:0.95rem; color:var(--text); margin-bottom:20px;">
+<li><i data-lucide="ticket"></i> <strong>Free Desk Passes</strong> - Receive 1 free day-pass credit for every hour volunteered.</li>
+<li><i data-lucide="mic"></i> <strong>AV Assistant Roles</strong> - Help speakers set up slide decks and monitor microphone levels.</li>
+<li><i data-lucide="ticket"></i> <strong>Free Ticket Entry</strong> - Volunteers attend high-tier workshops without paying entry costs.</li>
+</ul>
+<a class="btn btn-primary" href="mailto:volunteer@nexuscowork.com">Apply as Event Volunteer</a>
+</div>
+<div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);">
+<img alt="Volunteers greeting guests" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=800&amp;q=80" style="width:100%;"/>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 13] Announcements Archive (Latest updates lists) -->
 <section class="section" id="announcements-archive" style="background:#fff;">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal">
-      <div class="section-tag">Announcements Archive</div>
-      <h2>Recent Community Bulletins & Updates</h2>
-      <p>Browse local updates and system alerts posted over the past 30 days.</p>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:16px;">
-      <div class="card reveal" style="padding:20px; border-color:var(--border);">
-        <strong style="color:var(--text-dark); display:block;">📢 New Podcast Room Audio Setup</strong>
-        <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:2px;">Posted: May 12, 2025</span>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">We've upgraded the podcast studio with Shure SM7B mics and a Rodecaster Pro mixing panel. Open for hourly bookings!</p>
-      </div>
-      <div class="card reveal" style="padding:20px; border-color:var(--border);">
-        <strong style="color:var(--text-dark); display:block;">⚠️ Upcoming Holiday Hours: Memorial Day</strong>
-        <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:2px;">Posted: May 08, 2025</span>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">All physical lobbies will close at 6 PM on Memorial Day. Member card access remains active 24/7 as usual.</p>
-      </div>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal">
+<div class="section-tag">Announcements Archive</div>
+<h2>Recent Community Bulletins &amp; Updates</h2>
+<p>Browse local updates and system alerts posted over the past 30 days.</p>
+</div>
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="card reveal" style="padding:20px; border-color:var(--border);">
+<strong style="color:var(--text-dark); display:block;"><i data-lucide="megaphone"></i> New Podcast Room Audio Setup</strong>
+<span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:2px;">Posted: May 12, 2025</span>
+<p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">We've upgraded the podcast studio with Shure SM7B mics and a Rodecaster Pro mixing panel. Open for hourly bookings!</p>
+</div>
+<div class="card reveal" style="padding:20px; border-color:var(--border);">
+<strong style="color:var(--text-dark); display:block;"><i data-lucide="alert-triangle"></i> Upcoming Holiday Hours: Memorial Day</strong>
+<span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:2px;">Posted: May 08, 2025</span>
+<p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">All physical lobbies will close at 6 PM on Memorial Day. Member card access remains active 24/7 as usual.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- [NEW SECTION 14] Events Venue FAQ Section Part 2 -->
 <section class="section section-alt" id="events-venue-faq">
-  <div class="container" style="max-width:800px;">
-    <div class="section-header reveal" style="margin-bottom:40px;">
-      <div class="section-tag">Venue FAQ</div>
-      <h2>Event Check-In & Directions FAQ</h2>
-      <p>Directions, parking validation, and check-in procedures for visiting guests.</p>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:16px;">
-      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
-        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Is parking validation provided for event guests?</summary>
-        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. We validate parking for up to 3 hours in the Innovation Street underground garage. Bring your ticket to the front reception desk during check-in.</p>
-      </details>
-      <details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
-        <summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Do non-members need to register in advance?</summary>
-        <p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Security requires all visiting non-members to register for tickets in advance. You will receive an entry QR code on your registered email address.</p>
-      </details>
-    </div>
-  </div>
+<div class="container" style="max-width:800px;">
+<div class="section-header reveal" style="margin-bottom:40px;">
+<div class="section-tag">Venue FAQ</div>
+<h2>Event Check-In &amp; Directions FAQ</h2>
+<p>Directions, parking validation, and check-in procedures for visiting guests.</p>
+</div>
+<div style="display:flex; flex-direction:column; gap:16px;">
+<details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+<summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Is parking validation provided for event guests?</summary>
+<p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. We validate parking for up to 3 hours in the Innovation Street underground garage. Bring your ticket to the front reception desk during check-in.</p>
+</details>
+<details class="card reveal" style="padding:20px; background:#fff; cursor:pointer;">
+<summary style="font-weight:700; color:var(--text-dark); outline:none; font-family:var(--font-head);">Do non-members need to register in advance?</summary>
+<p style="margin-top:12px; font-size:0.95rem; color:var(--text-muted); cursor:default; line-height:1.6;">Yes. Security requires all visiting non-members to register for tickets in advance. You will receive an entry QR code on your registered email address.</p>
+</details>
+</div>
+</div>
 </section>
-
 <!-- Footer -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-brand" style="margin-bottom:0">
-        <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
-      </div>
-      <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Spaces</h4>
-      <ul>
-        <li><a href="membership.html">Membership Plans</a></li>
-        <li><a href="meetingrooms.html">Meeting Rooms</a></li>
-        <li><a href="virtualoffice.html">Virtual Office</a></li>
-        <li><a href="availability.html">Availability Grid</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="events.html">Events Grid</a></li>
-        <li><a href="dashboard.html">Member Portal</a></li>
-        <li><a href="admin.html">Admin Console</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="#">📍 123 Innovation Street</a></li>
-        <li><a href="#">📞 +1 (555) 000-0000</a></li>
-        <li><a href="#">✉️ hello@nexuscowork.com</a></li>
-        <li><a href="#">🕐 Mon–Sat, 8am–10pm</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 NexusCowork. All rights reserved.</p>
-    <div class="social-links">
-      <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-      <a href="#" class="social-link" aria-label="LinkedIn">in</a>
-      <a href="#" class="social-link" aria-label="Facebook">f</a>
-    </div>
-  </div>
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="nav-brand" style="margin-bottom:0">
+<div class="brand-icon"><i data-lucide="zap"></i></div> Nexus<span>Cowork</span>
+</div>
+<p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
+</div>
+<div class="footer-col">
+<h4>Spaces</h4>
+<ul>
+<li><a href="membership.html">Membership Plans</a></li>
+<li><a href="meetingrooms.html">Meeting Rooms</a></li>
+<li><a href="virtualoffice.html">Virtual Office</a></li>
+<li><a href="availability.html">Availability Grid</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="events.html">Events Grid</a></li>
+<li><a href="dashboard.html">Member Portal</a></li>
+<li><a href="admin.html">Admin Console</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<ul>
+<li><a href="#"><i data-lucide="map-pin"></i> 123 Innovation Street</a></li>
+<li><a href="#"><i data-lucide="phone"></i> +1 (555) 000-0000</a></li>
+<li><a href="#"><i data-lucide="mail"></i> hello@nexuscowork.com</a></li>
+<li><a href="#"><i data-lucide="clock"></i> Mon–Sat, 8am–10pm</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 NexusCowork. All rights reserved.</p>
+<div class="social-links">
+<a aria-label="Twitter" class="social-link" href="#">𝕏</a>
+<a aria-label="LinkedIn" class="social-link" href="#">in</a>
+<a aria-label="Facebook" class="social-link" href="#">f</a>
+</div>
+</div>
 </footer>
-
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="script.js"></script>
 <script>
   function switchEventCategory(category) {

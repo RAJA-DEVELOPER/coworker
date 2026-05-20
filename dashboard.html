@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Member Dashboard — NexusCowork</title>
-  <meta name="description" content="Manage bookings, track membership usage, edit profile settings, and check productivity statistics." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Member Dashboard — NexusCowork</title>
+<meta content="Manage bookings, track membership usage, edit profile settings, and check productivity statistics." name="description"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
     .activity-item {
       display: flex;
       align-items: center;
@@ -113,250 +114,232 @@
   </style>
 </head>
 <body>
-
 <!-- Loader -->
 <div id="page-loader"><div class="loader-ring"></div></div>
-
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <a href="index.html" class="nav-brand">
-    <div class="brand-icon">⚡</div>
+<a class="nav-brand" href="index.html">
+<div class="brand-icon"><i data-lucide="zap"></i></div>
     Nexus<span>Cowork</span>
-  </a>
-  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="membership.html">Membership</a></li>
-    <li><a href="availability.html">Availability</a></li>
-    <li><a href="events.html">Events</a></li>
-    <li><a href="booking.html" class="nav-cta">Book Now</a></li>
-  </ul>
+</a>
+<div aria-label="Toggle menu" class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</div>
+<ul class="nav-links" id="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="membership.html">Membership</a></li>
+<li><a href="availability.html">Availability</a></li>
+<li><a href="events.html">Events</a></li>
+<li><a class="nav-cta" href="booking.html">Book Now</a></li>
+</ul>
 </nav>
-
 <div class="dash-layout">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-profile">
-      <div style="width:52px; height:52px; background:linear-gradient(135deg,var(--secondary),var(--accent)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:12px; color:#fff;" id="profile-avatar-display">JD</div>
-      <div>
-        <div style="font-weight:600; font-size:0.95rem;" id="profile-name-sidebar">John Doe</div>
-        <div style="font-size:0.82rem; color:var(--text-muted);" id="profile-plan-sidebar">Hot Desk Member</div>
-        <span class="badge badge-success" style="margin-top:8px; display:inline-block;">Active Account</span>
-      </div>
-    </div>
-    <nav class="sidebar-nav">
-      <a href="#overview-panel" class="active" onclick="switchPanel(this, 'overview-panel')"><span class="icon">📊</span> Overview</a>
-      <a href="#bookings-panel" onclick="switchPanel(this, 'bookings-panel')"><span class="icon">📅</span> My Bookings</a>
-      <a href="#profile-panel" onclick="switchPanel(this, 'profile-panel')"><span class="icon">⚙️</span> Profile Settings</a>
-      <a href="#" onclick="handleLogout(event)"><span class="icon">🚪</span> Logout</a>
-    </nav>
-  </aside>
-
-  <!-- Main Content Panels -->
-  <main class="dash-content">
-    
-    <!-- Header -->
-    <div class="dash-header reveal" style="margin-bottom:24px;">
-      <h1 id="welcome-message-header">Welcome Back, John Doe 👋</h1>
-      <p>Manage your spaces, review invoice statements, and configure profile alerts.</p>
-    </div>
-
-    <!-- Membership Renewal Reminder Alert -->
-    <div class="renewal-reminder-banner reveal">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:1.4rem;">💳</span>
-        <div>
-          <strong style="color:var(--text-dark); font-size:0.9rem;">Auto-Renewal Alert</strong>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Your Hot Desk subscription renews automatically on <strong>June 30, 2025</strong> at $199.00.</p>
-        </div>
-      </div>
-      <button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="showToast('Invoice details sent to billing.','success')">View Statement</button>
-    </div>
-
-    <!-- PANEL 1: OVERVIEW -->
-    <div id="overview-panel" class="dash-panel-tab active">
-      <!-- Modern Dashboard Stats Cards (Productivity Stats) -->
-      <div class="dash-grid reveal" style="margin-bottom:28px;">
-        <div class="dash-stat">
-          <div class="dash-stat-icon blue">⏱️</div>
-          <div>
-            <h3>32 Hours</h3>
-            <p>Focus Hours Logged</p>
-          </div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-icon green">📡</div>
-          <div>
-            <h3>14.8 GB</h3>
-            <p>Wi-Fi Data Used</p>
-          </div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-icon orange">📅</div>
-          <div>
-            <h3>12 Desks</h3>
-            <p>Days Checked In</p>
-          </div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-icon purple">🎟️</div>
-          <div>
-            <h3>2 / 5 Hrs</h3>
-            <p>Meeting Credits Left</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Usage Chart & Membership Tracking Grid -->
-      <div class="dash-sections-grid reveal">
-        <!-- Usage Chart -->
-        <div class="glass-section">
-          <h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;">📈 Weekly Usage (Hours)</h3>
-          <div class="chart-wrap">
-            <div class="chart-bar">
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:60%"></div><div class="bar-label">Mon</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:80%"></div><div class="bar-label">Tue</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:40%"></div><div class="bar-label">Wed</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:90%"></div><div class="bar-label">Thu</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:70%"></div><div class="bar-label">Fri</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:30%"></div><div class="bar-label">Sat</div></div>
-              <div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:10%"></div><div class="bar-label">Sun</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Membership Tracking -->
-        <div class="glass-section">
-          <h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;">💳 Membership Tracking</h3>
-          <div style="margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Plan Category</span><span style="font-weight:600;" id="panel-plan-display">Hot Desk Plan</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Renewal Date</span><span>Jun 30, 2025</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Meeting Room Hrs</span><span>3 / 5 Used</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:16px;"><span style="color:var(--text-muted)">Printing Credits</span><span>32 / 50 Used</span></div>
-            <div style="background:var(--border); border-radius:100px; height:6px; margin-bottom:8px;">
-              <div style="width:64%; height:100%; background:var(--secondary); border-radius:100px;"></div>
-            </div>
-            <p style="font-size:0.8rem; color:var(--text-muted);">64% of allocated credits consumed</p>
-          </div>
-          <a href="membership.html" class="btn btn-outline w-full" style="justify-content:center; font-size:0.85rem;">Upgrade Subscription</a>
-        </div>
-      </div>
-
-      <!-- Booking Activity Timeline -->
-      <div class="glass-section reveal">
-        <h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:16px;">🕐 Booking Activity Timeline</h3>
-        <div class="activity-item">
-          <div class="activity-icon blue">📅</div>
-          <div class="activity-info"><strong>Booking Confirmed — Conference Room A</strong><span>May 22, 2025 at 2:00 PM for 2 hours</span></div>
-          <span class="activity-time">2h ago</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-icon" style="background:rgba(34,197,94,0.15);">💳</div>
-          <div class="activity-info"><strong>Invoice Paid — May 2025</strong><span>$199.00 — Hot Desk Plan</span></div>
-          <span class="activity-time">3d ago</span>
-        </div>
-        <div class="activity-item">
-          <div class="activity-icon" style="background:rgba(249,115,22,0.15);">🎟️</div>
-          <div class="activity-info"><strong>Registered for Startup Pitch Night</strong><span>Jun 5, 2025 at 6:00 PM</span></div>
-          <span class="activity-time">5d ago</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL 2: MY BOOKINGS -->
-    <div id="bookings-panel" class="dash-panel-tab" style="display:none;">
-      <div class="glass-section reveal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem;">📅 Booking History</h3>
-          <a href="booking.html" class="btn btn-primary" style="padding:8px 16px; font-size:0.82rem;">+ New Booking</a>
-        </div>
-        <div class="table-responsive">
-          <table class="data-table" style="min-width:600px; width:100%;">
-            <thead>
-              <tr>
-                <th>Space</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Duration</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Hot Desk D12</td>
-                <td>May 21, 2025</td>
-                <td>9:00 AM</td>
-                <td>Full Day</td>
-                <td><span class="badge badge-success">Confirmed</span></td>
-                <td><button class="btn btn-outline" style="padding:5px 12px; font-size:0.78rem;" onclick="showToast('Booking cancelled.','error')">Cancel</button></td>
-              </tr>
-              <tr>
-                <td>Conference A</td>
-                <td>May 22, 2025</td>
-                <td>2:00 PM</td>
-                <td>2 Hours</td>
-                <td><span class="badge badge-success">Confirmed</span></td>
-                <td><button class="btn btn-outline" style="padding:5px 12px; font-size:0.78rem;" onclick="showToast('Booking cancelled.','error')">Cancel</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL 3: PROFILE SETTINGS -->
-    <div id="profile-panel" class="dash-panel-tab" style="display:none;">
-      <div class="glass-section reveal">
-        <h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;">👤 User Profile Management</h3>
-        
-        <form onsubmit="handleProfileUpdate(event)">
-          <div class="grid-2col equal" style="gap:20px; align-items:start;">
-            <div class="form-group">
-              <label for="profile-name">Full Name *</label>
-              <input type="text" id="profile-name" class="form-control" value="John Doe" required />
-            </div>
-            <div class="form-group">
-              <label for="profile-email">Email Address *</label>
-              <input type="email" id="profile-email" class="form-control" value="john.doe@company.com" required />
-            </div>
-          </div>
-
-          <div class="grid-2col equal" style="gap:20px; margin-top:16px; align-items:start;">
-            <div class="form-group">
-              <label for="profile-category">Membership Category</label>
-              <select id="profile-category" class="form-control">
-                <option value="Hot Desk">Hot Desk ($199/mo)</option>
-                <option value="Dedicated Desk">Dedicated Desk ($349/mo)</option>
-                <option value="Private Office">Private Office ($799/mo)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="profile-bio">Brief Bio</label>
-              <input type="text" id="profile-bio" class="form-control" value="Full stack software architect writing TypeScript code." />
-            </div>
-          </div>
-
-          <div style="margin-top:20px; padding:16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-main);">
-            <strong style="font-size:0.85rem; color:var(--text-dark); display:block; margin-bottom:8px;">Profile Notifications Setup</strong>
-            <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
-              <input type="checkbox" id="profile-alert-toggle" checked />
+<!-- Sidebar -->
+<aside class="sidebar">
+<div class="sidebar-profile">
+<div id="profile-avatar-display" style="width:52px; height:52px; background:linear-gradient(135deg,var(--secondary),var(--accent)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:12px; color:#fff;">JD</div>
+<div>
+<div id="profile-name-sidebar" style="font-weight:600; font-size:0.95rem;">John Doe</div>
+<div id="profile-plan-sidebar" style="font-size:0.82rem; color:var(--text-muted);">Hot Desk Member</div>
+<span class="badge badge-success" style="margin-top:8px; display:inline-block;">Active Account</span>
+</div>
+</div>
+<nav class="sidebar-nav">
+<a class="active" href="#overview-panel" onclick="switchPanel(this, 'overview-panel')"><span class="icon"><i data-lucide="bar-chart-2"></i></span> Overview</a>
+<a href="#bookings-panel" onclick="switchPanel(this, 'bookings-panel')"><span class="icon"><i data-lucide="calendar"></i></span> My Bookings</a>
+<a href="#profile-panel" onclick="switchPanel(this, 'profile-panel')"><span class="icon"><i data-lucide="settings"></i></span> Profile Settings</a>
+<a href="#" onclick="handleLogout(event)"><span class="icon"><i data-lucide="door-closed"></i></span> Logout</a>
+</nav>
+</aside>
+<!-- Main Content Panels -->
+<main class="dash-content">
+<!-- Header -->
+<div class="dash-header reveal" style="margin-bottom:24px;">
+<h1 id="welcome-message-header">Welcome Back, John Doe <i data-lucide="sparkles"></i></h1>
+<p>Manage your spaces, review invoice statements, and configure profile alerts.</p>
+</div>
+<!-- Membership Renewal Reminder Alert -->
+<div class="renewal-reminder-banner reveal">
+<div style="display:flex; align-items:center; gap:10px;">
+<span style="font-size:1.4rem;"><i data-lucide="credit-card"></i></span>
+<div>
+<strong style="color:var(--text-dark); font-size:0.9rem;">Auto-Renewal Alert</strong>
+<p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Your Hot Desk subscription renews automatically on <strong>June 30, 2025</strong> at $199.00.</p>
+</div>
+</div>
+<button class="btn btn-outline" onclick="showToast('Invoice details sent to billing.','success')" style="padding:6px 12px; font-size:0.8rem;">View Statement</button>
+</div>
+<!-- PANEL 1: OVERVIEW -->
+<div class="dash-panel-tab active" id="overview-panel">
+<!-- Modern Dashboard Stats Cards (Productivity Stats) -->
+<div class="dash-grid reveal" style="margin-bottom:28px;">
+<div class="dash-stat">
+<div class="dash-stat-icon blue"><i data-lucide="timer"></i></div>
+<div>
+<h3>32 Hours</h3>
+<p>Focus Hours Logged</p>
+</div>
+</div>
+<div class="dash-stat">
+<div class="dash-stat-icon green"><i data-lucide="wifi"></i></div>
+<div>
+<h3>14.8 GB</h3>
+<p>Wi-Fi Data Used</p>
+</div>
+</div>
+<div class="dash-stat">
+<div class="dash-stat-icon orange"><i data-lucide="calendar"></i></div>
+<div>
+<h3>12 Desks</h3>
+<p>Days Checked In</p>
+</div>
+</div>
+<div class="dash-stat">
+<div class="dash-stat-icon purple"><i data-lucide="ticket"></i></div>
+<div>
+<h3>2 / 5 Hrs</h3>
+<p>Meeting Credits Left</p>
+</div>
+</div>
+</div>
+<!-- Usage Chart & Membership Tracking Grid -->
+<div class="dash-sections-grid reveal">
+<!-- Usage Chart -->
+<div class="glass-section">
+<h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;"><i data-lucide="trending-up"></i> Weekly Usage (Hours)</h3>
+<div class="chart-wrap">
+<div class="chart-bar">
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:60%"></div><div class="bar-label">Mon</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:80%"></div><div class="bar-label">Tue</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:40%"></div><div class="bar-label">Wed</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:90%"></div><div class="bar-label">Thu</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:70%"></div><div class="bar-label">Fri</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:30%"></div><div class="bar-label">Sat</div></div>
+<div style="display:flex; flex-direction:column; align-items:center; flex:1;"><div class="bar" style="height:10%"></div><div class="bar-label">Sun</div></div>
+</div>
+</div>
+</div>
+<!-- Membership Tracking -->
+<div class="glass-section">
+<h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;"><i data-lucide="credit-card"></i> Membership Tracking</h3>
+<div style="margin-bottom:14px;">
+<div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Plan Category</span><span id="panel-plan-display" style="font-weight:600;">Hot Desk Plan</span></div>
+<div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Renewal Date</span><span>Jun 30, 2025</span></div>
+<div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:6px;"><span style="color:var(--text-muted)">Meeting Room Hrs</span><span>3 / 5 Used</span></div>
+<div style="display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:16px;"><span style="color:var(--text-muted)">Printing Credits</span><span>32 / 50 Used</span></div>
+<div style="background:var(--border); border-radius:100px; height:6px; margin-bottom:8px;">
+<div style="width:64%; height:100%; background:var(--secondary); border-radius:100px;"></div>
+</div>
+<p style="font-size:0.8rem; color:var(--text-muted);">64% of allocated credits consumed</p>
+</div>
+<a class="btn btn-outline w-full" href="membership.html" style="justify-content:center; font-size:0.85rem;">Upgrade Subscription</a>
+</div>
+</div>
+<!-- Booking Activity Timeline -->
+<div class="glass-section reveal">
+<h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:16px;"><i data-lucide="clock"></i> Booking Activity Timeline</h3>
+<div class="activity-item">
+<div class="activity-icon blue"><i data-lucide="calendar"></i></div>
+<div class="activity-info"><strong>Booking Confirmed — Conference Room A</strong><span>May 22, 2025 at 2:00 PM for 2 hours</span></div>
+<span class="activity-time">2h ago</span>
+</div>
+<div class="activity-item">
+<div class="activity-icon" style="background:rgba(34,197,94,0.15);"><i data-lucide="credit-card"></i></div>
+<div class="activity-info"><strong>Invoice Paid — May 2025</strong><span>$199.00 — Hot Desk Plan</span></div>
+<span class="activity-time">3d ago</span>
+</div>
+<div class="activity-item">
+<div class="activity-icon" style="background:rgba(249,115,22,0.15);"><i data-lucide="ticket"></i></div>
+<div class="activity-info"><strong>Registered for Startup Pitch Night</strong><span>Jun 5, 2025 at 6:00 PM</span></div>
+<span class="activity-time">5d ago</span>
+</div>
+</div>
+</div>
+<!-- PANEL 2: MY BOOKINGS -->
+<div class="dash-panel-tab" id="bookings-panel" style="display:none;">
+<div class="glass-section reveal">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+<h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem;"><i data-lucide="calendar"></i> Booking History</h3>
+<a class="btn btn-primary" href="booking.html" style="padding:8px 16px; font-size:0.82rem;">+ New Booking</a>
+</div>
+<div class="table-responsive">
+<table class="data-table" style="min-width:600px; width:100%;">
+<thead>
+<tr>
+<th>Space</th>
+<th>Date</th>
+<th>Time</th>
+<th>Duration</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hot Desk D12</td>
+<td>May 21, 2025</td>
+<td>9:00 AM</td>
+<td>Full Day</td>
+<td><span class="badge badge-success">Confirmed</span></td>
+<td><button class="btn btn-outline" onclick="showToast('Booking cancelled.','error')" style="padding:5px 12px; font-size:0.78rem;">Cancel</button></td>
+</tr>
+<tr>
+<td>Conference A</td>
+<td>May 22, 2025</td>
+<td>2:00 PM</td>
+<td>2 Hours</td>
+<td><span class="badge badge-success">Confirmed</span></td>
+<td><button class="btn btn-outline" onclick="showToast('Booking cancelled.','error')" style="padding:5px 12px; font-size:0.78rem;">Cancel</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- PANEL 3: PROFILE SETTINGS -->
+<div class="dash-panel-tab" id="profile-panel" style="display:none;">
+<div class="glass-section reveal">
+<h3 style="font-family:var(--font-head); font-weight:600; font-size:1rem; margin-bottom:20px;"><i data-lucide="user"></i> User Profile Management</h3>
+<form onsubmit="handleProfileUpdate(event)">
+<div class="grid-2col equal" style="gap:20px; align-items:start;">
+<div class="form-group">
+<label for="profile-name">Full Name *</label>
+<input class="form-control" id="profile-name" required="" type="text" value="John Doe"/>
+</div>
+<div class="form-group">
+<label for="profile-email">Email Address *</label>
+<input class="form-control" id="profile-email" required="" type="email" value="john.doe@company.com"/>
+</div>
+</div>
+<div class="grid-2col equal" style="gap:20px; margin-top:16px; align-items:start;">
+<div class="form-group">
+<label for="profile-category">Membership Category</label>
+<select class="form-control" id="profile-category">
+<option value="Hot Desk">Hot Desk ($199/mo)</option>
+<option value="Dedicated Desk">Dedicated Desk ($349/mo)</option>
+<option value="Private Office">Private Office ($799/mo)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="profile-bio">Brief Bio</label>
+<input class="form-control" id="profile-bio" type="text" value="Full stack software architect writing TypeScript code."/>
+</div>
+</div>
+<div style="margin-top:20px; padding:16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-main);">
+<strong style="font-size:0.85rem; color:var(--text-dark); display:block; margin-bottom:8px;">Profile Notifications Setup</strong>
+<label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text); cursor:pointer;">
+<input checked="" id="profile-alert-toggle" type="checkbox"/>
               Receive renewal billing alerts and workspace maintenance notices.
             </label>
-          </div>
-
-          <button type="submit" class="btn btn-primary" style="margin-top:24px;">Save Settings</button>
-        </form>
-      </div>
-    </div>
-
-  </main>
 </div>
-
+<button class="btn btn-primary" style="margin-top:24px;" type="submit">Save Settings</button>
+</form>
+</div>
+</div>
+</main>
+</div>
 <footer></footer>
-
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="script.js"></script>
 <script>
   // Panel switcher script
@@ -386,7 +369,8 @@
     document.getElementById('profile-email').value = user.email;
 
     // Update displays
-    document.getElementById('welcome-message-header').textContent = `Welcome Back, ${user.name} 👋`;
+    document.getElementById('welcome-message-header').innerHTML = `Welcome Back, ${user.name} <i data-lucide="sparkles"></i>`;
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
     document.getElementById('profile-name-sidebar').textContent = user.name;
     
     const initials = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
@@ -401,7 +385,8 @@
     const newCategory = document.getElementById('profile-category').value;
 
     // Update displays
-    document.getElementById('welcome-message-header').textContent = `Welcome Back, ${newName} 👋`;
+    document.getElementById('welcome-message-header').innerHTML = `Welcome Back, ${newName} <i data-lucide="sparkles"></i>`;
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
     document.getElementById('profile-name-sidebar').textContent = newName;
     document.getElementById('profile-plan-sidebar').textContent = `${newCategory} Member`;
     document.getElementById('panel-plan-display').textContent = `${newCategory} Plan`;

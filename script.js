@@ -6,7 +6,7 @@
   if (navbar) {
     navbar.innerHTML = `
       <a href="index.html" class="nav-brand">
-        <div class="brand-icon">⚡</div>
+        <div class="brand-icon"><i data-lucide="zap"></i></div>
         Nexus<span>Cowork</span>
       </a>
       <div class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -31,7 +31,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="nav-brand" style="margin-bottom:0">
-            <div class="brand-icon">⚡</div> Nexus<span>Cowork</span>
+            <div class="brand-icon"><i data-lucide="zap"></i></div> Nexus<span>Cowork</span>
           </div>
           <p>A premium modern coworking hub designed for innovators, startup creators, and agile teams. Work better. Connect more.</p>
         </div>
@@ -51,10 +51,10 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="#">📍 123 Innovation Street</a></li>
-            <li><a href="#">📞 +1 (555) 000-0000</a></li>
-            <li><a href="mailto:hello@nexuscowork.com">✉️ hello@nexuscowork.com</a></li>
-            <li><span>🕐 Mon–Sat, 8am–10pm</span></li>
+            <li><a href="#"><i data-lucide="map-pin"></i> 123 Innovation Street</a></li>
+            <li><a href="#"><i data-lucide="phone"></i> +1 (555) 000-0000</a></li>
+            <li><a href="mailto:hello@nexuscowork.com"><i data-lucide="mail"></i> hello@nexuscowork.com</a></li>
+            <li><span><i data-lucide="clock"></i> Mon–Sat, 8am–10pm</span></li>
           </ul>
         </div>
       </div>
@@ -179,11 +179,14 @@ function showToast(message, type = 'success') {
     container.className = 'toast-container';
     document.body.appendChild(container);
   }
-  const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+  const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.innerHTML = `<span>${icons[type] || '💬'}</span><span>${message}</span>`;
+  toast.innerHTML = `<span><i data-lucide="${icons[type] || 'message-square'}"></i></span><span>${message}</span>`;
   container.appendChild(toast);
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
   setTimeout(() => {
     toast.style.animation = 'slideIn 0.3s ease reverse';
     setTimeout(() => toast.remove(), 300);
@@ -384,6 +387,12 @@ document.addEventListener('DOMContentLoaded', () => {
         menu.classList.remove('open');
       }
     });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
   }
 });
 
