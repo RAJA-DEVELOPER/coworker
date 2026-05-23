@@ -57,6 +57,14 @@
             <li><span><i data-lucide="clock"></i> Mon–Sat, 8am–10pm</span></li>
           </ul>
         </div>
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p style="color: rgba(249, 250, 251, 0.6); font-size: 0.85rem; margin-bottom: 16px; line-height: 1.6;">Stay updated with our latest news, events, and exclusive coworking offers.</p>
+          <form onsubmit="event.preventDefault(); showToast('Subscribed to newsletter successfully!', 'success'); this.reset();" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="email" placeholder="Email address" required style="width: 100%; padding: 10px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-size: 0.85rem; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+            <button type="submit" class="btn btn-primary" style="padding: 10px; font-size: 0.85rem; width: 100%; border-radius: 6px; justify-content: center;">Subscribe</button>
+          </form>
+        </div>
       </div>
       <div class="footer-bottom">
         <p>© 2025 NexusCowork. All rights reserved.</p>
